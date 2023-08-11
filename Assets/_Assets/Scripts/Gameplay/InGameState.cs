@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InGameState : MonoBehaviour
@@ -7,7 +8,18 @@ public class InGameState : MonoBehaviour
     [SerializeField] private bool isSeeker;
     [SerializeField] private bool isCaught;
 
+    [Space(20)] [SerializeField] private GameObject cage;
+
     #endregion
+
+    private void Awake()
+    {
+    }
+
+    private void Start()
+    {
+        SetCaughtState(false);
+    }
 
     public bool IsSeeker()
     {
@@ -17,5 +29,11 @@ public class InGameState : MonoBehaviour
     public bool IsCaught()
     {
         return isCaught;
+    }
+
+    public void SetCaughtState(bool set)
+    {
+        isCaught = set;
+        cage.gameObject.SetActive(set);
     }
 }

@@ -25,12 +25,13 @@ public class InputSystem : MonoBehaviour
 
     private void Update()
     {
-        SetInputValue();
+        SetGameInput();
     }
 
-    private void SetInputValue()
+    private void SetGameInput()
     {
         gameInput.SetInputValue();
+        gameInput.SetInputDirection();
 
         SetKeyboardInput();
     }
@@ -40,10 +41,6 @@ public class InputSystem : MonoBehaviour
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) return;
         keyboardInputValue.x = Input.GetAxis("Horizontal");
         keyboardInputValue.y = Input.GetAxis("Vertical");
-    }
-
-    private void SetupMovingInput()
-    {
     }
 
     public Vector2 GetGameInputValue()
