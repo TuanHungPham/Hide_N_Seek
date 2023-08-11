@@ -1,12 +1,11 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class AllPlayerManager : MonoBehaviour
 {
     #region private
+
+    [SerializeField] private Transform _seeker;
 
     [SerializeField] private Transform allPlayerParent;
     [SerializeField] private List<Transform> allPlayerList;
@@ -39,11 +38,26 @@ public class AllPlayerManager : MonoBehaviour
             if (allPlayerList.Contains(child)) continue;
 
             allPlayerList.Add(child);
+            HandleGettingSeeker(child);
         }
+    }
+
+    private void HandleGettingSeeker(Transform obj)
+    {
+        Controller controller = obj.GetComponent<Controller>();
+
+        if (!controller.GetInGameState().IsSeeker()) return;
+
+        _seeker = obj;
     }
 
     public List<Transform> GetAllPlayerList()
     {
         return allPlayerList;
+    }
+
+    public Vector3 GetCurrentSeekerPosition()
+    {
+        return _seeker.position;
     }
 }

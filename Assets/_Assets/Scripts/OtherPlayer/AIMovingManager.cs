@@ -58,15 +58,20 @@ public class AIMovingManager : MonoBehaviour
         if (isSeeker)
         {
             _aiSystem = new SeekerMovingSystem();
-            _aiSystem.CurrentAIPlayer = transform.parent;
-            _aiSystem._aiController = _aiController;
-            return;
+            Gizmos.color = Color.red;
         }
+        else
+        {
+            _aiSystem = new HiderMovingSystem();
+            Gizmos.color = Color.blue;
+        }
+
+        _aiSystem.CurrentAIPlayer = transform.parent;
+        _aiSystem._aiController = _aiController;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
         Gizmos.DrawCube(destination, Vector3.one);
     }
 }

@@ -38,4 +38,9 @@ public class GameplaySystem : MonoBehaviour
     {
         return _allPlayerManager.GetAllPlayerList();
     }
+
+    public Vector3 GetCurrentSeekerPosition()
+    {
+        return _allPlayerManager.GetCurrentSeekerPosition();
+    }
 }
