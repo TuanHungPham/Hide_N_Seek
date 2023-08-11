@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,12 +9,14 @@ public class AIMovingManager : MonoBehaviour
 
     [Space(20)] [SerializeField] private AIController _aiController;
     [SerializeField] private NavMeshAgent _navMeshAgent;
-    [SerializeField] private Transform destination;
+    [SerializeField] private Vector3 destination;
     [SerializeField] private Transform currentAIPlayer;
+    private IAISystem _aiSystem;
 
     private void Awake()
     {
         LoadComponents();
+        SetupMovingType();
     }
 
     private void Reset()
@@ -28,12 +31,19 @@ public class AIMovingManager : MonoBehaviour
 
     private void Update()
     {
-        HandleGettingDestination();
+        _aiSystem.HandleGettingDestination();
+        GetDestination();
     }
 
     private void FixedUpdate()
     {
-        Move(destination.position);
+        Debug.Log("Destination: " + _aiSystem.Destination);
+        Move(destination);
+    }
+
+    private void GetDestination()
+    {
+        destination = _aiSystem.Destination;
     }
 
     private void Move(Vector3 pos)
@@ -41,33 +51,22 @@ public class AIMovingManager : MonoBehaviour
         _navMeshAgent.SetDestination(pos);
     }
 
-    private void HandleGettingDestination()
+    private void SetupMovingType()
     {
-        if (_aiController.GetInGameState().IsSeeker())
+        bool isSeeker = _aiController.GetInGameState().IsSeeker();
+
+        if (isSeeker)
         {
-            GetDestinationAsSeeker();
+            _aiSystem = new SeekerMovingSystem();
+            _aiSystem.CurrentAIPlayer = transform.parent;
+            _aiSystem._aiController = _aiController;
             return;
         }
-
-        GetDestinationAsHider();
     }
 
-    private void GetDestinationAsSeeker()
+    private void OnDrawGizmos()
     {
-        List<float> distanceList = new List<float>();
-
-        foreach (Transform player in GameplaySystem.Instance.GetAllPlayerList())
-        {
-            Controller controller = player.GetComponent<Controller>();
-
-            if (controller.GetInGameState().IsCaught() || controller.GetInGameState().IsSeeker()) continue;
-
-            float distance = Vector3.Distance(currentAIPlayer.position, player.position);
-            distanceList.Add(distance);
-        }
-    }
-
-    private void GetDestinationAsHider()
-    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(destination, Vector3.one);
     }
 }

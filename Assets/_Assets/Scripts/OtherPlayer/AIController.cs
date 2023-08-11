@@ -4,13 +4,13 @@ public class AIController : Controller
 {
     #region private
 
-    [SerializeField] private AIMovingManager _aiMovingManager;
+    [SerializeField] private AIManager _aiManager;
 
     #endregion
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        _aiMovingManager = GetComponentInChildren<AIMovingManager>();
+        _aiManager = GetComponentInChildren<AIManager>();
     }
 }

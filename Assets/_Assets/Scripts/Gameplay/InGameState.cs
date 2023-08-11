@@ -5,8 +5,10 @@ public class InGameState : MonoBehaviour
 {
     #region private
 
-    [SerializeField] private bool isSeeker;
-    [SerializeField] private bool isCaught;
+    [SerializeField] private bool _isSeeker;
+    [SerializeField] private bool _isCaught;
+    [SerializeField] private bool _isTriggered;
+    [SerializeField] private bool _isDetected;
 
     [Space(20)] [SerializeField] private GameObject cage;
 
@@ -23,17 +25,27 @@ public class InGameState : MonoBehaviour
 
     public bool IsSeeker()
     {
-        return isSeeker;
+        return _isSeeker;
     }
 
     public bool IsCaught()
     {
-        return isCaught;
+        return _isCaught;
+    }
+
+    public bool IsTrigger()
+    {
+        return _isTriggered;
+    }
+
+    public bool IsDetected()
+    {
+        return _isDetected;
     }
 
     public void SetCaughtState(bool set)
     {
-        isCaught = set;
+        _isCaught = set;
         cage.gameObject.SetActive(set);
     }
 }

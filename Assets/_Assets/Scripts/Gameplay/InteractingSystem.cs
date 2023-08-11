@@ -17,10 +17,18 @@ public class InteractingSystem : MonoBehaviour
 
     private void LoadComponents()
     {
-        _controller = GetComponent<Controller>();
+        _controller = GetComponentInParent<Controller>();
     }
 
-    private void OnTriggerEnter(Collider target)
+    // private void OnTriggerEnter(Collider target)
+    // {
+    //     if (target.gameObject.layer != gameObject.layer) return;
+    //
+    //     CheckObjColliderState(target.gameObject);
+    //     Debug.Log("Colliding...........");
+    // }
+
+    private void OnTriggerStay(Collider target)
     {
         if (target.gameObject.layer != gameObject.layer) return;
 
