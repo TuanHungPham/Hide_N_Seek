@@ -16,6 +16,11 @@ public class HiderMovingSystem : IAISystem
     {
         if (!CanChangePointToHide()) return;
 
+        SetDestination();
+    }
+
+    public void SetDestination()
+    {
         List<Vector3> limitPosList = MapLevelSystem.Instance.GetLimitPosList();
 
         Vector3 maxX = limitPosList.Find((x) => x.x > 0);
@@ -39,9 +44,10 @@ public class HiderMovingSystem : IAISystem
     private bool CanChangePointToHide()
     {
         Vector3 seekerCurrentPos = GameplaySystem.Instance.GetCurrentSeekerPosition();
-        float distance = Vector3.Distance(CurrentAIPlayer.position, seekerCurrentPos);
+        float distanceToSeeker = Vector3.Distance(CurrentAIPlayer.position, seekerCurrentPos);
+        float distanceToPoint = Vector3.Distance(CurrentAIPlayer.position, Destination);
 
-        if (distance <= 15) return true;
+        if (distanceToSeeker <= 15 && distanceToPoint <= 2) return true;
 
         return false;
     }

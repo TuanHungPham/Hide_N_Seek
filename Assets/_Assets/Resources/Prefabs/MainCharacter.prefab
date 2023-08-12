@@ -259,7 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a77a0c479ecc264387d37d53bac972f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGameState: {fileID: 5417045633612556854}
+  _playerType: 0
+  _model: {fileID: 0}
+  _inGameState: {fileID: 0}
   _interactingSystem: {fileID: 1543048205}
   _movingSystem: {fileID: 6392288775550391667}
 --- !u!114 &1543048205
@@ -335,6 +337,7 @@ GameObject:
   - component: {fileID: 6392288776283863299}
   - component: {fileID: 6392288776283863324}
   - component: {fileID: 6392288776283863325}
+  - component: {fileID: 1265341453}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -408,3 +411,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1265341453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6392288776283863296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cdcd877e465d404f8f51b99faf28d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controller: {fileID: 1543048203}

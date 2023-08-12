@@ -43,6 +43,11 @@ public class InGameState : MonoBehaviour
         return _isDetected;
     }
 
+    public void SetSeekerState(bool set)
+    {
+        _isSeeker = set;
+    }
+
     public void SetCaughtState(bool set)
     {
         _isCaught = set;

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,6 +28,11 @@ public class AIMovingManager : MonoBehaviour
         _aiController = GetComponentInParent<AIController>();
     }
 
+    private void Start()
+    {
+        _aiSystem.SetDestination();
+    }
+
     private void Update()
     {
         _aiSystem.HandleGettingDestination();
@@ -37,7 +41,7 @@ public class AIMovingManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("Destination: " + _aiSystem.Destination);
+        // Debug.Log("Destination: " + _aiSystem.Destination);
         Move(destination);
     }
 
@@ -48,6 +52,12 @@ public class AIMovingManager : MonoBehaviour
 
     private void Move(Vector3 pos)
     {
+        if (_aiController.GetInGameState().IsCaught())
+        {
+            _navMeshAgent.ResetPath();
+            return;
+        }
+
         _navMeshAgent.SetDestination(pos);
     }
 
@@ -58,12 +68,10 @@ public class AIMovingManager : MonoBehaviour
         if (isSeeker)
         {
             _aiSystem = new SeekerMovingSystem();
-            Gizmos.color = Color.red;
         }
         else
         {
             _aiSystem = new HiderMovingSystem();
-            Gizmos.color = Color.blue;
         }
 
         _aiSystem.CurrentAIPlayer = transform.parent;
@@ -72,6 +80,15 @@ public class AIMovingManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (_aiController.GetInGameState().IsSeeker())
+        {
+            Gizmos.color = Color.red;
+        }
+        else
+        {
+            Gizmos.color = Color.blue;
+        }
+
         Gizmos.DrawCube(destination, Vector3.one);
     }
 }

@@ -5,7 +5,12 @@ public class Controller : MonoBehaviour
 {
     #region private
 
-    [SerializeField] protected InGameState inGameState;
+    [SerializeField] protected PlayerType _playerType;
+
+    [SerializeField] protected Transform _model;
+
+    [SerializeField] protected InGameState _inGameState;
+
     [SerializeField] protected InteractingSystem _interactingSystem;
 
     #endregion
@@ -22,13 +27,19 @@ public class Controller : MonoBehaviour
 
     protected virtual void LoadComponents()
     {
-        inGameState = GetComponentInChildren<InGameState>();
+        _inGameState = GetComponentInChildren<InGameState>();
+        _model = GetComponentInChildren<Transform>();
         _interactingSystem = GetComponent<InteractingSystem>();
+    }
+
+    public virtual Transform GetMeshRenderer()
+    {
+        return _model;
     }
 
     public virtual InGameState GetInGameState()
     {
-        return inGameState;
+        return _inGameState;
     }
 
     public virtual InteractingSystem GetInteractingSystem()
@@ -36,8 +47,18 @@ public class Controller : MonoBehaviour
         return _interactingSystem;
     }
 
+    public virtual PlayerType GetPlayerType()
+    {
+        return _playerType;
+    }
+
     public void SetCaughtState(bool set)
     {
-        inGameState.SetCaughtState(set);
+        _inGameState.SetCaughtState(set);
+    }
+
+    public void SetSeekerState(bool set)
+    {
+        _inGameState.SetSeekerState(set);
     }
 }

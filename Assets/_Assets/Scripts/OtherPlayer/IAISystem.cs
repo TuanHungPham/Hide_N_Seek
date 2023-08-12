@@ -6,4 +6,5 @@ public interface IAISystem
     Transform CurrentAIPlayer { get; set; }
     AIController _aiController { get; set; }
     void HandleGettingDestination();
+    void SetDestination();
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TigerForge;
 
 public class AllPlayerManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class AllPlayerManager : MonoBehaviour
     private void Awake()
     {
         LoadComponents();
+        ListenEvent();
     }
 
     private void Reset()
@@ -26,9 +28,10 @@ public class AllPlayerManager : MonoBehaviour
     {
     }
 
-    private void Start()
+    private void ListenEvent()
     {
-        InitializePlayerList();
+        EventManager.StartListening(EventID.SPAWNING_PLAYER, InitializePlayerList);
+        EventManager.StartListening(EventID.SETTED_UP_GAMEPLAY, HandleGettingSeeker);
     }
 
     private void InitializePlayerList()
@@ -38,17 +41,28 @@ public class AllPlayerManager : MonoBehaviour
             if (allPlayerList.Contains(child)) continue;
 
             allPlayerList.Add(child);
-            HandleGettingSeeker(child);
+        }
+
+        Debug.Log("Initializing all player List...");
+        EmitInitializingPlayerListEvent();
+    }
+
+    private void HandleGettingSeeker()
+    {
+        foreach (Transform obj in allPlayerList)
+        {
+            Controller controller = obj.GetComponent<Controller>();
+
+            if (!controller.GetInGameState().IsSeeker()) continue;
+
+            _seeker = obj;
+            return;
         }
     }
 
-    private void HandleGettingSeeker(Transform obj)
+    private void EmitInitializingPlayerListEvent()
     {
-        Controller controller = obj.GetComponent<Controller>();
-
-        if (!controller.GetInGameState().IsSeeker()) return;
-
-        _seeker = obj;
+        EventManager.EmitEvent(EventID.INITIALIZING_ALL_PLAYER_LIST);
     }
 
     public List<Transform> GetAllPlayerList()

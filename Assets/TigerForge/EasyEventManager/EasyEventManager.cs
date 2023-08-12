@@ -9,8 +9,8 @@ namespace TigerForge
     /// <summary>
     /// Events management system.
     /// </summary>
-    public class EventManager {
-
+    public class EventManager
+    {
         #region " VARIABLES "
 
         private static Dictionary<string, UnityEvent> eventDictionary = new Dictionary<string, UnityEvent>();
@@ -42,6 +42,23 @@ namespace TigerForge
 
         #region " START LISTENING "
 
+        public static void StartListening(EventID eventID, UnityAction callBack, string callBackID = "")
+        {
+            if (eventDictionary.TryGetValue(eventID.ToString(), out UnityEvent thisEvent))
+            {
+                thisEvent.AddListener(callBack);
+            }
+            else
+            {
+                thisEvent = new UnityEvent();
+                thisEvent.AddListener(callBack);
+                eventDictionary.Add(eventID.ToString(), thisEvent);
+                paused.Add(eventID.ToString(), false);
+            }
+
+            if (callBackID != "") callBacks.Add(eventID + "_" + callBackID, callBack);
+        }
+
         /// <summary>
         /// Starts the listening to an event with the given name. If that event is detected, the callBack function is executed. Optionally, you can define a unique ID in the callBackID paramenter.
         /// </summary>
@@ -65,7 +82,8 @@ namespace TigerForge
         /// <summary>
         /// Starts the listening to an event with the given name and enabling the use of filters on events emission. If that event is detected, and optional filters are satisfied, the callBack function is executed. Optionally, you can define a unique ID in the callBackID paramenter.
         /// </summary>
-        public static void StartListening(string eventName, GameObject target, UnityAction callBack, string callBackID = "")
+        public static void StartListening(string eventName, GameObject target, UnityAction callBack,
+            string callBackID = "")
         {
             if (target == null)
             {
@@ -76,10 +94,10 @@ namespace TigerForge
             StartListening(eventName, callBack);
             if (callBackID != "") callBacks.Add(eventName + "_" + callBackID, callBack);
 
-            string newName = eventName + "__##name##" + target.name + "##" + "__##tag##" + target.tag + "##" + "__##layer##" + target.layer + "##";
+            string newName = eventName + "__##name##" + target.name + "##" + "__##tag##" + target.tag + "##" +
+                             "__##layer##" + target.layer + "##";
             StartListening(newName, callBack);
             if (callBackID != "") callBacks.Add(eventName + "_" + callBackID + "_EXTRA", callBack);
-
         }
 
         #endregion
@@ -99,6 +117,7 @@ namespace TigerForge
                     {
                         thisEvent.RemoveListener(callBacks[eventName + "_" + callBackID]);
                     }
+
                     if (callBacks.ContainsKey(eventName + "_" + callBackID + "_EXTRA"))
                     {
                         thisEvent.RemoveListener(callBacks[eventName + "_" + callBackID + "_EXTRA"]);
@@ -123,6 +142,16 @@ namespace TigerForge
 
         #region " EMIT EVENT "
 
+        public static void EmitEvent(EventID eventID)
+        {
+            if (isPaused(eventID)) return;
+
+            if (eventDictionary.TryGetValue(eventID.ToString(), out UnityEvent thisEvent))
+            {
+                thisEvent.Invoke();
+            }
+        }
+
         /// <summary>
         /// Emit an event with the given name.
         /// </summary>
@@ -146,7 +175,8 @@ namespace TigerForge
         {
             if (isPaused(eventName)) return;
 
-            if (EventManager.sender.ContainsKey(eventName)) EventManager.sender[eventName] = sender; else EventManager.sender.Add(eventName, sender);
+            if (EventManager.sender.ContainsKey(eventName)) EventManager.sender[eventName] = sender;
+            else EventManager.sender.Add(eventName, sender);
 
             EmitEvent(eventName);
         }
@@ -184,7 +214,8 @@ namespace TigerForge
         {
             if (isPaused(eventName)) return;
 
-            if (EventManager.sender.ContainsKey(eventName)) EventManager.sender[eventName] = sender; else EventManager.sender.Add(eventName, sender);
+            if (EventManager.sender.ContainsKey(eventName)) EventManager.sender[eventName] = sender;
+            else EventManager.sender.Add(eventName, sender);
 
             EmitEvent(eventName, delay);
         }
@@ -196,7 +227,8 @@ namespace TigerForge
         {
             if (sender != null)
             {
-                if (EventManager.sender.ContainsKey(eventName)) EventManager.sender[eventName] = sender; else EventManager.sender.Add(eventName, sender);
+                if (EventManager.sender.ContainsKey(eventName)) EventManager.sender[eventName] = sender;
+                else EventManager.sender.Add(eventName, sender);
             }
 
             // Extract filter data.
@@ -206,9 +238,27 @@ namespace TigerForge
             foreach (string s in data)
             {
                 var tmp = s.Split(':');
-                if (tmp[0] == "name") filters.Add("name", new SFilter { value = tmp[1].Replace("*", ""), contains = tmp[1].StartsWith("*") && tmp[1].EndsWith("*"), starts = tmp[1].EndsWith("*"), ends = tmp[1].StartsWith("*"), exact = !tmp[1].Contains("*") });
-                if (tmp[0] == "tag") filters.Add("tag", new SFilter { value = tmp[1].Replace("*", ""), contains = tmp[1].StartsWith("*") && tmp[1].EndsWith("*"), starts = tmp[1].EndsWith("*"), ends = tmp[1].StartsWith("*"), exact = !tmp[1].Contains("*") });
-                if (tmp[0] == "layer") filters.Add("layer", new SFilter { value = tmp[1].Replace("*", ""), contains = tmp[1].StartsWith("*") && tmp[1].EndsWith("*"), starts = tmp[1].EndsWith("*"), ends = tmp[1].StartsWith("*"), exact = !tmp[1].Contains("*") });
+                if (tmp[0] == "name")
+                    filters.Add("name",
+                        new SFilter
+                        {
+                            value = tmp[1].Replace("*", ""), contains = tmp[1].StartsWith("*") && tmp[1].EndsWith("*"),
+                            starts = tmp[1].EndsWith("*"), ends = tmp[1].StartsWith("*"), exact = !tmp[1].Contains("*")
+                        });
+                if (tmp[0] == "tag")
+                    filters.Add("tag",
+                        new SFilter
+                        {
+                            value = tmp[1].Replace("*", ""), contains = tmp[1].StartsWith("*") && tmp[1].EndsWith("*"),
+                            starts = tmp[1].EndsWith("*"), ends = tmp[1].StartsWith("*"), exact = !tmp[1].Contains("*")
+                        });
+                if (tmp[0] == "layer")
+                    filters.Add("layer",
+                        new SFilter
+                        {
+                            value = tmp[1].Replace("*", ""), contains = tmp[1].StartsWith("*") && tmp[1].EndsWith("*"),
+                            starts = tmp[1].EndsWith("*"), ends = tmp[1].StartsWith("*"), exact = !tmp[1].Contains("*")
+                        });
             }
 
             int counter = filters.Count;
@@ -241,20 +291,23 @@ namespace TigerForge
                     {
                         if (FilterIsValidated(name, filters["name"])) found++;
                     }
+
                     if (filters.ContainsKey("tag") && tag != "")
                     {
                         if (FilterIsValidated(tag, filters["tag"])) found++;
                     }
+
                     if (filters.ContainsKey("layer") && layer != "")
                     {
                         if (FilterIsValidated(layer, filters["layer"])) found++;
                     }
 
-                    if (found == counter) { EmitEvent(key, delay); }
+                    if (found == counter)
+                    {
+                        EmitEvent(key, delay);
+                    }
                 }
-
             }
-
         }
 
         private static bool FilterIsValidated(string value, SFilter rules)
@@ -275,6 +328,7 @@ namespace TigerForge
             {
                 return value.EndsWith(rules.value);
             }
+
             return false;
         }
 
@@ -300,6 +354,7 @@ namespace TigerForge
             {
                 evnt.Value.RemoveAllListeners();
             }
+
             eventDictionary = new Dictionary<string, UnityEvent>();
         }
 
@@ -355,11 +410,18 @@ namespace TigerForge
         /// <summary>
         /// Return true if the event with the given name has been paused.
         /// </summary>
-        /// <param name="eventName"></param>
+        /// <param name="eventID"></param>
         /// <returns></returns>
+        public static bool isPaused(EventID eventID)
+        {
+            if (paused.ContainsKey(eventID.ToString())) return paused[eventID.ToString()];
+            else return true;
+        }
+
         public static bool isPaused(string eventName)
         {
-            if (paused.ContainsKey(eventName)) return paused[eventName]; else return true;
+            if (paused.ContainsKey(eventName)) return paused[eventName];
+            else return true;
         }
 
         private static void SetPaused(bool value)
@@ -380,7 +442,8 @@ namespace TigerForge
 
             foreach (KeyValuePair<string, bool> eName in paused)
             {
-                if (eName.Key == eventName) copy.Add(eName.Key, value); else copy.Add(eName.Key, eName.Value);
+                if (eName.Key == eventName) copy.Add(eName.Key, value);
+                else copy.Add(eName.Key, eName.Value);
             }
 
             paused = copy;
@@ -434,7 +497,8 @@ namespace TigerForge
         /// </summary>
         public static void SetData(string eventName, object data)
         {
-            if (storage.ContainsKey(eventName)) storage[eventName] = data; else storage.Add(eventName, data);
+            if (storage.ContainsKey(eventName)) storage[eventName] = data;
+            else storage.Add(eventName, data);
         }
 
         /// <summary>
@@ -446,7 +510,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(eventName)) return storage[eventName]; else return null;
+                if (storage.ContainsKey(eventName)) return storage[eventName];
+                else return null;
             }
             catch (System.Exception)
             {
@@ -463,7 +528,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(eventName)) return (GameObject)storage[eventName]; else return null;
+                if (storage.ContainsKey(eventName)) return (GameObject)storage[eventName];
+                else return null;
             }
             catch (System.Exception)
             {
@@ -480,7 +546,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(eventName)) return (int)storage[eventName]; else return 0;
+                if (storage.ContainsKey(eventName)) return (int)storage[eventName];
+                else return 0;
             }
             catch (System.Exception)
             {
@@ -497,7 +564,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(eventName)) return (bool)storage[eventName]; else return false;
+                if (storage.ContainsKey(eventName)) return (bool)storage[eventName];
+                else return false;
             }
             catch (System.Exception)
             {
@@ -514,7 +582,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(eventName)) return (float)storage[eventName]; else return 0f;
+                if (storage.ContainsKey(eventName)) return (float)storage[eventName];
+                else return 0f;
             }
             catch (System.Exception)
             {
@@ -531,7 +600,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(eventName)) return (string)storage[eventName]; else return "";
+                if (storage.ContainsKey(eventName)) return (string)storage[eventName];
+                else return "";
             }
             catch (System.Exception)
             {
@@ -548,7 +618,8 @@ namespace TigerForge
         {
             try
             {
-                if (sender.ContainsKey(eventName)) return sender[eventName]; else return null;
+                if (sender.ContainsKey(eventName)) return sender[eventName];
+                else return null;
             }
             catch (System.Exception)
             {
@@ -651,7 +722,6 @@ namespace TigerForge
                     return false;
                 }
             }
-
         }
 
         /// <summary>
@@ -659,8 +729,14 @@ namespace TigerForge
         /// </summary>
         public static void SetDataGroup(string eventName, params object[] data)
         {
-            if (storage3.ContainsKey(eventName)) { Debug.LogWarning(eventName + " Event name is already in use with DataGroup."); return; }
-            if (storage2.ContainsKey(eventName)) storage2[eventName] = data; else storage2.Add(eventName, data);
+            if (storage3.ContainsKey(eventName))
+            {
+                Debug.LogWarning(eventName + " Event name is already in use with DataGroup.");
+                return;
+            }
+
+            if (storage2.ContainsKey(eventName)) storage2[eventName] = data;
+            else storage2.Add(eventName, data);
         }
 
         /// <summary>
@@ -670,7 +746,6 @@ namespace TigerForge
         {
             if (storage2.ContainsKey(eventName))
             {
-
                 var strg = storage2[eventName];
                 DataGroup[] objList = new DataGroup[strg.Length];
 
@@ -680,12 +755,10 @@ namespace TigerForge
                 }
 
                 return objList;
-
             }
 
             return null;
         }
-
 
         #endregion
 
@@ -693,7 +766,6 @@ namespace TigerForge
 
         public struct IndexedDataGroup
         {
-
             public DataGroup[] data;
 
             private object objectData;
@@ -797,7 +869,7 @@ namespace TigerForge
                     return false;
                 }
             }
-            
+
             /// <summary>
             /// Return true if there is no data.
             /// </summary>
@@ -809,10 +881,11 @@ namespace TigerForge
 
             private object Find(string id)
             {
-                foreach (var obj in data) if (obj.id == id) return obj.data;
+                foreach (var obj in data)
+                    if (obj.id == id)
+                        return obj.data;
                 return null;
             }
-
         }
 
         /// <summary>
@@ -820,8 +893,14 @@ namespace TigerForge
         /// </summary>
         public static void SetIndexedDataGroup(string eventName, params DataGroup[] data)
         {
-            if (storage2.ContainsKey(eventName)) { Debug.LogWarning(eventName + " Event name is already in use with DataGroup."); return; }
-            if (storage3.ContainsKey(eventName)) storage3[eventName] = data; else storage3.Add(eventName, data);
+            if (storage2.ContainsKey(eventName))
+            {
+                Debug.LogWarning(eventName + " Event name is already in use with DataGroup.");
+                return;
+            }
+
+            if (storage3.ContainsKey(eventName)) storage3[eventName] = data;
+            else storage3.Add(eventName, data);
         }
 
         /// <summary>
@@ -831,21 +910,18 @@ namespace TigerForge
         {
             if (storage3.ContainsKey(eventName))
             {
-
                 var strg = storage3[eventName];
 
                 IndexedDataGroup data = new IndexedDataGroup();
                 data.data = strg;
 
                 return data;
-
             }
 
             return new IndexedDataGroup();
         }
 
         #endregion
-
     }
 
     #region " EVENTS GROUP "
@@ -855,7 +931,6 @@ namespace TigerForge
     /// </summary>
     public class EventsGroup
     {
-
         private struct SEvent
         {
             public string name;
@@ -900,11 +975,12 @@ namespace TigerForge
                 List<SEvent> newGroup = new List<SEvent>();
                 foreach (SEvent g in group)
                 {
-                    if (g.name != eventName) newGroup.Add(g); else EventManager.StopListening(g.name, g.callBack);
+                    if (g.name != eventName) newGroup.Add(g);
+                    else EventManager.StopListening(g.name, g.callBack);
                 }
+
                 group = newGroup;
             }
-
         }
 
         /// <summary>
@@ -916,13 +992,10 @@ namespace TigerForge
             {
                 if (g.name == eventName) return true;
             }
+
             return false;
         }
-
     }
 
     #endregion
-
-
-
 }

@@ -40,6 +40,11 @@ public class SeekerMovingSystem : IAISystem
         if (!CanChangePointToPatrol()) return;
 
         Debug.Log("AI is patrolling...");
+        SetDestination();
+    }
+
+    public void SetDestination()
+    {
         List<Vector3> patrolPointList = MapLevelSystem.Instance.GetPatrolPointList();
 
         int index = Random.Range(0, patrolPointList.Count);

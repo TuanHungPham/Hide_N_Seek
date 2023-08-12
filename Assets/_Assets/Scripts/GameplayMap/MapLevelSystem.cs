@@ -9,11 +9,17 @@ public class MapLevelSystem : MonoBehaviour
 
     #region private
 
-    [SerializeField] private Transform mapLimitation;
-    [SerializeField] private Transform patrolPointParent;
+    [SerializeField] private Vector3 _mainPointPos;
 
-    [SerializeField] private List<Vector3> limitPosList;
-    [SerializeField] private List<Vector3> patrolPointList;
+    [SerializeField] private Transform _mapLimitPointPool;
+
+    [SerializeField] private Transform _patrolPointPool;
+
+    [SerializeField] private Transform _startingPointPool;
+
+    [SerializeField] private List<Vector3> _limitPosList;
+    [SerializeField] private List<Vector3> _patrolPointList;
+    [SerializeField] private List<Vector3> _startingPointList;
 
     #endregion
 
@@ -30,8 +36,9 @@ public class MapLevelSystem : MonoBehaviour
 
     private void LoadComponents()
     {
-        InitializePosList(limitPosList, mapLimitation);
-        InitializePosList(patrolPointList, patrolPointParent);
+        InitializePosList(_limitPosList, _mapLimitPointPool);
+        InitializePosList(_patrolPointList, _patrolPointPool);
+        InitializePosList(_startingPointList, _startingPointPool);
     }
 
     private void InitializePosList(List<Vector3> list, Transform parent)
@@ -46,11 +53,26 @@ public class MapLevelSystem : MonoBehaviour
 
     public List<Vector3> GetLimitPosList()
     {
-        return limitPosList;
+        return _limitPosList;
     }
 
     public List<Vector3> GetPatrolPointList()
     {
-        return patrolPointList;
+        return _patrolPointList;
+    }
+
+    public List<Vector3> GetStartingPointList()
+    {
+        return _startingPointList;
+    }
+
+    public Vector3 GetMainPointPos()
+    {
+        return _mainPointPos;
+    }
+
+    public int GetStartingPointListCount()
+    {
+        return _startingPointList.Count;
     }
 }

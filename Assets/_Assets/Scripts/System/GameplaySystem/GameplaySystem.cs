@@ -10,6 +10,7 @@ public class GameplaySystem : MonoBehaviour
     #region private
 
     [SerializeField] private AllPlayerManager _allPlayerManager;
+    [SerializeField] private StartingGameSystem _spawningPlayer;
 
     #endregion
 
@@ -27,11 +28,17 @@ public class GameplaySystem : MonoBehaviour
     private void LoadComponents()
     {
         _allPlayerManager = GetComponentInChildren<AllPlayerManager>();
+        _spawningPlayer = GetComponentInChildren<StartingGameSystem>();
     }
 
     public AllPlayerManager GetAllPlayerManager()
     {
         return _allPlayerManager;
+    }
+
+    public StartingGameSystem GetSpawningPlayer()
+    {
+        return _spawningPlayer;
     }
 
     public List<Transform> GetAllPlayerList()

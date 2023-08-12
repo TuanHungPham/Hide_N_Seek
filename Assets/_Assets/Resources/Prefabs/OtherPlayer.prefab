@@ -222,9 +222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e59f4d451842ebd42b8575ade6b336ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isSeeker: 1
+  _isSeeker: 0
   _isCaught: 0
-  _isTriggered: 1
+  _isTriggered: 0
   _isDetected: 0
   cage: {fileID: 1048574683}
 --- !u!1 &2311089996888191764
@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 6332949361546134104}
   - component: {fileID: 6332949361546134087}
   - component: {fileID: 6332949361546134086}
+  - component: {fileID: 6707127258637652766}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -335,7 +336,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0a2b71f05afe36d4d84e6409a90522be, type: 2}
+  - {fileID: 2100000, guid: 384d0440b4a5d3e4c938b96a652f6940, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -357,6 +358,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6707127258637652766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6332949361546134107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cdcd877e465d404f8f51b99faf28d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controller: {fileID: 8642834295101750623}
 --- !u!1 &6332949361849864689
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8209c881d476af748b96d88fb9828df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGameState: {fileID: 4934794482700620141}
+  _playerType: 1
+  _model: {fileID: 0}
+  _inGameState: {fileID: 0}
   _interactingSystem: {fileID: 6332949361849864697}
   _aiManager: {fileID: 2248694237537693480}
 --- !u!114 &6332949361849864697
