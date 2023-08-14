@@ -1,4 +1,5 @@
 using System;
+using TigerForge;
 using UnityEngine;
 
 public class Model : MonoBehaviour
@@ -12,6 +13,7 @@ public class Model : MonoBehaviour
     private void Awake()
     {
         LoadComponents();
+        ListenEvent();
     }
 
     private void Reset()
@@ -24,9 +26,9 @@ public class Model : MonoBehaviour
         _controller = GetComponentInParent<Controller>();
     }
 
-    private void Start()
+    private void ListenEvent()
     {
-        SetupModelSize();
+        EventManager.StartListening(EventID.SETTED_UP_GAMEPLAY, SetupModelSize);
     }
 
     private void SetupModelSize()

@@ -9,6 +9,8 @@ public class SetupGameplayType : MonoBehaviour
     [SerializeField] private bool isSeekerGameplay;
     [SerializeField] private int numberOfSeeker;
 
+    [Space(20)] [SerializeField] private StartingGameSystem _startingGameSystem;
+
     #endregion
 
     private void Awake()
@@ -24,6 +26,7 @@ public class SetupGameplayType : MonoBehaviour
 
     private void LoadComponents()
     {
+        _startingGameSystem = GetComponentInParent<StartingGameSystem>();
     }
 
     private void ListenEvent()
@@ -33,29 +36,52 @@ public class SetupGameplayType : MonoBehaviour
 
     private void HandleSettingUpGameplay()
     {
+        List<Transform> allPlayerList = GameplaySystem.Instance.GetAllPlayerList();
+
         if (!isSeekerGameplay)
         {
-            SetupPlayAsHider();
+            SetupPlayAsHider(allPlayerList);
+
+            EmitSettedUpGameplayEvent();
             return;
         }
 
-        SetupPlayAsSeeker();
+        SetupPlayAsSeeker(allPlayerList);
+
+        EmitSettedUpGameplayEvent();
     }
 
-    private void SetupPlayAsSeeker()
+    private void SetupPlayAsSeeker(List<Transform> playerList)
     {
+        int seekerCount = 0;
+        SetPlayerAsSeeker();
+        seekerCount++;
+
+        SetOtherPlayerAsSeeker(playerList, seekerCount);
     }
 
-    private void SetupPlayAsHider()
+    private void SetupPlayAsHider(List<Transform> playerList)
     {
         // Debug.Log("Setting up playing as hider gameplay...");
-        List<Transform> allPlayerList = GameplaySystem.Instance.GetAllPlayerList();
 
-        int count = 0;
+        int seekerCount = 0;
 
-        foreach (Transform player in allPlayerList)
+        SetOtherPlayerAsSeeker(playerList, seekerCount);
+    }
+
+    private void SetPlayerAsSeeker()
+    {
+        Transform mainCharacter = _startingGameSystem.GetMainCharacterReference();
+        Controller playerController = mainCharacter.GetComponent<Controller>();
+
+        playerController.SetSeekerState(true);
+    }
+
+    private void SetOtherPlayerAsSeeker(List<Transform> playerList, int seekerCount)
+    {
+        foreach (Transform player in playerList)
         {
-            if (count >= numberOfSeeker) break;
+            if (seekerCount >= numberOfSeeker) break;
 
             Controller playerController = player.GetComponent<Controller>();
 
@@ -64,12 +90,10 @@ public class SetupGameplayType : MonoBehaviour
                 continue;
 
             Debug.Log("Setting up playing as hider gameplay...");
-            Debug.Log("COUNT: " + count);
+            Debug.Log("COUNT: " + seekerCount);
             playerController.SetSeekerState(true);
-            count++;
+            seekerCount++;
         }
-
-        EmitSettedUpGameplayEvent();
     }
 
     private void EmitSettedUpGameplayEvent()

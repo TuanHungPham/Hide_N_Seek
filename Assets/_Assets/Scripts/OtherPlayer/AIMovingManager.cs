@@ -15,7 +15,6 @@ public class AIMovingManager : MonoBehaviour
     private void Awake()
     {
         LoadComponents();
-        SetupMovingType();
     }
 
     private void Reset()
@@ -30,7 +29,8 @@ public class AIMovingManager : MonoBehaviour
 
     private void Start()
     {
-        _aiSystem.SetDestination();
+        SetupMovingType();
+        _aiSystem.SetInitialDestination();
     }
 
     private void Update()
@@ -52,7 +52,7 @@ public class AIMovingManager : MonoBehaviour
 
     private void Move(Vector3 pos)
     {
-        if (_aiController.GetInGameState().IsCaught())
+        if (!CanMove())
         {
             _navMeshAgent.ResetPath();
             return;
@@ -68,26 +68,30 @@ public class AIMovingManager : MonoBehaviour
         if (isSeeker)
         {
             _aiSystem = new SeekerMovingSystem();
+            Debug.Log($"{currentAIPlayer.name} - Seeker Moving System");
         }
         else
         {
             _aiSystem = new HiderMovingSystem();
+            Debug.Log($"{currentAIPlayer.name} - Hider Moving System");
         }
 
-        _aiSystem.CurrentAIPlayer = transform.parent;
-        _aiSystem._aiController = _aiController;
+        _aiSystem.CurrentAIPlayer = currentAIPlayer;
+        _aiSystem.AIController = _aiController;
+    }
+
+    private bool CanMove()
+    {
+        if (_aiController.GetInGameState().IsCaught() ||
+            _aiController.GetInGameState().IsSeekerWaitingTime())
+            return false;
+
+        return true;
     }
 
     private void OnDrawGizmos()
     {
-        if (_aiController.GetInGameState().IsSeeker())
-        {
-            Gizmos.color = Color.red;
-        }
-        else
-        {
-            Gizmos.color = Color.blue;
-        }
+        Gizmos.color = _aiController.GetInGameState().IsSeeker() ? Color.red : Color.blue;
 
         Gizmos.DrawCube(destination, Vector3.one);
     }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameplaySystem : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class GameplaySystem : MonoBehaviour
     #region private
 
     [SerializeField] private AllPlayerManager _allPlayerManager;
-    [SerializeField] private StartingGameSystem _spawningPlayer;
+    [SerializeField] private StartingGameSystem _startingGameSystem;
 
     #endregion
 
@@ -28,7 +29,7 @@ public class GameplaySystem : MonoBehaviour
     private void LoadComponents()
     {
         _allPlayerManager = GetComponentInChildren<AllPlayerManager>();
-        _spawningPlayer = GetComponentInChildren<StartingGameSystem>();
+        _startingGameSystem = GetComponentInChildren<StartingGameSystem>();
     }
 
     public AllPlayerManager GetAllPlayerManager()
@@ -36,9 +37,9 @@ public class GameplaySystem : MonoBehaviour
         return _allPlayerManager;
     }
 
-    public StartingGameSystem GetSpawningPlayer()
+    public StartingGameSystem GetStartingGameSystem()
     {
-        return _spawningPlayer;
+        return _startingGameSystem;
     }
 
     public List<Transform> GetAllPlayerList()
@@ -46,8 +47,18 @@ public class GameplaySystem : MonoBehaviour
         return _allPlayerManager.GetAllPlayerList();
     }
 
-    public Vector3 GetCurrentSeekerPosition()
+    public Vector3 GetNearestSeekerPosition(Transform currentObjCheck)
     {
-        return _allPlayerManager.GetCurrentSeekerPosition();
+        return _allPlayerManager.GetNearestSeekerPosition(currentObjCheck);
+    }
+
+    public bool IsInHidingTimer()
+    {
+        return _startingGameSystem.IsInHidingTimer();
+    }
+
+    public Transform GetMainCharacterReference()
+    {
+        return _startingGameSystem.GetMainCharacterReference();
     }
 }

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TigerForge;
+using UnityEngine.Serialization;
 
 public class SetupStartingSpawn : MonoBehaviour
 {
-    [SerializeField] private Transform allPlayerParent;
-    [SerializeField] private Transform mainCharacter;
-    [SerializeField] private GameObject otherPlayerPrefab;
+    [SerializeField] private Transform _allPlayerParent;
+    [SerializeField] private Transform _mainCharacter;
+    [SerializeField] private GameObject _otherPlayerPrefab;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class SetupStartingSpawn : MonoBehaviour
 
     private void SpawnMainCharacter()
     {
-        mainCharacter.transform.position = MapLevelSystem.Instance.GetMainPointPos();
+        _mainCharacter.transform.position = MapLevelSystem.Instance.GetMainPointPos();
     }
 
     private void SpawnAllPlayer()
@@ -39,9 +40,11 @@ public class SetupStartingSpawn : MonoBehaviour
 
         for (int i = 1; i < startingPointList.Count; i++)
         {
-            GameObject player = Instantiate(otherPlayerPrefab);
+            GameObject player = Instantiate(_otherPlayerPrefab);
             player.transform.position = startingPointList[i];
-            player.transform.SetParent(allPlayerParent, true);
+            player.transform.SetParent(_allPlayerParent, true);
+
+            player.gameObject.name = string.Format($"OtherPlayer[{i}]");
         }
 
         Debug.Log("Spawning all player...");
@@ -51,5 +54,10 @@ public class SetupStartingSpawn : MonoBehaviour
     private void EmitSpawningPlayerEvent()
     {
         EventManager.EmitEvent(EventID.SPAWNING_PLAYER);
+    }
+
+    public Transform GetMainCharacterReference()
+    {
+        return _mainCharacter;
     }
 }

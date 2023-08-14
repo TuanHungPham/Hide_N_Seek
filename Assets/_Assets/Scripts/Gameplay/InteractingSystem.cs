@@ -20,20 +20,12 @@ public class InteractingSystem : MonoBehaviour
         _controller = GetComponentInParent<Controller>();
     }
 
-    // private void OnTriggerEnter(Collider target)
-    // {
-    //     if (target.gameObject.layer != gameObject.layer) return;
-    //
-    //     CheckObjColliderState(target.gameObject);
-    //     Debug.Log("Colliding...........");
-    // }
-
     private void OnTriggerStay(Collider target)
     {
-        if (target.gameObject.layer != gameObject.layer) return;
+        if (target.gameObject.layer != gameObject.layer || GameplaySystem.Instance.IsInHidingTimer()) return;
 
         CheckObjColliderState(target.gameObject);
-        Debug.Log("Colliding...........");
+        // Debug.Log("Colliding...........");
     }
 
     private void CheckObjColliderState(GameObject target)
@@ -57,7 +49,7 @@ public class InteractingSystem : MonoBehaviour
     {
         if (targetIsSeeker) return;
 
-        if (!targetController.GetInGameState().IsCaught()) return;
+        if (!targetController.GetInGameState().IsCaught() || _controller.GetInGameState().IsCaught()) return;
 
         RescueTarget(targetController);
     }
@@ -77,6 +69,8 @@ public class InteractingSystem : MonoBehaviour
 
     private void CatchTarget(Controller targetController)
     {
+        if (targetController.GetInGameState().IsCaught()) return;
+
         targetController.SetCaughtState(true);
         Debug.Log("Catching.....................");
     }

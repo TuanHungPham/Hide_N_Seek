@@ -1,18 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SeekerMovingSystem : IAISystem
 {
-    public Vector3 Destination { get; private set; }
+    public Vector3 Destination { get; set; }
     public Transform CurrentAIPlayer { get; set; }
-    public AIController _aiController { get; set; }
+    public AIController AIController { get; set; }
 
     public void HandleGettingDestination()
     {
-        Debug.Log("AI is getting Destination...");
-        if (_aiController.GetInGameState().IsTrigger())
+        // Debug.Log("AI is getting Destination...");
+        if (AIController.GetInGameState().IsTrigger())
         {
             GetDestinationToChase();
         }
@@ -24,7 +22,7 @@ public class SeekerMovingSystem : IAISystem
 
     private void GetDestinationToChase()
     {
-        Debug.Log("AI is chasing Hider...");
+        // Debug.Log("AI is chasing Hider...");
         foreach (Transform player in GameplaySystem.Instance.GetAllPlayerList())
         {
             Controller controller = player.GetComponent<Controller>();
@@ -41,6 +39,11 @@ public class SeekerMovingSystem : IAISystem
 
         Debug.Log("AI is patrolling...");
         SetDestination();
+    }
+
+    public void SetInitialDestination()
+    {
+        Destination = CurrentAIPlayer.position;
     }
 
     public void SetDestination()

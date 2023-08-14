@@ -876,13 +876,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 855699351, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
-      propertyPath: mainCharacter
+      propertyPath: _mainCharacter
       value: 
       objectReference: {fileID: 1543048200}
     - target: {fileID: 855699351, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
-      propertyPath: allPlayerParent
+      propertyPath: _allPlayerParent
       value: 
       objectReference: {fileID: 827342387}
+    - target: {fileID: 1763186184, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
+      propertyPath: numberOfSeeker
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763186184, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
+      propertyPath: isSeekerGameplay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3518248447433267568, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
       propertyPath: m_RootOrder
       value: 3

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class HiderMovingSystem : IAISystem
 {
-    public Vector3 Destination { get; private set; }
+    public Vector3 Destination { get; set; }
     public Transform CurrentAIPlayer { get; set; }
-    public AIController _aiController { get; set; }
+    public AIController AIController { get; set; }
 
     public void HandleGettingDestination()
     {
@@ -17,6 +17,11 @@ public class HiderMovingSystem : IAISystem
         if (!CanChangePointToHide()) return;
 
         SetDestination();
+    }
+
+    public void SetInitialDestination()
+    {
+        Destination = CurrentAIPlayer.position;
     }
 
     public void SetDestination()
@@ -32,7 +37,7 @@ public class HiderMovingSystem : IAISystem
         float posZ = Random.Range(minZ.z, maxZ.z);
 
         Vector3 newDestination = new Vector3(posX, 0, posZ);
-        Vector3 seekerCurrentPos = GameplaySystem.Instance.GetCurrentSeekerPosition();
+        Vector3 seekerCurrentPos = GameplaySystem.Instance.GetNearestSeekerPosition(CurrentAIPlayer);
 
         float distance = Vector3.Distance(seekerCurrentPos, newDestination);
 
@@ -43,11 +48,13 @@ public class HiderMovingSystem : IAISystem
 
     private bool CanChangePointToHide()
     {
-        Vector3 seekerCurrentPos = GameplaySystem.Instance.GetCurrentSeekerPosition();
-        float distanceToSeeker = Vector3.Distance(CurrentAIPlayer.position, seekerCurrentPos);
-        float distanceToPoint = Vector3.Distance(CurrentAIPlayer.position, Destination);
+        Vector3 seekerCurrentPos = GameplaySystem.Instance.GetNearestSeekerPosition(CurrentAIPlayer);
+        var currentPosition = CurrentAIPlayer.position;
 
-        if (distanceToSeeker <= 15 && distanceToPoint <= 2) return true;
+        float distanceToSeeker = Vector3.Distance(currentPosition, seekerCurrentPos);
+        float distanceToPoint = Vector3.Distance(currentPosition, Destination);
+
+        if (distanceToSeeker <= 20 && distanceToPoint <= 2) return true;
 
         return false;
     }

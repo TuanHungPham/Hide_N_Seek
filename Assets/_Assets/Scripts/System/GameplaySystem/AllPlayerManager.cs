@@ -6,10 +6,9 @@ public class AllPlayerManager : MonoBehaviour
 {
     #region private
 
-    [SerializeField] private Transform _seeker;
-
     [SerializeField] private Transform allPlayerParent;
-    [SerializeField] private List<Transform> allPlayerList;
+    [SerializeField] private List<Transform> seekerList = new List<Transform>();
+    [SerializeField] private List<Transform> allPlayerList = new List<Transform>();
 
     #endregion
 
@@ -55,8 +54,7 @@ public class AllPlayerManager : MonoBehaviour
 
             if (!controller.GetInGameState().IsSeeker()) continue;
 
-            _seeker = obj;
-            return;
+            seekerList.Add(obj);
         }
     }
 
@@ -70,8 +68,28 @@ public class AllPlayerManager : MonoBehaviour
         return allPlayerList;
     }
 
-    public Vector3 GetCurrentSeekerPosition()
+    public List<Transform> GetSeekerList()
     {
-        return _seeker.position;
+        return seekerList;
+    }
+
+    public Vector3 GetNearestSeekerPosition(Transform currentObjCheck)
+    {
+        float minDistance = Vector3.Distance(currentObjCheck.position, seekerList[0].position);
+        Transform nearestSeeker = seekerList[0];
+
+        foreach (var checkingSeeker in seekerList)
+        {
+            float distance = Vector3.Distance(currentObjCheck.position, checkingSeeker.position);
+            if (distance >= minDistance) continue;
+
+            minDistance = distance;
+            nearestSeeker = checkingSeeker;
+            nearestSeeker.position = checkingSeeker.position;
+        }
+
+        // Debug.Log($"{currentObjCheck.name} running from {nearestSeeker.name}");
+
+        return nearestSeeker.position;
     }
 }

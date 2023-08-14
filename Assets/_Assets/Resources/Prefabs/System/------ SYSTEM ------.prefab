@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf878814537abd438a218f448c3187e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allPlayerParent: {fileID: 0}
-  mainCharacter: {fileID: 0}
-  otherPlayerPrefab: {fileID: 6332949361849864689, guid: 5ae7cdf93487a2f489242d78e5b74047, type: 3}
+  _allPlayerParent: {fileID: 0}
+  _mainCharacter: {fileID: 0}
+  _otherPlayerPrefab: {fileID: 6332949361849864689, guid: 5ae7cdf93487a2f489242d78e5b74047, type: 3}
 --- !u!1 &1170807041
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSeekerGameplay: 0
   numberOfSeeker: 1
+  _startingGameSystem: {fileID: 6007129201178217910}
 --- !u!1 &1898377305
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9cf6ae14d166845a777fe3ed2fd5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hidingTime: 3
+  _timer: 0
+  _isInHidingTimer: 0
   _setupGameplayType: {fileID: 1763186184}
   _setupStartingSpawn: {fileID: 855699351}
 --- !u!1 &3518248447433267583
@@ -266,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _allPlayerManager: {fileID: 9134092523200172755}
-  _spawningPlayer: {fileID: 0}
+  _startingGameSystem: {fileID: 6007129201178217910}
 --- !u!1 &9134092523200172753
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4c09cb8cc3c2d4cb7aafc82dc91320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _seeker: {fileID: 0}
   allPlayerParent: {fileID: 0}
+  seekerList: []
   allPlayerList: []
