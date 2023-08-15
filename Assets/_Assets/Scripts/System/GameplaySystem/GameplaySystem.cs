@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameplaySystem : MonoBehaviour
 {
@@ -10,7 +9,10 @@ public class GameplaySystem : MonoBehaviour
 
     #region private
 
-    [SerializeField] private AllPlayerManager _allPlayerManager;
+    [SerializeField] private float _seekerCircleVisonRadius;
+    [SerializeField] private float _seekerFrontVisonRadius;
+
+    [Space(20)] [SerializeField] private AllPlayerManager _allPlayerManager;
     [SerializeField] private StartingGameSystem _startingGameSystem;
 
     #endregion
@@ -47,6 +49,11 @@ public class GameplaySystem : MonoBehaviour
         return _allPlayerManager.GetAllPlayerList();
     }
 
+    public List<Transform> GetHiderList()
+    {
+        return _allPlayerManager.GetHiderList();
+    }
+
     public Vector3 GetNearestSeekerPosition(Transform currentObjCheck)
     {
         return _allPlayerManager.GetNearestSeekerPosition(currentObjCheck);
@@ -57,8 +64,28 @@ public class GameplaySystem : MonoBehaviour
         return _startingGameSystem.IsInHidingTimer();
     }
 
+    public float GetHidingTime()
+    {
+        return _startingGameSystem.GetHidingTime();
+    }
+
     public Transform GetMainCharacterReference()
     {
         return _startingGameSystem.GetMainCharacterReference();
+    }
+
+    public bool IsSeekerGameplay()
+    {
+        return _startingGameSystem.IsSeekerGameplay();
+    }
+
+    public float GetSeekerCircleVisionRadius()
+    {
+        return _seekerCircleVisonRadius;
+    }
+
+    public float GetSeekerFrontVisionRadius()
+    {
+        return _seekerFrontVisonRadius;
     }
 }

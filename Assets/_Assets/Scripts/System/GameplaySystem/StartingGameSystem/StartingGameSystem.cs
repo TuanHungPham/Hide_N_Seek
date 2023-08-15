@@ -57,4 +57,14 @@ public class StartingGameSystem : MonoBehaviour
     {
         return _setupStartingSpawn.GetMainCharacterReference();
     }
+
+    public float GetHidingTime()
+    {
+        return _hidingTime;
+    }
+
+    public bool IsSeekerGameplay()
+    {
+        return _setupGameplayType.IsSeekerGameplay();
+    }
 }

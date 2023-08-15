@@ -100,4 +100,9 @@ public class SetupGameplayType : MonoBehaviour
     {
         EventManager.EmitEvent(EventID.SETTED_UP_GAMEPLAY);
     }
+
+    public bool IsSeekerGameplay()
+    {
+        return isSeekerGameplay;
+    }
 }

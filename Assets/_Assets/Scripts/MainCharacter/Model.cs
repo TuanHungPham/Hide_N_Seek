@@ -1,4 +1,3 @@
-using System;
 using TigerForge;
 using UnityEngine;
 
@@ -35,6 +34,6 @@ public class Model : MonoBehaviour
     {
         if (!_controller.GetInGameState().IsSeeker()) return;
 
-        transform.localScale *= 3;
+        transform.localScale *= 2;
     }
 }

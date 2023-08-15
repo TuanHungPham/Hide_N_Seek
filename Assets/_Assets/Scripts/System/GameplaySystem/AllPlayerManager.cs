@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TigerForge;
+using UnityEngine.Serialization;
 
 public class AllPlayerManager : MonoBehaviour
 {
     #region private
 
-    [SerializeField] private Transform allPlayerParent;
-    [SerializeField] private List<Transform> seekerList = new List<Transform>();
-    [SerializeField] private List<Transform> allPlayerList = new List<Transform>();
+    [SerializeField] private Transform _allPlayerParent;
+    [SerializeField] private List<Transform> _seekerList = new List<Transform>();
+    [SerializeField] private List<Transform> _hiderList = new List<Transform>();
+    [SerializeField] private List<Transform> _allPlayerList = new List<Transform>();
 
     #endregion
 
@@ -30,32 +32,46 @@ public class AllPlayerManager : MonoBehaviour
     private void ListenEvent()
     {
         EventManager.StartListening(EventID.SPAWNING_PLAYER, InitializePlayerList);
-        EventManager.StartListening(EventID.SETTED_UP_GAMEPLAY, HandleGettingSeeker);
+        EventManager.StartListening(EventID.SETTED_UP_GAMEPLAY, HandleGettingPlayerByRole);
     }
 
     private void InitializePlayerList()
     {
-        foreach (Transform child in allPlayerParent)
+        foreach (Transform child in _allPlayerParent)
         {
-            if (allPlayerList.Contains(child)) continue;
+            if (_allPlayerList.Contains(child)) continue;
 
-            allPlayerList.Add(child);
+            _allPlayerList.Add(child);
         }
 
         Debug.Log("Initializing all player List...");
         EmitInitializingPlayerListEvent();
     }
 
-    private void HandleGettingSeeker()
+    private void HandleGettingPlayerByRole()
     {
-        foreach (Transform obj in allPlayerList)
+        foreach (Transform obj in _allPlayerList)
         {
             Controller controller = obj.GetComponent<Controller>();
 
-            if (!controller.GetInGameState().IsSeeker()) continue;
+            if (!controller.GetInGameState().IsSeeker())
+            {
+                AddToHiderList(obj);
+                continue;
+            }
 
-            seekerList.Add(obj);
+            AddToSeekerList(obj);
         }
+    }
+
+    private void AddToSeekerList(Transform obj)
+    {
+        _seekerList.Add(obj);
+    }
+
+    private void AddToHiderList(Transform obj)
+    {
+        _hiderList.Add(obj);
     }
 
     private void EmitInitializingPlayerListEvent()
@@ -65,20 +81,25 @@ public class AllPlayerManager : MonoBehaviour
 
     public List<Transform> GetAllPlayerList()
     {
-        return allPlayerList;
+        return _allPlayerList;
     }
 
     public List<Transform> GetSeekerList()
     {
-        return seekerList;
+        return _seekerList;
+    }
+
+    public List<Transform> GetHiderList()
+    {
+        return _hiderList;
     }
 
     public Vector3 GetNearestSeekerPosition(Transform currentObjCheck)
     {
-        float minDistance = Vector3.Distance(currentObjCheck.position, seekerList[0].position);
-        Transform nearestSeeker = seekerList[0];
+        float minDistance = Vector3.Distance(currentObjCheck.position, _seekerList[0].position);
+        Transform nearestSeeker = _seekerList[0];
 
-        foreach (var checkingSeeker in seekerList)
+        foreach (var checkingSeeker in _seekerList)
         {
             float distance = Vector3.Distance(currentObjCheck.position, checkingSeeker.position);
             if (distance >= minDistance) continue;

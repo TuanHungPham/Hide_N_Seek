@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using TigerForge;
 
@@ -14,8 +12,19 @@ public class InGameState : MonoBehaviour
     [SerializeField] private bool _isSeekerWaitingTime;
 
     [Space(20)] [SerializeField] private GameObject cage;
+    [SerializeField] private GameObject _seekerVision;
 
     #endregion
+
+    private void Awake()
+    {
+        ListenEvent();
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.SETTED_UP_GAMEPLAY, CheckSeekerVision);
+    }
 
     private void Start()
     {
@@ -43,6 +52,17 @@ public class InGameState : MonoBehaviour
         }
     }
 
+    private void CheckSeekerVision()
+    {
+        if (_isSeeker)
+        {
+            _seekerVision.gameObject.SetActive(true);
+            return;
+        }
+
+        _seekerVision.gameObject.SetActive(false);
+    }
+
     public bool IsSeeker()
     {
         return _isSeeker;
@@ -53,7 +73,7 @@ public class InGameState : MonoBehaviour
         return _isCaught;
     }
 
-    public bool IsTrigger()
+    public bool IsTriggered()
     {
         return _isTriggered;
     }
@@ -77,5 +97,10 @@ public class InGameState : MonoBehaviour
     {
         _isCaught = set;
         cage.gameObject.SetActive(set);
+    }
+
+    public void SetTriggerState(bool set)
+    {
+        _isTriggered = set;
     }
 }

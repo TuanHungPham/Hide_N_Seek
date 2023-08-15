@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb34cb0fee5e32a498a136490dcaab5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSeekerGameplay: 0
-  numberOfSeeker: 1
+  isSeekerGameplay: 1
+  numberOfSeeker: 2
   _startingGameSystem: {fileID: 6007129201178217910}
 --- !u!1 &1898377305
 GameObject:
@@ -269,6 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cdf938d9c518d24f8bb03f86a26f73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _seekerCircleVisonRadius: 1.5
+  _seekerFrontVisonRadius: 2.3
   _allPlayerManager: {fileID: 9134092523200172755}
   _startingGameSystem: {fileID: 6007129201178217910}
 --- !u!1 &9134092523200172753
@@ -315,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4c09cb8cc3c2d4cb7aafc82dc91320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allPlayerParent: {fileID: 0}
-  seekerList: []
-  allPlayerList: []
+  _allPlayerParent: {fileID: 0}
+  _seekerList: []
+  _hiderList: []
+  _allPlayerList: []

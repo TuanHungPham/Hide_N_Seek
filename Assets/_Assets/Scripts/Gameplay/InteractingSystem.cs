@@ -36,11 +36,7 @@ public class InteractingSystem : MonoBehaviour
         bool targetIsSeeker = targetController.GetInGameState().IsSeeker();
         bool thisObjIsSeeker = _controller.GetInGameState().IsSeeker();
 
-        if (thisObjIsSeeker)
-        {
-            CollideAsSeeker(targetIsSeeker, targetController);
-            return;
-        }
+        if (thisObjIsSeeker) return;
 
         CollideAsHider(targetIsSeeker, targetController);
     }
@@ -54,24 +50,9 @@ public class InteractingSystem : MonoBehaviour
         RescueTarget(targetController);
     }
 
-    private void CollideAsSeeker(bool targetIsSeeker, Controller targetController)
-    {
-        if (targetIsSeeker) return;
-
-        CatchTarget(targetController);
-    }
-
     private void RescueTarget(Controller targetController)
     {
         targetController.SetCaughtState(false);
         Debug.Log("Rescueing...........");
-    }
-
-    private void CatchTarget(Controller targetController)
-    {
-        if (targetController.GetInGameState().IsCaught()) return;
-
-        targetController.SetCaughtState(true);
-        Debug.Log("Catching.....................");
     }
 }

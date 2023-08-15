@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,7 +9,7 @@ public class AIMovingManager : MonoBehaviour
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private Vector3 destination;
     [SerializeField] private Transform currentAIPlayer;
-    private IAISystem _aiSystem;
+    private IMovingSystemAI _aiSystem;
 
     private void Awake()
     {
@@ -35,7 +34,6 @@ public class AIMovingManager : MonoBehaviour
 
     private void Update()
     {
-        _aiSystem.HandleGettingDestination();
         GetDestination();
     }
 
@@ -47,6 +45,7 @@ public class AIMovingManager : MonoBehaviour
 
     private void GetDestination()
     {
+        _aiSystem.HandleGettingDestination();
         destination = _aiSystem.Destination;
     }
 
@@ -67,7 +66,7 @@ public class AIMovingManager : MonoBehaviour
 
         if (isSeeker)
         {
-            _aiSystem = new SeekerMovingSystem();
+            _aiSystem = new SeekerPatrollingSystem();
             Debug.Log($"{currentAIPlayer.name} - Seeker Moving System");
         }
         else

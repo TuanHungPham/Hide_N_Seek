@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IAISystem
+public interface IMovingSystemAI
 {
     Vector3 Destination { get; set; }
     Transform CurrentAIPlayer { get; set; }
@@ -8,4 +8,5 @@ public interface IAISystem
     void HandleGettingDestination();
     void SetDestination();
     void SetInitialDestination();
+    bool CanChangeState();
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HiderMovingSystem : IAISystem
+public class HiderMovingSystem : IMovingSystemAI
 {
     public Vector3 Destination { get; set; }
     public Transform CurrentAIPlayer { get; set; }
@@ -14,7 +14,7 @@ public class HiderMovingSystem : IAISystem
 
     private void HideFromSeeker()
     {
-        if (!CanChangePointToHide()) return;
+        if (!CanChangeState()) return;
 
         SetDestination();
     }
@@ -22,6 +22,19 @@ public class HiderMovingSystem : IAISystem
     public void SetInitialDestination()
     {
         Destination = CurrentAIPlayer.position;
+    }
+
+    public bool CanChangeState()
+    {
+        // Vector3 seekerCurrentPos = GameplaySystem.Instance.GetNearestSeekerPosition(CurrentAIPlayer);
+        var currentPosition = CurrentAIPlayer.position;
+
+        // float distanceToSeeker = Vector3.Distance(currentPosition, seekerCurrentPos);
+        float distanceToPoint = Vector3.Distance(currentPosition, Destination);
+
+        if (distanceToPoint <= 2 || AIController.GetInGameState().IsCaught()) return true;
+
+        return false;
     }
 
     public void SetDestination()
@@ -44,18 +57,5 @@ public class HiderMovingSystem : IAISystem
         if (distance < 20) return;
 
         Destination = newDestination;
-    }
-
-    private bool CanChangePointToHide()
-    {
-        Vector3 seekerCurrentPos = GameplaySystem.Instance.GetNearestSeekerPosition(CurrentAIPlayer);
-        var currentPosition = CurrentAIPlayer.position;
-
-        float distanceToSeeker = Vector3.Distance(currentPosition, seekerCurrentPos);
-        float distanceToPoint = Vector3.Distance(currentPosition, Destination);
-
-        if (distanceToSeeker <= 20 && distanceToPoint <= 2) return true;
-
-        return false;
     }
 }

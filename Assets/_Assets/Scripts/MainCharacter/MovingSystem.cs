@@ -41,6 +41,7 @@ public class MovingSystem : MonoBehaviour
     {
         float velX = 0;
         float velZ = 0;
+        rb.velocity = Vector3.zero;
 
         if (!CanMove()) return;
 
