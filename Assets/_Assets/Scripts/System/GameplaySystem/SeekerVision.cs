@@ -1,3 +1,5 @@
+using System;
+using TigerForge;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,6 +24,21 @@ public class SeekerVision : MonoBehaviour
     private void Reset()
     {
         LoadComponents();
+    }
+
+    private void Start()
+    {
+        ListenEvent();
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.CATCHING_PLAYER,
+            () =>
+            {
+                Controller caughtPlayerController = _frontVision.GetCaughtPlayerController();
+                CatchTarget(caughtPlayerController);
+            });
     }
 
     private void LoadComponents()
@@ -53,6 +70,10 @@ public class SeekerVision : MonoBehaviour
 
     private void CatchTarget(Controller targetController)
     {
+        if (targetController == null || !CanCheckColliding()) return;
+
+        if (targetController.GetInGameState().IsSeeker() || targetController.GetInGameState().IsCaught()) return;
+
         targetController.SetCaughtState(true);
         Debug.Log("Catching.....................");
     }
@@ -62,12 +83,6 @@ public class SeekerVision : MonoBehaviour
         if (GameplaySystem.Instance.IsInHidingTimer()) return false;
 
         return true;
-    }
-
-    private void OnDrawGizmos()
-    {
-        // Gizmos.DrawSphere(_inGamePlayer.position, visionCircleRadius);
-        Handles.DrawWireDisc(_thisPlayer.position, new Vector3(0, 1, 0), _visionCircleRadius);
     }
 
     public Transform GetThisPlayerTransform()

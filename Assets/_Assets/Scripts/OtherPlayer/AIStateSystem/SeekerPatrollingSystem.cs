@@ -17,7 +17,7 @@ public class SeekerPatrollingSystem : IMovingSystemAI
     {
         if (!CanChangeState()) return;
 
-        Debug.Log("AI is patrolling...");
+        // Debug.Log("AI is patrolling...");
         SetDestination();
     }
 

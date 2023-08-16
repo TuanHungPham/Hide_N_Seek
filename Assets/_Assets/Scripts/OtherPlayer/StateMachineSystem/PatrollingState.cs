@@ -8,7 +8,7 @@ public class PatrollingState : MovingState
         SetupMovingType();
         _iMovingSystemAI.SetInitialDestination();
 
-        Debug.Log($"{currentAIPlayer.name} - Patrolling state.....");
+        // Debug.Log($"{currentAIPlayer.name} - Patrolling state.....");
     }
 
     public override void OnCheckingState(StateMachineController stateMachineController)

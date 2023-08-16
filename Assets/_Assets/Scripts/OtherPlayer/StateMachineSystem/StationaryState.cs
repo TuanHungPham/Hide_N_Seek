@@ -10,7 +10,7 @@ public class StationaryState : IState
     {
         LoadComponents(stateMachineController);
         SetSystemType();
-        Debug.Log($"{currentAIPlayer.name} - IDLE state.....");
+        // Debug.Log($"{currentAIPlayer.name} - IDLE state.....");
     }
 
     public void OnUpdateState(StateMachineController stateMachineController)
@@ -52,12 +52,12 @@ public class StationaryState : IState
         if (isSeeker)
         {
             _stantionarySystemAI = new SeekerStantionarySystem();
-            Debug.Log($"{currentAIPlayer.name} - Seeker Stantionary System");
+            // Debug.Log($"{currentAIPlayer.name} - Seeker Stantionary System");
         }
         else
         {
             _stantionarySystemAI = new HiderStantionarySystem();
-            Debug.Log($"{currentAIPlayer.name} - Hider Stantionary System");
+            // Debug.Log($"{currentAIPlayer.name} - Hider Stantionary System");
         }
 
         _stantionarySystemAI.CurrentAIPlayer = currentAIPlayer;

@@ -1,13 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using TigerForge;
 using UnityEngine;
 
 public class FrontVision : MonoBehaviour
 {
-    public float frontVisionRadius => GameplaySystem.Instance.GetSeekerFrontVisionRadius();
+    [SerializeField] private GameObject _thisPlayer;
+    [SerializeField] private Controller _controller;
 
-    private void OnDrawGizmos()
+    private void OnTriggerEnter(Collider other)
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(2, 2, frontVisionRadius));
+        if (other.gameObject.layer != _thisPlayer.layer) return;
+
+
+        _controller = other.GetComponent<Controller>();
+        EmitCatchingPlayerEvent();
+    }
+
+    public Controller GetCaughtPlayerController()
+    {
+        return _controller;
+    }
+
+    private void EmitCatchingPlayerEvent()
+    {
+        EventManager.EmitEvent(EventID.CATCHING_PLAYER);
     }
 }

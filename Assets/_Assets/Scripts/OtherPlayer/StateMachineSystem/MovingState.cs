@@ -15,7 +15,7 @@ public class MovingState : IState
         SetupMovingType();
         _iMovingSystemAI.SetInitialDestination();
 
-        Debug.Log($"{currentAIPlayer.name} - Moving state.....");
+        // Debug.Log($"{currentAIPlayer.name} - Moving state.....");
     }
 
     public virtual void OnUpdateState(StateMachineController stateMachineController)
@@ -55,7 +55,7 @@ public class MovingState : IState
         _iMovingSystemAI.CurrentAIPlayer = currentAIPlayer;
         _iMovingSystemAI.AIController = _aiController;
 
-        Debug.Log($"{currentAIPlayer.name} - Hider Moving System");
+        // Debug.Log($"{currentAIPlayer.name} - Hider Moving System");
     }
 
     public virtual void GetDestination()
