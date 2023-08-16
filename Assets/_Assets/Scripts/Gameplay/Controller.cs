@@ -58,6 +58,11 @@ public class Controller : MonoBehaviour
         return _seekerVision;
     }
 
+    public void SetTriggeredState(bool set)
+    {
+        _inGameState.SetTriggerState(set);
+    }
+
     public void SetCaughtState(bool set)
     {
         _inGameState.SetCaughtState(set);
@@ -66,5 +71,10 @@ public class Controller : MonoBehaviour
     public void SetSeekerState(bool set)
     {
         _inGameState.SetSeekerState(set);
+    }
+
+    public void SetDetectedState(bool set)
+    {
+        _inGameState.SetDetectedState(set);
     }
 }

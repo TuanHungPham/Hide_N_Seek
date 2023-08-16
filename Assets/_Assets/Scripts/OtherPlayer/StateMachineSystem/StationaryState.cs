@@ -32,6 +32,8 @@ public class StationaryState : IState
 
         if (_aiController.GetInGameState().IsSeeker())
         {
+            if (GameplaySystem.Instance.IsInHidingTimer()) return;
+
             stateMachineController.SwitchState(stateMachineController.patrollingState);
             return;
         }

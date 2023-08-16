@@ -74,7 +74,7 @@ public class MovingSystem : MonoBehaviour
 
     private bool CanMove()
     {
-        if (_controller.GetInGameState().IsCaught() || _controller.GetInGameState().IsSeekerWaitingTime()) return false;
+        if (_controller.GetInGameState().IsCaught()) return false;
         return true;
     }
 }

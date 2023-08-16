@@ -6,19 +6,29 @@ using TigerForge;
 
 public class FieldOfView : MonoBehaviour
 {
+    #region public
+
     public float checkingDelayTime;
     public float viewRadius;
+    [Range(0, 360)] public float viewAngle;
 
     [Space(20)] public Transform thisObject;
     public Vector3 normal;
     public LayerMask targetlayerMask;
     public LayerMask obstaclelayerMask;
     public Vector3 from => thisObject.forward;
-    [Range(0, 360)] public float viewAngle;
+    public Color _color;
 
-    [SerializeField] private List<Transform> _spottedObjectList = new List<Transform>();
+    #endregion
 
-    [SerializeField] private List<Collider> _objectInViewList;
+    #region private
+
+    [Space(20)] [SerializeField] private List<Transform> _spottedObjectList = new List<Transform>();
+
+    [SerializeField] private List<Transform> _objectInViewList = new List<Transform>();
+
+    #endregion
+
 
     public Vector3 DirFromAngle(float degreesAngle, bool isAngleGlobal)
     {
@@ -43,28 +53,26 @@ public class FieldOfView : MonoBehaviour
         while (true)
         {
             FindTargetInViewRange();
-            // Test();
             yield return new WaitForSeconds(checkingDelayTime);
         }
-    }
-
-    private void Test()
-    {
-        Collider[] targetInViewList = Physics.OverlapSphere(thisObject.position, viewRadius);
-        // Debug.Log($"count: {targetInViewList.Length}");
     }
 
     private void FindTargetInViewRange()
     {
         _spottedObjectList.Clear();
-        _objectInViewList = new List<Collider>();
-        Collider[] targetInViewList = Physics.OverlapSphere(thisObject.position, viewRadius, targetlayerMask);
-        Debug.Log($"count: {targetInViewList.Length}");
-        _objectInViewList = targetInViewList.ToList();
+        _objectInViewList.Clear();
 
-        for (int i = 0; i < targetInViewList.Length; i++)
+        foreach (var player in GameplaySystem.Instance.GetHiderList())
         {
-            Transform target = targetInViewList[i].transform;
+            float distanceToObject = Vector3.Distance(thisObject.position, player.position);
+            if (distanceToObject >= viewRadius) continue;
+
+            _objectInViewList.Add(player);
+        }
+
+        for (int i = 0; i < _objectInViewList.Count; i++)
+        {
+            Transform target = _objectInViewList[i].transform;
             CheckTargetIsSpotted(target);
         }
     }
@@ -101,11 +109,5 @@ public class FieldOfView : MonoBehaviour
     private void EmitSpottedObjectEvent()
     {
         EventManager.EmitEvent(EventID.SPOTTED_OBJECT);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, viewRadius);
     }
 }

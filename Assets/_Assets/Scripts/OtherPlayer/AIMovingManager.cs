@@ -81,8 +81,7 @@ public class AIMovingManager : MonoBehaviour
 
     private bool CanMove()
     {
-        if (_aiController.GetInGameState().IsCaught() ||
-            _aiController.GetInGameState().IsSeekerWaitingTime())
+        if (_aiController.GetInGameState().IsCaught())
             return false;
 
         return true;

@@ -30,7 +30,7 @@ public class SeekerPatrollingSystem : IMovingSystemAI
     {
         float distance = Vector3.Distance(CurrentAIPlayer.position, Destination);
 
-        if (distance < 1 || AIController.GetInGameState().IsSeekerWaitingTime()) return true;
+        if (distance < 1) return true;
 
         return false;
     }

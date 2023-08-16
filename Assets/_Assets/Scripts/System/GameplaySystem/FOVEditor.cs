@@ -7,7 +7,7 @@ public class FOVEditor : Editor
     private void OnSceneGUI()
     {
         FieldOfView fow = (FieldOfView)target;
-        Handles.color = Color.white;
+        Handles.color = fow._color;
 
         var position = fow.transform.position;
 

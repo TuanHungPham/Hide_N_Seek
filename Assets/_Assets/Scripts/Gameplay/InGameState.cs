@@ -9,7 +9,9 @@ public class InGameState : MonoBehaviour
     [SerializeField] private bool _isCaught;
     [SerializeField] private bool _isTriggered;
     [SerializeField] private bool _isDetected;
-    [SerializeField] private bool _isSeekerWaitingTime;
+
+    [Space(20)] [SerializeField] private float _detectedTimer;
+    [SerializeField] private float _detectedTime;
 
     [Space(20)] [SerializeField] private GameObject cage;
     [SerializeField] private GameObject _seekerVision;
@@ -33,23 +35,20 @@ public class InGameState : MonoBehaviour
 
     private void Update()
     {
-        CheckHidingTime();
+        CheckDetectedTime();
     }
 
-    private void CheckHidingTime()
+    private void CheckDetectedTime()
     {
-        if (!_isSeeker) return;
+        if (!_isDetected) return;
 
-        if (GameplaySystem.Instance.IsInHidingTimer())
+        if (_detectedTimer <= 0)
         {
-            // Debug.Log("Checking hiding time 1...");
-            _isSeekerWaitingTime = true;
+            _isDetected = false;
+            return;
         }
-        else
-        {
-            // Debug.Log("Checking hiding time 2...");
-            _isSeekerWaitingTime = false;
-        }
+
+        _detectedTimer -= Time.deltaTime;
     }
 
     private void CheckSeekerVision()
@@ -83,11 +82,6 @@ public class InGameState : MonoBehaviour
         return _isDetected;
     }
 
-    public bool IsSeekerWaitingTime()
-    {
-        return _isSeekerWaitingTime;
-    }
-
     public void SetSeekerState(bool set)
     {
         _isSeeker = set;
@@ -102,5 +96,11 @@ public class InGameState : MonoBehaviour
     public void SetTriggerState(bool set)
     {
         _isTriggered = set;
+    }
+
+    public void SetDetectedState(bool set)
+    {
+        _detectedTimer = _detectedTime;
+        _isDetected = set;
     }
 }

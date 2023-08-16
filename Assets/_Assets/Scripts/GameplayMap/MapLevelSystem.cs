@@ -45,7 +45,7 @@ public class MapLevelSystem : MonoBehaviour
     {
         foreach (Transform child in parent)
         {
-            if (list.Contains(child.position)) continue;
+            if (list.Contains(child.position) || !child.gameObject.activeSelf) continue;
 
             list.Add(child.position);
         }
