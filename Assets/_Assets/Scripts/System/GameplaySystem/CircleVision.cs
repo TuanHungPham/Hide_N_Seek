@@ -1,24 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 public class CircleVision : MonoBehaviour
 {
     public float visionCircleRadius => GameplaySystem.Instance.GetSeekerCircleVisionRadius();
-    private Transform _thisPlayer => GetComponentInParent<SeekerVision>().GetThisPlayerTransform();
-
-    private void OnDrawGizmos()
-    {
-        // Gizmos.DrawSphere(_inGamePlayer.position, visionCircleRadius);
-        Handles.DrawWireDisc(_thisPlayer.position, new Vector3(0, 1, 0), visionCircleRadius);
-    }
+    private Transform _thisPlayer => GetComponentInParent<SeekerVisionInteractingSystem>().GetThisPlayerTransform();
+    [SerializeField] private LayerMask obstacleLayerMask;
 
     public bool IsObjInSeekerVision(Transform obj)
     {
-        float distance = Vector3.Distance(obj.position, _thisPlayer.position);
+        var thisPlayerPosition = _thisPlayer.position;
+        var objPosition = obj.position;
+
+        float distance = Vector3.Distance(objPosition, thisPlayerPosition);
+        Vector3 direction = (objPosition - thisPlayerPosition).normalized;
 
         if (distance >= visionCircleRadius) return false;
+
+        bool hit = Physics.Raycast(_thisPlayer.position, direction, distance, obstacleLayerMask);
+        if (hit) return false;
 
         return true;
     }

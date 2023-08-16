@@ -1,18 +1,56 @@
+using System;
+using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
 
 public class FrontVision : MonoBehaviour
 {
-    [SerializeField] private GameObject _thisPlayer;
+    #region public
+
+    #endregion
+
+    #region private
+
     [SerializeField] private Controller _controller;
+    [SerializeField] private FieldOfView _fieldOfView;
 
-    private void OnTriggerEnter(Collider other)
+    #endregion
+
+    private void Awake()
     {
-        if (other.gameObject.layer != _thisPlayer.layer) return;
+        LoadComponents();
+    }
 
+    private void Reset()
+    {
+        LoadComponents();
+    }
 
-        _controller = other.GetComponent<Controller>();
-        EmitCatchingPlayerEvent();
+    private void Start()
+    {
+        ListenEvent();
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.SPOTTED_OBJECT, HandleGettingSpottedPlayer);
+    }
+
+    private void LoadComponents()
+    {
+        _fieldOfView = GetComponent<FieldOfView>();
+    }
+
+    private void HandleGettingSpottedPlayer()
+    {
+        foreach (var player in _fieldOfView.GetSpottedObjectList())
+        {
+            Controller controller = player.GetComponent<Controller>();
+            if (controller.GetInGameState().IsSeeker() || controller.GetInGameState().IsCaught()) continue;
+
+            _controller = controller;
+            EventManager.EmitEvent(EventID.CATCHING_PLAYER);
+        }
     }
 
     public Controller GetCaughtPlayerController()

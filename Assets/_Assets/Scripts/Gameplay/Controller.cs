@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
     [SerializeField] protected InGameState _inGameState;
 
     [SerializeField] protected InteractingSystem _interactingSystem;
-    [SerializeField] protected SeekerVision _seekerVision;
+    [SerializeField] protected SeekerVisionInteractingSystem _seekerVision;
 
     #endregion
 
@@ -29,7 +29,7 @@ public class Controller : MonoBehaviour
     {
         _inGameState = GetComponentInChildren<InGameState>();
         _model = GetComponentInChildren<Transform>();
-        _seekerVision = GetComponentInChildren<SeekerVision>();
+        _seekerVision = GetComponentInChildren<SeekerVisionInteractingSystem>();
         _interactingSystem = GetComponent<InteractingSystem>();
     }
 
@@ -53,7 +53,7 @@ public class Controller : MonoBehaviour
         return _playerType;
     }
 
-    public SeekerVision GetSeekerVision()
+    public SeekerVisionInteractingSystem GetSeekerVision()
     {
         return _seekerVision;
     }

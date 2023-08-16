@@ -29,6 +29,6 @@ public class PatrollingState : MovingState
         _iMovingSystemAI.CurrentAIPlayer = currentAIPlayer;
         _iMovingSystemAI.AIController = _aiController;
 
-        Debug.Log($"{currentAIPlayer.name} - Seeker Moving System");
+        // Debug.Log($"{currentAIPlayer.name} - Seeker Moving System");
     }
 }

@@ -3,7 +3,7 @@ using TigerForge;
 using UnityEditor;
 using UnityEngine;
 
-public class SeekerVision : MonoBehaviour
+public class SeekerVisionInteractingSystem : MonoBehaviour
 {
     #region private
 
@@ -71,8 +71,6 @@ public class SeekerVision : MonoBehaviour
     private void CatchTarget(Controller targetController)
     {
         if (targetController == null || !CanCheckColliding()) return;
-
-        if (targetController.GetInGameState().IsSeeker() || targetController.GetInGameState().IsCaught()) return;
 
         targetController.SetCaughtState(true);
         Debug.Log("Catching.....................");
