@@ -14,7 +14,7 @@ public class HiderStantionarySystem : IStantionarySystemAI
 
         float distanceToSeeker = Vector3.Distance(currentPosition, seekerCurrentPos);
 
-        if (distanceToSeeker <= 20) return true;
+        if (distanceToSeeker <= Distance.DISTANCE_TO_SEEKER) return true;
 
         return false;
     }
