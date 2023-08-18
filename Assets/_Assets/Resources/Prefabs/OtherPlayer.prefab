@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f550f05b4e9b848a079bb35d3323e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 0}
-  _fieldOfView: {fileID: 0}
+  _controller: {fileID: 8642834295101750623}
+  _fieldOfView: {fileID: 196460900}
 --- !u!114 &196460900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkingDelayTime: 0.1
-  viewRadius: 5.78
+  viewRadius: 7
   viewAngle: 102
   thisObject: {fileID: 6332949361849864702}
   normal: {x: 0, y: 1, z: 0}
@@ -123,7 +123,8 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 7501978636389714980, guid: 29e2108d9a5b7e0449ce0ceb96ffd767, type: 3}
+  m_Camera: {fileID: 7501978636389714980, guid: 29e2108d9a5b7e0449ce0ceb96ffd767,
+    type: 3}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -667,7 +668,8 @@ MonoBehaviour:
   m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d11c0274ca08ce047933fb8c798777ee, type: 2}
-  m_sharedMaterial: {fileID: 3558155240158946673, guid: d11c0274ca08ce047933fb8c798777ee, type: 2}
+  m_sharedMaterial: {fileID: 3558155240158946673, guid: d11c0274ca08ce047933fb8c798777ee,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -883,6 +885,7 @@ MonoBehaviour:
   _detectedTime: 2
   cage: {fileID: 1048574683}
   _seekerVision: {fileID: 1837801638}
+  _triggerSystem: {fileID: 196460898}
 --- !u!1 &2311089996888191764
 GameObject:
   m_ObjectHideFlags: 0

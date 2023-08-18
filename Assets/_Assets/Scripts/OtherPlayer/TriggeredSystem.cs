@@ -43,9 +43,8 @@ public class TriggeredSystem : MonoBehaviour
             if (playerController.GetInGameState().IsSeeker() || playerController.GetInGameState().IsCaught()) continue;
 
             DetectOtherPlayer(playerController);
+            TriggerAI();
         }
-
-        TriggerAI();
     }
 
     private static void DetectOtherPlayer(Controller playerController)

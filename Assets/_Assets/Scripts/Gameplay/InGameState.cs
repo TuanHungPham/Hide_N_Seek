@@ -15,6 +15,7 @@ public class InGameState : MonoBehaviour
 
     [Space(20)] [SerializeField] private GameObject cage;
     [SerializeField] private GameObject _seekerVision;
+    [SerializeField] private GameObject _triggerSystem;
 
     #endregion
 
@@ -56,10 +57,19 @@ public class InGameState : MonoBehaviour
         if (_isSeeker)
         {
             _seekerVision.gameObject.SetActive(true);
+            if (_triggerSystem != null)
+            {
+                _triggerSystem.gameObject.SetActive(true);
+            }
+
             return;
         }
 
         _seekerVision.gameObject.SetActive(false);
+        if (_triggerSystem != null)
+        {
+            _triggerSystem.gameObject.SetActive(false);
+        }
     }
 
     public bool IsSeeker()
