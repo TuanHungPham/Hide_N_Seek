@@ -63,6 +63,11 @@ public class StartingGameSystem : MonoBehaviour
         return _hidingTime;
     }
 
+    public float GetHidingTimer()
+    {
+        return _timer;
+    }
+
     public bool IsSeekerGameplay()
     {
         return _setupGameplayType.IsSeekerGameplay();

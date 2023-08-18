@@ -69,6 +69,11 @@ public class GameplaySystem : MonoBehaviour
         return _startingGameSystem.GetHidingTime();
     }
 
+    public float GetHidingTimer()
+    {
+        return _startingGameSystem.GetHidingTimer();
+    }
+
     public Transform GetMainCharacterReference()
     {
         return _startingGameSystem.GetMainCharacterReference();
