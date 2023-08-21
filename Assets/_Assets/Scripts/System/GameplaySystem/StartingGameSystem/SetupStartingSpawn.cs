@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TigerForge;
-using UnityEngine.Serialization;
 
 public class SetupStartingSpawn : MonoBehaviour
 {

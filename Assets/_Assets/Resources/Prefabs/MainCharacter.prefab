@@ -525,6 +525,7 @@ MonoBehaviour:
   _isCaught: 0
   _isDetected: 0
   _isMakingFootstep: 0
+  _isInvisible: 0
   _isSeeker: 0
   _isTriggered: 0
   _feetIsPainted: 0
@@ -534,6 +535,7 @@ MonoBehaviour:
   cage: {fileID: 459693424}
   _seekerVision: {fileID: 645719886}
   _triggerSystem: {fileID: 0}
+  _exclamationMark: {fileID: 0}
 --- !u!1 &1385062021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,3 +1062,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 1543048203}
+  _meshRenderer: {fileID: 0}

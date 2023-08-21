@@ -4,7 +4,6 @@ using UnityEngine;
 public class GameplaySystem : MonoBehaviour
 {
     private static GameplaySystem instance;
-
     public static GameplaySystem Instance => instance;
 
     #region private

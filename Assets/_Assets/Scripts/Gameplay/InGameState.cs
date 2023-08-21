@@ -1,5 +1,6 @@
 using UnityEngine;
 using TigerForge;
+using UnityEngine.Serialization;
 
 public class InGameState : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InGameState : MonoBehaviour
     [Header("For Hider")] [SerializeField] private bool _isCaught;
     [SerializeField] private bool _isDetected;
     [SerializeField] private bool _isMakingFootstep;
+    [SerializeField] private bool _isInvisible;
 
     [Space(20)] [Header("For Seeker")] [SerializeField]
     private bool _isSeeker;
@@ -101,6 +103,11 @@ public class InGameState : MonoBehaviour
         return _isDetected;
     }
 
+    public bool IsInvisible()
+    {
+        return _isInvisible;
+    }
+
     public bool FeetIsPainted()
     {
         _footprintTimer = _footprintTime;
@@ -153,5 +160,10 @@ public class InGameState : MonoBehaviour
     {
         _isHearingSomething = set;
         _exclamationMark.gameObject.SetActive(set);
+    }
+
+    public void SetInvisible(bool set)
+    {
+        _isInvisible = set;
     }
 }

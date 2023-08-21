@@ -2,7 +2,7 @@
 
 public class HearingState : IState
 {
-    private float hearingTime = 2f;
+    private float hearingTime = 1.5f;
     private float hearingTimer;
     private bool isHearing;
 

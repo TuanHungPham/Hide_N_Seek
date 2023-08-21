@@ -6,14 +6,14 @@ public class FindingState : MovingState
     {
         LoadComponents(stateMachineController);
         SetupMovingType();
-        _iMovingSystemAI.SetInitialDestination();
+        // _iMovingSystemAI.SetInitialDestination();
 
         // Debug.Log($"{currentAIPlayer.name} - Patrolling state.....");
     }
 
     public override void OnCheckingState(StateMachineController stateMachineController)
     {
-        if (IsNearToPointDestination())
+        if (!_aiController.GetInGameState().IsHearingSomething())
         {
             stateMachineController.SwitchState(stateMachineController.patrollingState);
         }
