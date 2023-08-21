@@ -52,6 +52,8 @@ public class TriggeredSystem : MonoBehaviour
 
     public void SetTriggeredWhenHearingFootstep(bool set)
     {
+        if (!CanBeSetTriggered()) return;
+
         _controller.GetInGameState().SetIsHearingSomething(set);
     }
 

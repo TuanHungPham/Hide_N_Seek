@@ -522,15 +522,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e59f4d451842ebd42b8575ade6b336ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isSeeker: 0
   _isCaught: 0
-  _isTriggered: 0
   _isDetected: 0
-  _isSeekerWaitingTime: 0
-  _detectedTimer: 0
-  _detectedTime: 2
+  _isMakingFootstep: 0
+  _isSeeker: 0
+  _isTriggered: 0
+  _feetIsPainted: 0
+  _isHearingSomething: 0
+  _footprintTimer: 0
+  _footprintTime: 3
   cage: {fileID: 459693424}
   _seekerVision: {fileID: 645719886}
+  _triggerSystem: {fileID: 0}
 --- !u!1 &1385062021
 GameObject:
   m_ObjectHideFlags: 0
