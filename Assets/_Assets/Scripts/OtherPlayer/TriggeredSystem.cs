@@ -6,6 +6,7 @@ public class TriggeredSystem : MonoBehaviour
 {
     [SerializeField] private Controller _controller;
     [SerializeField] private FieldOfView _fieldOfView;
+    [SerializeField] private HearingSystem _hearingSystem;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class TriggeredSystem : MonoBehaviour
     {
         _controller = GetComponentInParent<Controller>();
         _fieldOfView = GetComponent<FieldOfView>();
+        _hearingSystem = GetComponentInChildren<HearingSystem>();
     }
 
     private void Start()
@@ -30,10 +32,10 @@ public class TriggeredSystem : MonoBehaviour
 
     private void ListenEvent()
     {
-        EventManager.StartListening(EventID.SPOTTED_OBJECT, HandleTriggerSystem);
+        EventManager.StartListening(EventID.SPOTTED_OBJECT, TriggerWhenSeeingFootPrint);
     }
 
-    private void HandleTriggerSystem()
+    private void TriggerWhenSeeingFootPrint()
     {
         if (!CanBeSetTriggered()) return;
 
@@ -46,6 +48,11 @@ public class TriggeredSystem : MonoBehaviour
             DetectOtherPlayer(playerController);
             TriggerAI();
         }
+    }
+
+    public void SetTriggeredWhenHearingFootstep(bool set)
+    {
+        _controller.GetInGameState().SetIsHearingSomething(set);
     }
 
     private static void DetectOtherPlayer(Controller playerController)
@@ -62,5 +69,10 @@ public class TriggeredSystem : MonoBehaviour
     {
         if (GameplaySystem.Instance.IsInHidingTimer()) return false;
         return true;
+    }
+
+    public Transform GetFootstepSoundMaking()
+    {
+        return _hearingSystem.GetFootstepSoundMaking();
     }
 }

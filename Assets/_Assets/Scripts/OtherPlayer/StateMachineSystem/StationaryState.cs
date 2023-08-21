@@ -69,5 +69,7 @@ public class StationaryState : IState
 
         _stantionarySystemAI.CurrentAIPlayer = currentAIPlayer;
         _stantionarySystemAI.AIController = _aiController;
+
+        _aiController.GetInGameState().SetIsMakingFootstep(false);
     }
 }

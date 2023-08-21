@@ -59,17 +59,4 @@ public class HiderMovingSystem : IMovingSystemAI
         if (distanceToPoint <= Distance.DISTANCE_TO_POINT_DESTINATION) return true;
         return false;
     }
-
-    private bool IsAnyHiderCaught()
-    {
-        foreach (var hider in GameplaySystem.Instance.GetHiderList())
-        {
-            Controller hiderController = hider.GetComponent<Controller>();
-            if (!hiderController.GetInGameState().IsCaught()) continue;
-
-            return true;
-        }
-
-        return false;
-    }
 }

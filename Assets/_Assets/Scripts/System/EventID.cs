@@ -5,4 +5,5 @@ public enum EventID
     SETTED_UP_GAMEPLAY,
     CATCHING_PLAYER,
     SPOTTED_OBJECT,
+    HEARING_FOOTSTEP,
 }

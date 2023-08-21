@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public abstract class MovingState : IState
 {
-    [Space(20)] protected AIController _aiController;
+    protected AIController _aiController;
     protected NavMeshAgent _navMeshAgent;
     protected Vector3 destination;
     protected Transform currentAIPlayer;
@@ -11,11 +11,7 @@ public abstract class MovingState : IState
 
     public virtual void OnEnterState(StateMachineController stateMachineController)
     {
-        LoadComponents(stateMachineController);
-        SetupMovingType();
-        _iMovingSystemAI.SetInitialDestination();
-
-        // Debug.Log($"{currentAIPlayer.name} - Moving state.....");
+        _aiController.GetInGameState().SetIsMakingFootstep(true);
     }
 
     public virtual void OnUpdateState(StateMachineController stateMachineController)
@@ -41,16 +37,6 @@ public abstract class MovingState : IState
         _aiController = stateMachineController.GetAIController();
         _navMeshAgent = stateMachineController.GetNavMeshAgent();
         currentAIPlayer = stateMachineController.GetAIPlayer();
-    }
-
-    private void SetupMovingType()
-    {
-        _iMovingSystemAI = new HiderMovingSystem();
-
-        _iMovingSystemAI.CurrentAIPlayer = currentAIPlayer;
-        _iMovingSystemAI.AIController = _aiController;
-
-        // Debug.Log($"{currentAIPlayer.name} - Hider Moving System");
     }
 
     public virtual void GetDestination()

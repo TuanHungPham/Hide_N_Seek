@@ -39,15 +39,16 @@ public class MovingSystem : MonoBehaviour
 
     private void Move()
     {
-        float velX = 0;
-        float velZ = 0;
+        float velX;
+        float velZ;
         rb.velocity = Vector3.zero;
+        MakeFootstep(false);
 
         if (!CanMove()) return;
 
         SetPlayerMovingDirection();
 
-        if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             velX = InputSystem.GetKeyboardInputValue().x;
             velZ = InputSystem.GetKeyboardInputValue().y;
@@ -59,7 +60,14 @@ public class MovingSystem : MonoBehaviour
             velZ = inputValue.y;
         }
 
+        if (InputSystem.GetGameInputValue() == Vector2.zero)
+        {
+            MakeFootstep(false);
+            return;
+        }
+
         rb.velocity = new Vector3(velX * moveSpeed, rb.velocity.y, velZ * moveSpeed);
+        MakeFootstep(true);
     }
 
     private void SetPlayerMovingDirection()
@@ -70,6 +78,11 @@ public class MovingSystem : MonoBehaviour
         Quaternion rotatation = Quaternion.LookRotation(movingDirection.normalized, Vector3.up);
 
         player.rotation = Quaternion.RotateTowards(player.rotation, rotatation, rotationSpeed);
+    }
+
+    private void MakeFootstep(bool set)
+    {
+        _controller.GetInGameState().SetIsMakingFootstep(set);
     }
 
     private bool CanMove()

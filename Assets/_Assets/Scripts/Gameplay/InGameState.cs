@@ -1,20 +1,24 @@
 using UnityEngine;
 using TigerForge;
-using UnityEngine.Serialization;
 
 public class InGameState : MonoBehaviour
 {
     #region private
 
-    [SerializeField] private bool _isSeeker;
-    [SerializeField] private bool _isCaught;
-    [SerializeField] private bool _isTriggered;
+    [Header("For Hider")] [SerializeField] private bool _isCaught;
     [SerializeField] private bool _isDetected;
-    [SerializeField] private bool _feetIsPainted;
     [SerializeField] private bool _isMakingFootstep;
 
-    [Space(20)] [SerializeField] private float _detectedTimer;
-    [SerializeField] private float _detectedTime;
+    [Space(20)] [Header("For Seeker")] [SerializeField]
+    private bool _isSeeker;
+
+    [SerializeField] private bool _isTriggered;
+    [SerializeField] private bool _feetIsPainted;
+    [SerializeField] private bool _isHearingSomething;
+
+    [Space(20)] [SerializeField] private float _footprintTimer;
+
+    [SerializeField] private float _footprintTime;
 
     [Space(20)] [SerializeField] private GameObject cage;
     [SerializeField] private GameObject _seekerVision;
@@ -39,21 +43,21 @@ public class InGameState : MonoBehaviour
 
     private void Update()
     {
-        CheckDetectedTime();
+        CheckFootprintTime();
     }
 
-    private void CheckDetectedTime()
+    private void CheckFootprintTime()
     {
         if (!_isDetected) return;
 
-        if (_detectedTimer <= 0)
+        if (_footprintTimer <= 0)
         {
             _isDetected = false;
             _feetIsPainted = false;
             return;
         }
 
-        _detectedTimer -= Time.deltaTime;
+        _footprintTimer -= Time.deltaTime;
     }
 
     private void CheckSeekerVision()
@@ -98,12 +102,18 @@ public class InGameState : MonoBehaviour
 
     public bool FeetIsPainted()
     {
+        _footprintTimer = _footprintTime;
         return _feetIsPainted;
     }
 
     public bool IsMakingFootstep()
     {
         return _isMakingFootstep;
+    }
+
+    public bool IsHearingSomething()
+    {
+        return _isHearingSomething;
     }
 
     public void SetSeekerState(bool set)
@@ -124,7 +134,6 @@ public class InGameState : MonoBehaviour
 
     public void SetDetectedState(bool set)
     {
-        _detectedTimer = _detectedTime;
         _isDetected = set;
     }
 
@@ -136,5 +145,10 @@ public class InGameState : MonoBehaviour
     public void SetIsMakingFootstep(bool set)
     {
         _isMakingFootstep = set;
+    }
+
+    public void SetIsHearingSomething(bool set)
+    {
+        _isHearingSomething = set;
     }
 }

@@ -7,9 +7,11 @@ public class StateMachineController : MonoBehaviour
 
     public IState currentState;
     public StationaryState stationaryState = new StationaryState();
-    public MovingState movingState = new MovingState();
+    public RunAwayState runAwayState = new RunAwayState();
     public PatrollingState patrollingState = new PatrollingState();
     public ChasingState chasingState = new ChasingState();
+    public RescuingState rescuingState = new RescuingState();
+    public HearingState hearingState = new HearingState();
 
     #endregion
 
@@ -75,7 +77,7 @@ public class StateMachineController : MonoBehaviour
         {
             _stateID = StateID.STATIONARY;
         }
-        else if (state == movingState)
+        else if (state == runAwayState)
         {
             _stateID = StateID.MOVING;
         }
@@ -86,6 +88,14 @@ public class StateMachineController : MonoBehaviour
         else if (state == chasingState)
         {
             _stateID = StateID.CHASING;
+        }
+        else if (state == rescuingState)
+        {
+            _stateID = StateID.RESCUING;
+        }
+        else if (state == hearingState)
+        {
+            _stateID = StateID.HEARING;
         }
     }
 

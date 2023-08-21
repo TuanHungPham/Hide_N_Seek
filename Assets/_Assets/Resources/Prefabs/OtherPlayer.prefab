@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: [{fileID: 7988905697638999448}]
+  m_Children:
+  - {fileID: 7988905697638999448}
   m_Father: {fileID: 6332949361849864702}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 8642834295101750623}
   _fieldOfView: {fileID: 196460900}
+  _hearingSystem: {fileID: 0}
 --- !u!114 &196460900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkingDelayTime: 0.1
-  viewRadius: 6
+  viewRadius: 5
   viewAngle: 102
   thisObject: {fileID: 6332949361849864702}
   normal: {x: 0, y: 1, z: 0}
@@ -841,6 +843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7988905697638999448}
+  - component: {fileID: 3610111293460426274}
   m_Layer: 6
   m_Name: HearingRange
   m_TagString: Untagged
@@ -863,6 +866,25 @@ Transform:
   m_Father: {fileID: 196460899}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3610111293460426274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147954277580993125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f777075bb50b2ac44a334e15b2bd31ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  normal: {x: 0, y: 1, z: 0}
+  hearingRange: 5
+  checkingDelayTime: 0
+  _currentAIPlayer: {fileID: 6332949361849864702}
+  _triggeredSystem: {fileID: 196460901}
+  _footstepSoundMaking: {fileID: 0}
 --- !u!1 &1105316096176426900
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,8 +935,10 @@ MonoBehaviour:
   _isDetected: 0
   _isSeekerWaitingTime: 0
   _feetIsPainted: 0
-  _detectedTimer: 0
-  _detectedTime: 2
+  _isMakingFootstep: 0
+  _isHearingSomething: 0
+  _footprintTimer: 0
+  _footprintTime: 0
   cage: {fileID: 1048574683}
   _seekerVision: {fileID: 1837801638}
   _triggerSystem: {fileID: 196460898}
@@ -1153,6 +1177,7 @@ MonoBehaviour:
   _interactingSystem: {fileID: 6332949361849864697}
   _seekerVision: {fileID: 0}
   _aiManager: {fileID: 0}
+  _triggeredSystem: {fileID: 0}
 --- !u!114 &6332949361849864697
 MonoBehaviour:
   m_ObjectHideFlags: 0
