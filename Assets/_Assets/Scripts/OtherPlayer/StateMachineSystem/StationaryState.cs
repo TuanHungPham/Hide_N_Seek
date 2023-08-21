@@ -38,7 +38,7 @@ public class StationaryState : IState
             return;
         }
 
-        stateMachineController.SwitchState(stateMachineController.movingState);
+        stateMachineController.SwitchState(stateMachineController.runAwayState);
     }
 
     public bool CanChangeState()

@@ -10,11 +10,11 @@ public class ChasingState : MovingState
         Debug.Log($"{currentAIPlayer.name} - Chasing state.....");
     }
 
-    public new void OnCheckingState(StateMachineController stateMachineController)
+    public override void OnCheckingState(StateMachineController stateMachineController)
     {
         if (!CanChangeState()) return;
 
-        stateMachineController.SwitchState(stateMachineController.movingState);
+        stateMachineController.SwitchState(stateMachineController.patrollingState);
     }
 
     public bool CanChangeState()
