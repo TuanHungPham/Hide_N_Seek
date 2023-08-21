@@ -12,6 +12,7 @@ public class StateMachineController : MonoBehaviour
     public ChasingState chasingState = new ChasingState();
     public RescuingState rescuingState = new RescuingState();
     public HearingState hearingState = new HearingState();
+    public FindingState findingState = new FindingState();
 
     #endregion
 
@@ -96,6 +97,10 @@ public class StateMachineController : MonoBehaviour
         else if (state == hearingState)
         {
             _stateID = StateID.HEARING;
+        }
+        else if (state == findingState)
+        {
+            _stateID = StateID.FINDING;
         }
     }
 

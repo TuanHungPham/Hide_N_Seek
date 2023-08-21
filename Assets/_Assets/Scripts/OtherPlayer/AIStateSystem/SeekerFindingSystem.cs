@@ -12,10 +12,13 @@ public class SeekerFindingSystem : IMovingSystemAI
 
     public void SetDestination()
     {
+        Transform footstepSoundMaking = AIController.GetTriggeredSystem().GetFootstepSoundMaking();
+        Destination = footstepSoundMaking.position;
     }
 
     public void SetInitialDestination()
     {
+        SetDestination();
     }
 
     public bool CanChangeState()

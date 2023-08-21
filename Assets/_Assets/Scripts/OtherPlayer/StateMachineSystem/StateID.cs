@@ -6,4 +6,5 @@ public enum StateID
     CHASING,
     RESCUING,
     HEARING,
+    FINDING,
 }

@@ -2,7 +2,7 @@
 
 public class HearingState : IState
 {
-    private float hearingTime = 1f;
+    private float hearingTime = 2f;
     private float hearingTimer;
     private bool isHearing;
 
@@ -33,7 +33,7 @@ public class HearingState : IState
     {
         if (isHearing) return;
 
-        stateMachineController.SwitchState(stateMachineController.patrollingState);
+        stateMachineController.SwitchState(stateMachineController.findingState);
     }
 
     private void LoadComponents(StateMachineController stateMachineController)
