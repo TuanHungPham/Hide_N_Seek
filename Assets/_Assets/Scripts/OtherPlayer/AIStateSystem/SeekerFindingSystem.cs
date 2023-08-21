@@ -8,7 +8,7 @@ public class SeekerFindingSystem : IMovingSystemAI
 
     public void HandleGettingDestination()
     {
-        SetDestination();
+        // SetDestination();
     }
 
     public void SetDestination()

@@ -55,6 +55,6 @@ public class Model : MonoBehaviour
     {
         if (!_controller.GetInGameState().IsSeeker()) return;
 
-        transform.localScale *= 2;
+        transform.localScale *= 1.5f;
     }
 }

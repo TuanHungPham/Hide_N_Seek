@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkingDelayTime: 0.1
-  viewRadius: 5
+  viewRadius: 3.5
   viewAngle: 102
   thisObject: {fileID: 6332949361849864702}
   normal: {x: 0, y: 1, z: 0}
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkingDelayTime: 0.1
-  viewRadius: 3.6
+  viewRadius: 2.88
   viewAngle: 100
   thisObject: {fileID: 6332949361849864702}
   normal: {x: 0, y: 1, z: 0}
@@ -358,7 +358,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 90
-  m_Range: 3.81
+  m_Range: 3
   m_SpotAngle: 108
   m_InnerSpotAngle: 21
   m_CookieSize: 10
@@ -961,7 +961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
   normal: {x: 0, y: 1, z: 0}
-  hearingRange: 6.5
+  hearingRange: 3.65
   checkingDelayTime: 0
   _currentAIPlayer: {fileID: 6332949361849864702}
   _triggeredSystem: {fileID: 196460901}
@@ -1013,6 +1013,7 @@ MonoBehaviour:
   _isCaught: 0
   _isDetected: 0
   _isMakingFootstep: 0
+  _isInvisible: 0
   _isSeeker: 0
   _isTriggered: 0
   _feetIsPainted: 0
@@ -1168,6 +1169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 8642834295101750623}
+  _meshRenderer: {fileID: 0}
 --- !u!1 &6332949361849864689
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class FindingState : MovingState
     {
         LoadComponents(stateMachineController);
         SetupMovingType();
-        // _iMovingSystemAI.SetInitialDestination();
+        _iMovingSystemAI.SetInitialDestination();
 
         // Debug.Log($"{currentAIPlayer.name} - Patrolling state.....");
     }
