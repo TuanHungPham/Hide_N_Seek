@@ -5,6 +5,7 @@ public class AIController : Controller
     #region private
 
     [SerializeField] private AIManager _aiManager;
+    [SerializeField] private TriggeredSystem _triggeredSystem;
 
     #endregion
 
@@ -12,5 +13,11 @@ public class AIController : Controller
     {
         base.LoadComponents();
         _aiManager = GetComponentInChildren<AIManager>();
+        _triggeredSystem = GetComponentInChildren<TriggeredSystem>();
+    }
+
+    public TriggeredSystem GetTriggeredSystem()
+    {
+        return _triggeredSystem;
     }
 }

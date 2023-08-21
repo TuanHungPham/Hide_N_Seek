@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MovingState : IState
+public abstract class MovingState : IState
 {
     [Space(20)] protected AIController _aiController;
     protected NavMeshAgent _navMeshAgent;
@@ -34,12 +34,7 @@ public class MovingState : IState
         _navMeshAgent.ResetPath();
     }
 
-    public virtual void OnCheckingState(StateMachineController stateMachineController)
-    {
-        if (!_iMovingSystemAI.CanChangeState()) return;
-
-        stateMachineController.SwitchState(stateMachineController.stationaryState);
-    }
+    public abstract void OnCheckingState(StateMachineController stateMachineController);
 
     public virtual void LoadComponents(StateMachineController stateMachineController)
     {

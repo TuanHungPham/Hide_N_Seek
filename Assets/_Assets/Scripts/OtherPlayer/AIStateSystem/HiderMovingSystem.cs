@@ -14,7 +14,7 @@ public class HiderMovingSystem : IMovingSystemAI
 
     private void HideFromSeeker()
     {
-        if (!CanChangeState()) return;
+        if (!IsNearToPointDestination()) return;
 
         SetDestination();
     }
@@ -26,13 +26,6 @@ public class HiderMovingSystem : IMovingSystemAI
 
     public bool CanChangeState()
     {
-        var currentPosition = CurrentAIPlayer.position;
-        float distanceToPoint = Vector3.Distance(currentPosition, Destination);
-
-        if (distanceToPoint <= Distance.DISTANCE_TO_POINT_DESTINATION ||
-            AIController.GetInGameState().IsCaught()) return true;
-        else if (IsAnyHiderCaught()) return true;
-
         return false;
     }
 
@@ -56,6 +49,15 @@ public class HiderMovingSystem : IMovingSystemAI
         if (distance < Distance.DISTANCE_FROM_POINT_TO_SEEKER) return;
 
         Destination = newDestination;
+    }
+
+    private bool IsNearToPointDestination()
+    {
+        var currentPosition = CurrentAIPlayer.position;
+        float distanceToPoint = Vector3.Distance(currentPosition, Destination);
+
+        if (distanceToPoint <= Distance.DISTANCE_TO_POINT_DESTINATION) return true;
+        return false;
     }
 
     private bool IsAnyHiderCaught()

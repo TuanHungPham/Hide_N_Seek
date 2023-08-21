@@ -15,7 +15,7 @@ public class SeekerPatrollingSystem : IMovingSystemAI
 
     private void GetDestinationToPatroll()
     {
-        if (!CanChangeState()) return;
+        if (!IsNearToPointDestination()) return;
 
         // Debug.Log("AI is patrolling...");
         SetDestination();
@@ -26,12 +26,17 @@ public class SeekerPatrollingSystem : IMovingSystemAI
         Destination = CurrentAIPlayer.position;
     }
 
+    private bool IsNearToPointDestination()
+    {
+        var currentPosition = CurrentAIPlayer.position;
+        float distanceToPoint = Vector3.Distance(currentPosition, Destination);
+
+        if (distanceToPoint <= Distance.DISTANCE_TO_POINT_DESTINATION) return true;
+        return false;
+    }
+
     public bool CanChangeState()
     {
-        float distance = Vector3.Distance(CurrentAIPlayer.position, Destination);
-
-        if (distance < 1) return true;
-
         return false;
     }
 
@@ -44,7 +49,7 @@ public class SeekerPatrollingSystem : IMovingSystemAI
 
         float distance = Vector3.Distance(CurrentAIPlayer.position, newDestination);
 
-        if (distance < 5) return;
+        if (distance < Distance.DISTANCE_TO_CURRENT_POINT) return;
 
         Destination = newDestination;
     }

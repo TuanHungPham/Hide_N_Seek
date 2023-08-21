@@ -1,5 +1,6 @@
 using UnityEngine;
 using TigerForge;
+using UnityEngine.Serialization;
 
 public class InGameState : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class InGameState : MonoBehaviour
     [SerializeField] private bool _isCaught;
     [SerializeField] private bool _isTriggered;
     [SerializeField] private bool _isDetected;
+    [SerializeField] private bool _feetIsPainted;
+    [SerializeField] private bool _isMakingFootstep;
 
     [Space(20)] [SerializeField] private float _detectedTimer;
     [SerializeField] private float _detectedTime;
@@ -46,6 +49,7 @@ public class InGameState : MonoBehaviour
         if (_detectedTimer <= 0)
         {
             _isDetected = false;
+            _feetIsPainted = false;
             return;
         }
 
@@ -92,6 +96,16 @@ public class InGameState : MonoBehaviour
         return _isDetected;
     }
 
+    public bool FeetIsPainted()
+    {
+        return _feetIsPainted;
+    }
+
+    public bool IsMakingFootstep()
+    {
+        return _isMakingFootstep;
+    }
+
     public void SetSeekerState(bool set)
     {
         _isSeeker = set;
@@ -112,5 +126,15 @@ public class InGameState : MonoBehaviour
     {
         _detectedTimer = _detectedTime;
         _isDetected = set;
+    }
+
+    public void SetFeetIsPainted(bool set)
+    {
+        _feetIsPainted = set;
+    }
+
+    public void SetIsMakingFootstep(bool set)
+    {
+        _isMakingFootstep = set;
     }
 }

@@ -28,7 +28,7 @@ public class StationaryState : IState
 
     public void OnCheckingState(StateMachineController stateMachineController)
     {
-        if (!_stantionarySystemAI.CanChangeState()) return;
+        if (!CanChangeState()) return;
 
         if (_aiController.GetInGameState().IsSeeker())
         {
@@ -39,6 +39,11 @@ public class StationaryState : IState
         }
 
         stateMachineController.SwitchState(stateMachineController.movingState);
+    }
+
+    public bool CanChangeState()
+    {
+        return _stantionarySystemAI.CanChangeState();
     }
 
     private void LoadComponents(StateMachineController stateMachineController)

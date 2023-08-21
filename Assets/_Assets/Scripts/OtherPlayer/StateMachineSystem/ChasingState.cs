@@ -12,9 +12,14 @@ public class ChasingState : MovingState
 
     public new void OnCheckingState(StateMachineController stateMachineController)
     {
-        if (!_iMovingSystemAI.CanChangeState()) return;
+        if (!CanChangeState()) return;
 
         stateMachineController.SwitchState(stateMachineController.movingState);
+    }
+
+    public bool CanChangeState()
+    {
+        return _iMovingSystemAI.CanChangeState();
     }
 
     private void SetupMovingType()

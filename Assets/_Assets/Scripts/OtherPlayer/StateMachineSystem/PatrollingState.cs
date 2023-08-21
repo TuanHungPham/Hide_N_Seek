@@ -16,10 +16,7 @@ public class PatrollingState : MovingState
         if (_aiController.GetInGameState().IsTriggered())
         {
             stateMachineController.SwitchState(stateMachineController.chasingState);
-            return;
         }
-
-        base.OnCheckingState(stateMachineController);
     }
 
     private void SetupMovingType()
