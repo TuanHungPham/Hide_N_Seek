@@ -1,6 +1,6 @@
+using System;
 using UnityEngine;
 using TigerForge;
-using UnityEngine.Serialization;
 
 public class InGameState : MonoBehaviour
 {
@@ -10,28 +10,31 @@ public class InGameState : MonoBehaviour
     [SerializeField] private bool _isDetected;
     [SerializeField] private bool _isMakingFootstep;
     [SerializeField] private bool _isInvisible;
+    [SerializeField] private GameObject cage;
 
     [Space(20)] [Header("For Seeker")] [SerializeField]
     private bool _isSeeker;
 
     [SerializeField] private bool _isTriggered;
-    [SerializeField] private bool _feetIsPainted;
     [SerializeField] private bool _isHearingSomething;
-
-    [Space(20)] [SerializeField] private float _footprintTimer;
-
-    [SerializeField] private float _footprintTime;
-
-    [Space(20)] [SerializeField] private GameObject cage;
     [SerializeField] private GameObject _seekerVision;
     [SerializeField] private GameObject _triggerSystem;
     [SerializeField] private GameObject _exclamationMark;
+
+    [Space(20)] [Header("For Both")] [Space(20)] [SerializeField]
+    private FootPrintSystem _footPrintSystem;
 
     #endregion
 
     private void Awake()
     {
         ListenEvent();
+        LoadComponents();
+    }
+
+    private void LoadComponents()
+    {
+        _footPrintSystem = GetComponentInChildren<FootPrintSystem>();
     }
 
     private void ListenEvent()
@@ -46,21 +49,17 @@ public class InGameState : MonoBehaviour
 
     private void Update()
     {
-        CheckFootprintTime();
+        CheckDetectedState();
     }
 
-    private void CheckFootprintTime()
+    private void CheckDetectedState()
     {
         if (!_isDetected) return;
 
-        if (_footprintTimer <= 0)
+        if (!_footPrintSystem.FeetIsPainted())
         {
             _isDetected = false;
-            _feetIsPainted = false;
-            return;
         }
-
-        _footprintTimer -= Time.deltaTime;
     }
 
     private void CheckSeekerVision()
@@ -110,8 +109,7 @@ public class InGameState : MonoBehaviour
 
     public bool FeetIsPainted()
     {
-        _footprintTimer = _footprintTime;
-        return _feetIsPainted;
+        return _footPrintSystem.FeetIsPainted();
     }
 
     public bool IsMakingFootstep()
@@ -146,9 +144,11 @@ public class InGameState : MonoBehaviour
         _isDetected = set;
     }
 
-    public void SetFeetIsPainted(bool set)
+    public void SetFeetIsPainted(bool set, Material material)
     {
-        _feetIsPainted = set;
+        if (_isCaught) return;
+
+        _footPrintSystem.SetFootPrint(set, material);
     }
 
     public void SetIsMakingFootstep(bool set)

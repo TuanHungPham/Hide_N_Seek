@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 7988905697638999448}
   m_Father: {fileID: 6332949361849864702}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &196460901
 MonoBehaviour:
@@ -62,8 +62,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkingDelayTime: 0.1
-  viewRadius: 3.5
-  viewAngle: 102
+  viewRadius: 5
+  viewAngle: 154
   thisObject: {fileID: 6332949361849864702}
   normal: {x: 0, y: 1, z: 0}
   targetlayerMask:
@@ -108,7 +108,7 @@ RectTransform:
   m_Children:
   - {fileID: 372396932}
   m_Father: {fileID: 6332949361849864702}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -765,7 +765,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6332949361849864702}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4665240294281431297
 MonoBehaviour:
@@ -898,7 +898,7 @@ Transform:
   - {fileID: 903437975}
   - {fileID: 711816144}
   m_Father: {fileID: 6332949361849864702}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1837801640
 MonoBehaviour:
@@ -994,7 +994,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2311089996888191767}
   m_Father: {fileID: 6332949361849864702}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1014,16 +1015,14 @@ MonoBehaviour:
   _isDetected: 0
   _isMakingFootstep: 0
   _isInvisible: 0
+  cage: {fileID: 1048574683}
   _isSeeker: 0
   _isTriggered: 0
-  _feetIsPainted: 0
   _isHearingSomething: 0
-  _footprintTimer: 0
-  _footprintTime: 3
-  cage: {fileID: 1048574683}
   _seekerVision: {fileID: 1837801638}
   _triggerSystem: {fileID: 196460898}
   _exclamationMark: {fileID: 1652636404}
+  _footPrintSystem: {fileID: 0}
 --- !u!1 &2311089996888191764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,8 +1033,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2311089996888191767}
   - component: {fileID: 24002344371189349}
+  - component: {fileID: 1911269342}
   m_Layer: 7
-  m_Name: StandingCollider
+  m_Name: Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1053,8 +1053,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6332949361849864702}
-  m_RootOrder: 2
+  m_Father: {fileID: 1105316096176426891}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &24002344371189349
 CapsuleCollider:
@@ -1070,6 +1070,24 @@ CapsuleCollider:
   m_Height: 0.5987904
   m_Direction: 1
   m_Center: {x: 0, y: 0.2962091, z: 0.002997309}
+--- !u!114 &1911269342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311089996888191764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b956ff5e0db5f948912f6df2ccc0722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _footprintTimer: 0
+  _footprintTime: 3
+  _footPrintCreatingDelay: 0.2
+  _feetIsPainted: 0
+  _paintMaterial: {fileID: 0}
+  _footPrint: {fileID: 4616160371062961208, guid: a0c46f1cd669d0645bc3252c384eea39, type: 3}
 --- !u!1 &6332949361546134107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1223,6 @@ Transform:
   m_Children:
   - {fileID: 6332949361546134104}
   - {fileID: 1105316096176426891}
-  - {fileID: 2311089996888191767}
   - {fileID: 1563909193}
   - {fileID: 1837801639}
   - {fileID: 196460899}

@@ -41,6 +41,7 @@ public class SetupStartingSpawn : MonoBehaviour
         {
             GameObject player = Instantiate(_otherPlayerPrefab);
             player.transform.position = startingPointList[i];
+            player.transform.eulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
             player.transform.SetParent(_allPlayerParent, true);
 
             player.gameObject.name = string.Format($"OtherPlayer[{i}]");

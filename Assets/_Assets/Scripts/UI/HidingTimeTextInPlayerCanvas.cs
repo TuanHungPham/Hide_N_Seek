@@ -1,21 +1,20 @@
+using System.Collections.Generic;
 using TigerForge;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class HidingTimeTextInPlayerCanvas : MonoBehaviour
 {
     #region private
-
-    [SerializeField] private Controller _controller;
-
-    [SerializeField] private TMP_Text _hidingTimeText;
 
     [SerializeField] private float _textY;
 
     [SerializeField] private float _textX;
 
     [SerializeField] private float _textZ;
+
+    [Space(20)] [SerializeField] private GameObject _timeTextPrefab;
+    [SerializeField] private List<TMP_Text> textList = new List<TMP_Text>();
 
     #endregion
 
@@ -46,39 +45,34 @@ public class HidingTimeTextInPlayerCanvas : MonoBehaviour
 
     private void ShowTimeText()
     {
-        if (!_hidingTimeText.gameObject.activeSelf) return;
-
         float time = GameplaySystem.Instance.GetHidingTimer();
 
-        if (time < 0)
+        foreach (var text in textList)
         {
-            _hidingTimeText.gameObject.SetActive(false);
-            return;
+            if (time < 0)
+            {
+                text.gameObject.SetActive(false);
+                return;
+            }
+
+            text.text = Mathf.CeilToInt(time).ToString();
         }
-
-        _hidingTimeText.text = Mathf.CeilToInt(time).ToString();
-    }
-
-    private bool CanShowText()
-    {
-        if (!_controller.GetInGameState().IsSeeker()) return false;
-
-        return true;
     }
 
     private void HandleTMPText()
     {
-        if (!CanShowText())
+        List<Transform> seekerList = GameplaySystem.Instance.GetAllPlayerManager().GetSeekerList();
+
+        foreach (var seeker in seekerList)
         {
-            _hidingTimeText.gameObject.SetActive(false);
-            return;
+            var pos = seeker.position;
+
+            GameObject _hidingTimeText = Instantiate(_timeTextPrefab, transform);
+            _hidingTimeText.transform.position = new Vector3(pos.x + _textX,
+                pos.y + _textY, pos.z + _textZ);
+
+            TMP_Text text = _hidingTimeText.GetComponent<TMP_Text>();
+            textList.Add(text);
         }
-
-        _hidingTimeText.gameObject.SetActive(true);
-
-        Vector3 newPos = Camera.main.WorldToScreenPoint(_controller.transform.position);
-        // _hidingTimeText.transform.position = new Vector3(newPos.x + _textWidth, newPos.y + _textHeight, newPos.z);
-        _hidingTimeText.transform.position = new Vector3(_controller.transform.position.x + _textX,
-            _controller.transform.position.y + _textY, _controller.transform.position.z + _textZ);
     }
 }

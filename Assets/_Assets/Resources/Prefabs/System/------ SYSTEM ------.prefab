@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb34cb0fee5e32a498a136490dcaab5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSeekerGameplay: 1
+  isSeekerGameplay: 0
   numberOfSeeker: 1
   _startingGameSystem: {fileID: 6007129201178217910}
 --- !u!1 &1898377305
@@ -185,10 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9cf6ae14d166845a777fe3ed2fd5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _setupInvisibleDelayTime: 2.5
   _hidingTime: 3
-  _timer: 0
-  _isInHidingTimer: 0
+  _timer: 3
+  _isInHidingTimer: 1
   _setupGameplayType: {fileID: 1763186184}
   _setupStartingSpawn: {fileID: 855699351}
 --- !u!1 &3518248447433267583
