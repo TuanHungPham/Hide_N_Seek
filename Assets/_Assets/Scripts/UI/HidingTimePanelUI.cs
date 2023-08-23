@@ -17,17 +17,23 @@ public class HidingTimePanelUI : MonoBehaviour
 
     private void ShowTimeText()
     {
-        if (!_hidingTimeText.gameObject.activeSelf) return;
+        if (!GameplaySystem.Instance.IsInHidingTimer()) return;
 
         float time = GameplaySystem.Instance.GetHidingTimer();
 
-        if (time < 0)
+        if (time < 0 || !GameplaySystem.Instance.IsGameStarting())
         {
-            _hidingTimeText.gameObject.SetActive(false);
-            _startingInText.gameObject.SetActive(false);
+            SetActiveText(false);
             return;
         }
 
+        SetActiveText(true);
         _hidingTimeText.text = Mathf.CeilToInt(time).ToString();
+    }
+
+    private void SetActiveText(bool set)
+    {
+        _hidingTimeText.gameObject.SetActive(set);
+        _startingInText.gameObject.SetActive(set);
     }
 }

@@ -45,16 +45,19 @@ public class HidingTimeTextInPlayerCanvas : MonoBehaviour
 
     private void ShowTimeText()
     {
+        if (!GameplaySystem.Instance.IsInHidingTimer()) return;
+
         float time = GameplaySystem.Instance.GetHidingTimer();
 
         foreach (var text in textList)
         {
-            if (time < 0)
+            if (time < 0 || !GameplaySystem.Instance.IsGameStarting())
             {
                 text.gameObject.SetActive(false);
-                return;
+                continue;
             }
 
+            text.gameObject.SetActive(true);
             text.text = Mathf.CeilToInt(time).ToString();
         }
     }
