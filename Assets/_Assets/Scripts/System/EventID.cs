@@ -8,4 +8,5 @@ public enum EventID
     SETTED_UP_PLAYER_ROLE,
     CAUGHT_HIDER,
     RESCUING_HIDER,
+    END_HIDING_TIME,
 }

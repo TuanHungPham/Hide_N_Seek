@@ -9,14 +9,14 @@ public class CatchingPointPanel : MonoBehaviour
     [SerializeField] private CatchingPointUI _catchingPointUIPrefab;
     private GameplaySystem GameplaySystem => GameplaySystem.Instance;
 
-    private void Start()
+    private void Awake()
     {
         ListenEvent();
     }
 
     private void ListenEvent()
     {
-        EventManager.StartListening(EventID.SETTED_UP_PLAYER_ROLE, InitializeCatchingPointList);
+        EventManager.StartListening(EventID.END_HIDING_TIME, InitializeCatchingPointList);
         EventManager.StartListening(EventID.CAUGHT_HIDER, SetPointWhenCatchingHider);
         EventManager.StartListening(EventID.RESCUING_HIDER, SetPointWhenRescuingHider);
     }

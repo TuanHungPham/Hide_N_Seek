@@ -1,5 +1,5 @@
+using TigerForge;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameplayTimeSystem : MonoBehaviour
 {
@@ -41,7 +41,7 @@ public class GameplayTimeSystem : MonoBehaviour
 
     private void RunHidingTimer()
     {
-        if (!GameplaySystem.Instance.IsGameStarting()) return;
+        if (!GameplaySystem.Instance.IsGameStarting() || !_isInHidingTimer) return;
 
         if (_timer > 0)
         {
@@ -51,6 +51,7 @@ public class GameplayTimeSystem : MonoBehaviour
         }
 
         _isInHidingTimer = false;
+        EmitEndHidingTimeEvent();
     }
 
     private void RunGameplayTimer()
@@ -66,6 +67,11 @@ public class GameplayTimeSystem : MonoBehaviour
 
         _gamePlayTimer = 0;
         _isTimeUp = true;
+    }
+
+    private void EmitEndHidingTimeEvent()
+    {
+        EventManager.EmitEvent(EventID.END_HIDING_TIME);
     }
 
     public bool IsInHidingTimer()
