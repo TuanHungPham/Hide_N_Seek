@@ -1,5 +1,7 @@
+using UnityEngine;
+
 public interface IPickupable
 {
-    void DoPickedUpFuction();
+    void DoPickedUpFuction(GameObject obj);
     void DestroyItem();
 }

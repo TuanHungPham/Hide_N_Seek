@@ -592,7 +592,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 837748783
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!1 &1103337706
 GameObject:
@@ -721,6 +721,63 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 7501978636389714980, guid: 29e2108d9a5b7e0449ce0ceb96ffd767, type: 3}
   m_PrefabInstance: {fileID: 7501978636816032087}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1027026244438528432
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1027026245065050058, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_Name
+      value: GoThroughWallsBooster
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027026245065050059, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: acf49c8b7866bd64bb1571d9c09952e6, type: 3}
 --- !u!114 &2080316475577638548
 MonoBehaviour:
   m_ObjectHideFlags: 0

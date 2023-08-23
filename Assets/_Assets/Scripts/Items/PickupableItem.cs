@@ -29,7 +29,7 @@ public class PickupableItem : MonoBehaviour
         Controller playerController = other.GetComponent<Controller>();
         if (playerController.GetPlayerType() == _targetForGettingItemFunction)
         {
-            _pickupable.DoPickedUpFuction();
+            _pickupable.DoPickedUpFuction(other.gameObject);
             _pickupable.DestroyItem();
             return;
         }
