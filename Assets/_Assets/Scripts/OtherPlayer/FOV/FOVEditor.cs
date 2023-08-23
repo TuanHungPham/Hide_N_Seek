@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(FieldOfView))]
 public class FOVEditor : Editor
 {
@@ -20,3 +21,4 @@ public class FOVEditor : Editor
         Handles.DrawLine(position, position + viewAngleB * fow.viewRadius);
     }
 }
+#endif

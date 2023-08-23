@@ -1,5 +1,6 @@
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(HearingSystem))]
 public class HearingRangeEditor : Editor
 {
@@ -13,3 +14,4 @@ public class HearingRangeEditor : Editor
         Handles.DrawWireArc(position, hearingSystem.normal, hearingSystem.from, 360, hearingSystem.hearingRange);
     }
 }
+#endif
