@@ -6,6 +6,7 @@ public class GameplayTimePanel : MonoBehaviour
 {
     [SerializeField] private TMP_Text _timeText;
     [SerializeField] private Image _watchImage;
+    private GameplaySystem GameplaySystem => GameplaySystem.Instance;
 
     private void Update()
     {
@@ -15,9 +16,11 @@ public class GameplayTimePanel : MonoBehaviour
 
     private void ShowGameplayTime()
     {
-        float time = GameplaySystem.Instance.GetGameplayTimer();
+        float time = GameplaySystem.GetGameplayTimer();
         float min = Mathf.FloorToInt(time / 60);
-        float sec = Mathf.FloorToInt(time % 60);
+        float sec = Mathf.CeilToInt(time % 60);
+
+        SetUIPanelColor(sec);
 
         if (sec < 10)
         {
@@ -30,9 +33,24 @@ public class GameplayTimePanel : MonoBehaviour
 
     private void ShowWatchImageDepedingOnTime()
     {
-        float gameplayTime = GameplaySystem.Instance.GetGameplayTime();
-        float timer = GameplaySystem.Instance.GetGameplayTimer();
+        float gameplayTime = GameplaySystem.GetGameplayTime();
+        float timer = GameplaySystem.GetGameplayTimer();
 
         _watchImage.fillAmount = timer / gameplayTime;
+    }
+
+    private void SetUIPanelColor(float sec)
+    {
+        if (sec > 10) return;
+
+        if (GameplaySystem.IsSeekerGameplay())
+        {
+            _timeText.color = Color.red;
+            _watchImage.color = Color.red;
+            return;
+        }
+
+        _timeText.color = Color.green;
+        _watchImage.color = Color.green;
     }
 }
