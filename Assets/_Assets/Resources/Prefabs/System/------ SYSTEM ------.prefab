@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &150874133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 150874134}
+  - component: {fileID: 150874135}
+  m_Layer: 0
+  m_Name: GameplayTimeSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &150874134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150874133}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9134092522314061450}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &150874135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150874133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 735963d84695e8e41936e2c088d5b5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hidingTime: 3
+  _timer: 0
+  _isInHidingTimer: 1
 --- !u!1 &855699349
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb34cb0fee5e32a498a136490dcaab5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSeekerGameplay: 0
+  isSeekerGameplay: 1
   numberOfSeeker: 1
   _startingGameSystem: {fileID: 6007129201178217910}
 --- !u!1 &1898377305
@@ -185,9 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9cf6ae14d166845a777fe3ed2fd5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hidingTime: 3
-  _timer: 3
-  _isInHidingTimer: 1
+  _isGameStarting: 0
+  _mainCharacterController: {fileID: 0}
   _setupGameplayType: {fileID: 1763186184}
   _setupStartingSpawn: {fileID: 855699351}
 --- !u!1 &3518248447433267583
@@ -254,6 +300,7 @@ Transform:
   m_Children:
   - {fileID: 9134092523200172754}
   - {fileID: 1898377306}
+  - {fileID: 150874134}
   m_Father: {fileID: 3518248447433267568}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -273,6 +320,7 @@ MonoBehaviour:
   _seekerFrontVisonRadius: 2.3
   _allPlayerManager: {fileID: 9134092523200172755}
   _startingGameSystem: {fileID: 6007129201178217910}
+  _gameplayTimeSystem: {fileID: 0}
 --- !u!1 &9134092523200172753
 GameObject:
   m_ObjectHideFlags: 0

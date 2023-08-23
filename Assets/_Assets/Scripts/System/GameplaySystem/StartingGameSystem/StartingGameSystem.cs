@@ -1,14 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
 public class StartingGameSystem : MonoBehaviour
 {
     #region private
 
-    [SerializeField] private float _hidingTime;
-    [SerializeField] private float _timer;
-    [SerializeField] private bool _isInHidingTimer;
+    [SerializeField] private bool _isGameStarting;
 
-    [Space(20)] [SerializeField] private SetupGameplayType _setupGameplayType;
+    [Space(20)] [Header("System")] [SerializeField]
+    private SetupGameplayType _setupGameplayType;
+
     [SerializeField] private SetupStartingSpawn _setupStartingSpawn;
 
     #endregion
@@ -23,34 +24,32 @@ public class StartingGameSystem : MonoBehaviour
         LoadComponents();
     }
 
-    private void Update()
-    {
-        RunHidingTimer();
-    }
-
-    private void RunHidingTimer()
-    {
-        if (_timer > 0)
-        {
-            _isInHidingTimer = true;
-            _timer -= Time.deltaTime;
-            return;
-        }
-
-        _isInHidingTimer = false;
-    }
-
     private void LoadComponents()
     {
         _setupGameplayType = GetComponentInChildren<SetupGameplayType>();
         _setupStartingSpawn = GetComponentInChildren<SetupStartingSpawn>();
 
-        _timer = _hidingTime;
+        _isGameStarting = false;
     }
 
-    public bool IsInHidingTimer()
+    private void Start()
     {
-        return _isInHidingTimer;
+        StartCoroutine(CheckGameStartingState());
+    }
+
+    IEnumerator CheckGameStartingState()
+    {
+        while (!_isGameStarting)
+        {
+            Debug.Log("Checking...");
+            if (InputSystem.Instance.GetGameInputValue() != Vector2.zero)
+            {
+                _isGameStarting = true;
+                yield break;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     public Transform GetMainCharacterReference()
@@ -58,18 +57,13 @@ public class StartingGameSystem : MonoBehaviour
         return _setupStartingSpawn.GetMainCharacterReference();
     }
 
-    public float GetHidingTime()
-    {
-        return _hidingTime;
-    }
-
-    public float GetHidingTimer()
-    {
-        return _timer;
-    }
-
     public bool IsSeekerGameplay()
     {
         return _setupGameplayType.IsSeekerGameplay();
+    }
+
+    public bool IsGameStarting()
+    {
+        return _isGameStarting;
     }
 }

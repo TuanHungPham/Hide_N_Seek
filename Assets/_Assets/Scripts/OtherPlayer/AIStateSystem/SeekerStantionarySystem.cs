@@ -20,7 +20,8 @@ public class SeekerStantionarySystem : IStantionarySystemAI
 
     public bool CanChangeState()
     {
-        if (AnyUncaughtHiderLeft()) return true;
+        if (!GameplaySystem.Instance.IsGameStarting()) return false;
+        else if (AnyUncaughtHiderLeft()) return true;
 
         return false;
     }

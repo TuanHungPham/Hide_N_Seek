@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class CameraSystem : MonoBehaviour
 {
-    [SerializeField] private float _cameraHeight;
+    [Header("Camera Setting")] [SerializeField]
+    private float _cameraHeight;
+
     [SerializeField] private float _cameraDepth;
 
-    [Space(10)] [SerializeField] private float _defaultFOV;
+    [Space(10)] [Header("FOV Setting")] [SerializeField]
+    private float _defaultFOV;
+
     [SerializeField] private float _zoomInFOV;
     [SerializeField] private float _menuFOV;
     [SerializeField] private float _fovChangeAmount;
 
-    [Space(10)] [SerializeField] private float _zoomInTime;
+    [Space(10)] [Header("Zoom Setting")] [SerializeField]
+    private float _zoomInTime;
+
     [SerializeField] private float _zoomOutTime;
 
     [Space(20)] [SerializeField] private Transform mainCharacter;
@@ -51,7 +57,21 @@ public class CameraSystem : MonoBehaviour
 
     private void HandleZoomingAtPlayer()
     {
-        StartCoroutine(ZoomAtPlayer());
+        StartCoroutine(ZoomAtStartingGame());
+    }
+
+    private IEnumerator ZoomAtStartingGame()
+    {
+        while (true)
+        {
+            if (GameplaySystem.Instance.IsGameStarting())
+            {
+                StartCoroutine(ZoomAtPlayer());
+                yield break;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private IEnumerator ZoomAtPlayer()

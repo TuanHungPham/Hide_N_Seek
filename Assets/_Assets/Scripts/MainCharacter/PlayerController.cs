@@ -22,4 +22,9 @@ public class PlayerController : Controller
         base.LoadComponents();
         _movingSystem = GetComponentInChildren<MovingSystem>();
     }
+
+    public MovingSystem GetMovingSystem()
+    {
+        return _movingSystem;
+    }
 }

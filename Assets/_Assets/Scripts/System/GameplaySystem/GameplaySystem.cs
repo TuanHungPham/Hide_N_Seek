@@ -13,6 +13,7 @@ public class GameplaySystem : MonoBehaviour
 
     [Space(20)] [SerializeField] private AllPlayerManager _allPlayerManager;
     [SerializeField] private StartingGameSystem _startingGameSystem;
+    [SerializeField] private GameplayTimeSystem _gameplayTimeSystem;
 
     #endregion
 
@@ -31,6 +32,7 @@ public class GameplaySystem : MonoBehaviour
     {
         _allPlayerManager = GetComponentInChildren<AllPlayerManager>();
         _startingGameSystem = GetComponentInChildren<StartingGameSystem>();
+        _gameplayTimeSystem = GetComponentInChildren<GameplayTimeSystem>();
     }
 
     public AllPlayerManager GetAllPlayerManager()
@@ -41,6 +43,11 @@ public class GameplaySystem : MonoBehaviour
     public StartingGameSystem GetStartingGameSystem()
     {
         return _startingGameSystem;
+    }
+
+    public GameplayTimeSystem GetGameplayTimeSystem()
+    {
+        return _gameplayTimeSystem;
     }
 
     public List<Transform> GetAllPlayerList()
@@ -60,17 +67,22 @@ public class GameplaySystem : MonoBehaviour
 
     public bool IsInHidingTimer()
     {
-        return _startingGameSystem.IsInHidingTimer();
+        return _gameplayTimeSystem.IsInHidingTimer();
+    }
+
+    public bool IsGameStarting()
+    {
+        return _startingGameSystem.IsGameStarting();
     }
 
     public float GetHidingTime()
     {
-        return _startingGameSystem.GetHidingTime();
+        return _gameplayTimeSystem.GetHidingTime();
     }
 
     public float GetHidingTimer()
     {
-        return _startingGameSystem.GetHidingTimer();
+        return _gameplayTimeSystem.GetHidingTimer();
     }
 
     public Transform GetMainCharacterReference()
