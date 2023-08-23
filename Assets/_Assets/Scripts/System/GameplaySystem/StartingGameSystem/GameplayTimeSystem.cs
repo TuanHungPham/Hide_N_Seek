@@ -1,10 +1,19 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameplayTimeSystem : MonoBehaviour
 {
-    [SerializeField] private float _hidingTime;
+    [Header("Hiding Time")] [SerializeField]
+    private float _hidingTime;
+
     [SerializeField] private float _timer;
     [SerializeField] private bool _isInHidingTimer;
+
+    [Space(20)] [Header("Gameplay Time")] [SerializeField]
+    private float _gamePlayTime;
+
+    [SerializeField] private float _gamePlayTimer;
+    [SerializeField] private bool _isTimeUp;
 
     private void Awake()
     {
@@ -19,12 +28,15 @@ public class GameplayTimeSystem : MonoBehaviour
     private void LoadComponents()
     {
         _isInHidingTimer = true;
+
+        _gamePlayTimer = _gamePlayTime;
         _timer = _hidingTime;
     }
 
     private void Update()
     {
         RunHidingTimer();
+        RunGameplayTimer();
     }
 
     private void RunHidingTimer()
@@ -41,9 +53,34 @@ public class GameplayTimeSystem : MonoBehaviour
         _isInHidingTimer = false;
     }
 
+    private void RunGameplayTimer()
+    {
+        if (GameplaySystem.Instance.IsInHidingTimer()) return;
+
+        if (_gamePlayTimer > 0)
+        {
+            _isTimeUp = false;
+            _gamePlayTimer -= Time.deltaTime;
+            return;
+        }
+
+        _gamePlayTimer = 0;
+        _isTimeUp = true;
+    }
+
     public bool IsInHidingTimer()
     {
         return _isInHidingTimer;
+    }
+
+    public bool IsTimeUp()
+    {
+        return _isTimeUp;
+    }
+
+    public float GetGameplayTimer()
+    {
+        return _gamePlayTimer;
     }
 
     public float GetHidingTime()

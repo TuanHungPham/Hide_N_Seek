@@ -75,6 +75,16 @@ public class GameplaySystem : MonoBehaviour
         return _startingGameSystem.IsGameStarting();
     }
 
+    public bool IsTimeUp()
+    {
+        return _gameplayTimeSystem.IsTimeUp();
+    }
+
+    public float GetGameplayTimer()
+    {
+        return _gameplayTimeSystem.GetGameplayTimer();
+    }
+
     public float GetHidingTime()
     {
         return _gameplayTimeSystem.GetHidingTime();
