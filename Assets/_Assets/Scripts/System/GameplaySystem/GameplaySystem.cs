@@ -85,6 +85,11 @@ public class GameplaySystem : MonoBehaviour
         return _gameplayTimeSystem.GetGameplayTimer();
     }
 
+    public float GetGameplayTime()
+    {
+        return _gameplayTimeSystem.GetGameplayTime();
+    }
+
     public float GetHidingTime()
     {
         return _gameplayTimeSystem.GetHidingTime();
@@ -93,6 +98,21 @@ public class GameplaySystem : MonoBehaviour
     public float GetHidingTimer()
     {
         return _gameplayTimeSystem.GetHidingTimer();
+    }
+
+    public int GetNumberOfHider()
+    {
+        return _allPlayerManager.GetNumberOfHider();
+    }
+
+    public int GetNumberOfCaughtHider()
+    {
+        return _allPlayerManager.GetNumberOfCaughtHider();
+    }
+
+    public int GetRequirementNumberOfCaughtHider()
+    {
+        return _allPlayerManager.GetRequirementNumberOfCaughtHider();
     }
 
     public Transform GetMainCharacterReference()

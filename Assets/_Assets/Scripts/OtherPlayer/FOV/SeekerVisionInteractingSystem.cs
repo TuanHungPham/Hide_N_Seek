@@ -73,7 +73,12 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
         if (targetController == null || !CanCheckColliding()) return;
 
         targetController.SetCaughtState(true);
-        Debug.Log("Catching.....................");
+        EmitCatchingHiderEvent();
+    }
+
+    private void EmitCatchingHiderEvent()
+    {
+        EventManager.EmitEvent(EventID.CAUGHT_HIDER);
     }
 
     private bool CanCheckColliding()

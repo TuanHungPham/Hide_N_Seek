@@ -1,4 +1,5 @@
 using System;
+using TigerForge;
 using UnityEngine;
 
 public class InteractingSystem : MonoBehaviour
@@ -53,6 +54,11 @@ public class InteractingSystem : MonoBehaviour
     private void RescueTarget(Controller targetController)
     {
         targetController.SetCaughtState(false);
-        Debug.Log("Rescueing...........");
+        EmitRescuingEvent();
+    }
+
+    private void EmitRescuingEvent()
+    {
+        EventManager.EmitEvent(EventID.RESCUING_HIDER);
     }
 }

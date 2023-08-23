@@ -41,7 +41,6 @@ public class StartingGameSystem : MonoBehaviour
     {
         while (!_isGameStarting)
         {
-            Debug.Log("Checking...");
             if (InputSystem.Instance.GetGameInputValue() != Vector2.zero)
             {
                 _isGameStarting = true;

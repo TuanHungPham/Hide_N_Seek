@@ -1,13 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TigerForge;
-using UnityEngine.Serialization;
 
 public class AllPlayerManager : MonoBehaviour
 {
     #region private
 
-    [SerializeField] private Transform _allPlayerParent;
+    [SerializeField] private int _numberOfCaughtHider;
+
+    [SerializeField] private int _requirementNumberOfCaughtHider;
+
+    [Space(20)] [SerializeField] private Transform _allPlayerParent;
     [SerializeField] private List<Transform> _seekerList = new List<Transform>();
     [SerializeField] private List<Transform> _hiderList = new List<Transform>();
     [SerializeField] private List<Transform> _allPlayerList = new List<Transform>();
@@ -33,6 +37,26 @@ public class AllPlayerManager : MonoBehaviour
     {
         EventManager.StartListening(EventID.SPAWNING_PLAYER, InitializePlayerList);
         EventManager.StartListening(EventID.SETTED_UP_GAMEPLAY, HandleGettingPlayerByRole);
+    }
+
+    private void Update()
+    {
+        CheckNumberOfCaughtHider();
+    }
+
+    private void CheckNumberOfCaughtHider()
+    {
+        int count = 0;
+
+        foreach (var player in _hiderList)
+        {
+            Controller controller = player.GetComponent<Controller>();
+
+            if (!controller.GetInGameState().IsCaught()) continue;
+            count++;
+        }
+
+        _numberOfCaughtHider = count;
     }
 
     private void InitializePlayerList()
@@ -62,6 +86,8 @@ public class AllPlayerManager : MonoBehaviour
 
             AddToSeekerList(obj);
         }
+
+        EventManager.EmitEvent(EventID.SETTED_UP_PLAYER_ROLE);
     }
 
     private void AddToSeekerList(Transform obj)
@@ -92,6 +118,21 @@ public class AllPlayerManager : MonoBehaviour
     public List<Transform> GetHiderList()
     {
         return _hiderList;
+    }
+
+    public int GetNumberOfHider()
+    {
+        return _hiderList.Count;
+    }
+
+    public int GetNumberOfCaughtHider()
+    {
+        return _numberOfCaughtHider;
+    }
+
+    public int GetRequirementNumberOfCaughtHider()
+    {
+        return _requirementNumberOfCaughtHider;
     }
 
     public Vector3 GetNearestSeekerPosition(Transform currentObjCheck)

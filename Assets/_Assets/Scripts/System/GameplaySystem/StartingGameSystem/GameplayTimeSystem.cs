@@ -83,6 +83,11 @@ public class GameplayTimeSystem : MonoBehaviour
         return _gamePlayTimer;
     }
 
+    public float GetGameplayTime()
+    {
+        return _gamePlayTime;
+    }
+
     public float GetHidingTime()
     {
         return _hidingTime;

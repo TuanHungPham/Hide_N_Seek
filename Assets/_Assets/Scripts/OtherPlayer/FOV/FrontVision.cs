@@ -57,9 +57,4 @@ public class FrontVision : MonoBehaviour
     {
         return _controller;
     }
-
-    private void EmitCatchingPlayerEvent()
-    {
-        EventManager.EmitEvent(EventID.CATCHING_PLAYER);
-    }
 }
