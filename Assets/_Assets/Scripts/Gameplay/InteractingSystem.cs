@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractingSystem : MonoBehaviour
 {
     [SerializeField] private Controller _controller;
+    [SerializeField] private LayerMask _layerMask;
 
     private void Awake()
     {
@@ -23,7 +24,9 @@ public class InteractingSystem : MonoBehaviour
 
     private void OnTriggerStay(Collider target)
     {
-        if (target.gameObject.layer != gameObject.layer || GameplaySystem.Instance.IsInHidingTimer()) return;
+        if (GameplaySystem.Instance.IsInHidingTimer()) return;
+
+        if ((_layerMask.value & (1 << target.gameObject.layer)) == 0) return;
 
         CheckObjColliderState(target.gameObject);
         // Debug.Log("Colliding...........");

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 115293927}
   - component: {fileID: 66717619908513819}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BoosterUsingHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,6 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ed5ad03633a65498ce60db6ba7719d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boosterTimer: 0
+  _boosterTime: 3
+  _mainCharacter: {fileID: 6392288775459449514}
+  _currentUsingBooster: 0
+  _canGoThroughWall: 0
+  _isInvisible: 0
 --- !u!1 &455759020
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +340,6 @@ MonoBehaviour:
   _isCaught: 0
   _isDetected: 0
   _isMakingFootstep: 0
-  _isInvisible: 0
   cage: {fileID: 459693424}
   _isSeeker: 0
   _isTriggered: 0
@@ -557,7 +562,7 @@ GameObject:
   - component: {fileID: 6392288775459449511}
   - component: {fileID: 1543048203}
   - component: {fileID: 1543048205}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: MainCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -627,11 +632,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerType: 0
-  _model: {fileID: 0}
-  _inGameState: {fileID: 0}
+  _model: {fileID: 6392288776283863299}
+  _inGameState: {fileID: 5417045633612556854}
   _interactingSystem: {fileID: 1543048205}
-  _seekerVision: {fileID: 0}
+  _seekerVision: {fileID: 645719888}
   _movingSystem: {fileID: 6392288775550391667}
+  _boosterUsingHandler: {fileID: 66717619908513819}
 --- !u!114 &1543048205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,6 +651,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 1543048203}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1088
 --- !u!1 &6392288775550391665
 GameObject:
   m_ObjectHideFlags: 0
