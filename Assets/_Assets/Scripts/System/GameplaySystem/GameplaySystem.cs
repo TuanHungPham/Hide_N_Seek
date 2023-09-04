@@ -134,4 +134,14 @@ public class GameplaySystem : MonoBehaviour
     {
         return _seekerFrontVisonRadius;
     }
+
+    public void SetGameplayType(bool isSeekerGameplay)
+    {
+        _startingGameSystem.SetGameplayType(isSeekerGameplay);
+    }
+
+    public void SetNumberOfSeeker(int number)
+    {
+        _startingGameSystem.SetNumberOfSeeker(number);
+    }
 }

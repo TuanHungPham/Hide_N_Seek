@@ -56,6 +56,16 @@ public class StartingGameSystem : MonoBehaviour
         return _setupStartingSpawn.GetMainCharacterReference();
     }
 
+    public void SetGameplayType(bool isSeekerGameplay)
+    {
+        _setupGameplayType.SetGameplayType(isSeekerGameplay);
+    }
+
+    public void SetNumberOfSeeker(int number)
+    {
+        _setupGameplayType.SetNumberOfSeeker(number);
+    }
+
     public bool IsSeekerGameplay()
     {
         return _setupGameplayType.IsSeekerGameplay();

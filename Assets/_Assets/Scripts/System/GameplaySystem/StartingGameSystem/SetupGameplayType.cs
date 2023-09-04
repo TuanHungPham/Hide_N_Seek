@@ -31,7 +31,7 @@ public class SetupGameplayType : MonoBehaviour
 
     private void ListenEvent()
     {
-        EventManager.StartListening(EventID.INITIALIZING_ALL_PLAYER_LIST, HandleSettingUpGameplay);
+        // EventManager.StartListening(EventID.INITIALIZING_ALL_PLAYER_LIST, HandleSettingUpGameplay);
     }
 
     private void HandleSettingUpGameplay()
@@ -99,6 +99,16 @@ public class SetupGameplayType : MonoBehaviour
     private void EmitSettedUpGameplayEvent()
     {
         EventManager.EmitEvent(EventID.SETTED_UP_GAMEPLAY);
+    }
+
+    public void SetNumberOfSeeker(int number)
+    {
+        numberOfSeeker = number;
+    }
+
+    public void SetGameplayType(bool setIsSeekerGameplay)
+    {
+        isSeekerGameplay = setIsSeekerGameplay;
     }
 
     public bool IsSeekerGameplay()
