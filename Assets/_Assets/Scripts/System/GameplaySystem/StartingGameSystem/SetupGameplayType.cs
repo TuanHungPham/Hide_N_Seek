@@ -31,7 +31,7 @@ public class SetupGameplayType : MonoBehaviour
 
     private void ListenEvent()
     {
-        // EventManager.StartListening(EventID.INITIALIZING_ALL_PLAYER_LIST, HandleSettingUpGameplay);
+        EventManager.StartListening(EventID.STARTING_GAME, HandleSettingUpGameplay);
     }
 
     private void HandleSettingUpGameplay()
