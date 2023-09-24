@@ -21,7 +21,7 @@ public class HidingTimeTextInPlayerCanvas : MonoBehaviour
 
     private void ListenEvent()
     {
-        EventManager.StartListening(EventID.SETTED_UP_GAMEPLAY, ShowTimeText);
+        EventManager.StartListening(EventID.GAME_STARTED, ShowTimeText);
     }
 
     private void Reset()

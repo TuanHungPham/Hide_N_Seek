@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TigerForge;
 
 public class StartingGameSystem : MonoBehaviour
 {
@@ -44,11 +45,17 @@ public class StartingGameSystem : MonoBehaviour
             if (InputSystem.Instance.GetGameInputValue() != Vector2.zero)
             {
                 _isGameStarting = true;
+                EmitGameStartedEvent();
                 yield break;
             }
 
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private void EmitGameStartedEvent()
+    {
+        EventManager.EmitEvent(EventID.GAME_STARTED);
     }
 
     public Transform GetMainCharacterReference()

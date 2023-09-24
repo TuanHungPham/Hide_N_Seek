@@ -10,4 +10,5 @@ public enum EventID
     RESCUING_HIDER,
     END_HIDING_TIME,
     STARTING_GAME,
+    GAME_STARTED,
 }
