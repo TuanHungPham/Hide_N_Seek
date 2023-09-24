@@ -1,4 +1,3 @@
-using System;
 using TigerForge;
 using UnityEngine;
 
@@ -6,8 +5,11 @@ public class Model : MonoBehaviour
 {
     #region private
 
-    [SerializeField] private Controller _controller;
-    [SerializeField] private MeshRenderer _meshRenderer;
+    [SerializeField] private float _seekerSizeMultiple;
+
+    [Space(20)] [SerializeField] private Controller _controller;
+    [SerializeField] private Transform _characterModel;
+    [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
 
     #endregion
 
@@ -25,7 +27,6 @@ public class Model : MonoBehaviour
     private void LoadComponents()
     {
         _controller = GetComponentInParent<Controller>();
-        _meshRenderer = GetComponent<MeshRenderer>();
     }
 
     private void ListenEvent()
@@ -44,17 +45,17 @@ public class Model : MonoBehaviour
 
         if (_controller.GetInGameState().IsCaught() || GameplaySystem.Instance.IsInHidingTimer())
         {
-            _meshRenderer.enabled = true;
+            _skinnedMeshRenderer.enabled = true;
             return;
         }
 
-        _meshRenderer.enabled = false;
+        _skinnedMeshRenderer.enabled = false;
     }
 
     private void SetupModelSize()
     {
         if (!_controller.GetInGameState().IsSeeker()) return;
 
-        transform.localScale *= 1.5f;
+        _characterModel.localScale *= _seekerSizeMultiple;
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using TigerForge;
+using UnityEngine.Serialization;
 
 public class InGameState : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class InGameState : MonoBehaviour
     [Header("For Hider")] [SerializeField] private bool _isCaught;
     [SerializeField] private bool _isDetected;
     [SerializeField] private bool _isMakingFootstep;
-    [SerializeField] private GameObject cage;
+    [SerializeField] private BeingFoundHandler _beingFoundHandler;
 
     [Space(20)] [Header("For Seeker")] [SerializeField]
     private bool _isSeeker;
@@ -124,7 +125,7 @@ public class InGameState : MonoBehaviour
     public void SetCaughtState(bool set)
     {
         _isCaught = set;
-        cage.gameObject.SetActive(set);
+        _beingFoundHandler.SetupBeingFoundState(set);
     }
 
     public void SetTriggerState(bool set)
