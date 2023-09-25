@@ -12,6 +12,7 @@ public class HearingState : IState
     public void OnEnterState(StateMachineController stateMachineController)
     {
         LoadComponents(stateMachineController);
+        SetIdleAnimation();
     }
 
     public void OnUpdateState(StateMachineController stateMachineController)
@@ -45,6 +46,10 @@ public class HearingState : IState
         isHearing = true;
     }
 
+    private void SetIdleAnimation()
+    {
+        _aiController.SetIdleAnimationState();
+    }
 
     private void FaceAtFootstepDirection()
     {

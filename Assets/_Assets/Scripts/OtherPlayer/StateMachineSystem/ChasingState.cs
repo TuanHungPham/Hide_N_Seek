@@ -6,6 +6,7 @@ public class ChasingState : MovingState
     {
         LoadComponents(stateMachineController);
         SetupMovingType();
+        base.OnEnterState(stateMachineController);
 
         Debug.Log($"{currentAIPlayer.name} - Chasing state.....");
     }

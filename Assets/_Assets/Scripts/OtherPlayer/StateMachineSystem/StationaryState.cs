@@ -9,6 +9,7 @@ public class StationaryState : IState
     public void OnEnterState(StateMachineController stateMachineController)
     {
         LoadComponents(stateMachineController);
+        SetIdleAnimation();
         SetSystemType();
         // Debug.Log($"{currentAIPlayer.name} - IDLE state.....");
     }
@@ -50,6 +51,11 @@ public class StationaryState : IState
     {
         _aiController = stateMachineController.GetAIController();
         currentAIPlayer = stateMachineController.GetAIPlayer();
+    }
+
+    private void SetIdleAnimation()
+    {
+        _aiController.SetIdleAnimationState();
     }
 
     private void SetSystemType()

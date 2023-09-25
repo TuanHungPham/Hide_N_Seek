@@ -7,6 +7,9 @@ public class MovingSystem : MonoBehaviour
 
     private InputSystem InputSystem => InputSystem.Instance;
 
+    private const int RUNNING_ANIMATION_ID = 7;
+    private const int WALKING_ANIMATION_ID = 8;
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;
 
@@ -45,9 +48,11 @@ public class MovingSystem : MonoBehaviour
         rb.velocity = Vector3.zero;
         MakeFootstep(false);
 
-        if (!CanMove()) return;
+        if (!CanMove())
+            return;
 
         SetPlayerMovingDirection();
+        Vector2 inputValue = new Vector2();
 
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
@@ -56,17 +61,19 @@ public class MovingSystem : MonoBehaviour
         }
         else
         {
-            Vector2 inputValue = InputSystem.GetGameInputValue().normalized;
+            inputValue = InputSystem.GetGameInputValue().normalized;
             velX = inputValue.x;
             velZ = inputValue.y;
         }
 
         if (InputSystem.GetGameInputValue() == Vector2.zero)
         {
+            _controller.SetIdleAnimationState();
             MakeFootstep(false);
             return;
         }
 
+        SetMovingAnimation(inputValue.magnitude);
         rb.velocity = new Vector3(velX * moveSpeed, rb.velocity.y, velZ * moveSpeed);
         MakeFootstep(true);
     }
@@ -84,6 +91,11 @@ public class MovingSystem : MonoBehaviour
     private void MakeFootstep(bool set)
     {
         _controller.GetInGameState().SetIsMakingFootstep(set);
+    }
+
+    private void SetMovingAnimation(float value)
+    {
+        _controller.SetMovingAnimation(value);
     }
 
     private bool CanMove()

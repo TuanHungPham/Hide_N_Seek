@@ -19,7 +19,7 @@ public class InGameState : MonoBehaviour
     [SerializeField] private bool _isHearingSomething;
     [SerializeField] private GameObject _seekerVision;
     [SerializeField] private GameObject _triggerSystem;
-    [SerializeField] private GameObject _exclamationMark;
+    // [SerializeField] private GameObject _exclamationMark;
 
     [Space(20)] [Header("For Both")] [Space(20)] [SerializeField]
     private FootPrintSystem _footPrintSystem;
@@ -131,7 +131,7 @@ public class InGameState : MonoBehaviour
     public void SetTriggerState(bool set)
     {
         _isTriggered = set;
-        _exclamationMark.gameObject.SetActive(set);
+        // _exclamationMark.gameObject.SetActive(set);
     }
 
     public void SetDetectedState(bool set)
@@ -154,6 +154,6 @@ public class InGameState : MonoBehaviour
     public void SetIsHearingSomething(bool set)
     {
         _isHearingSomething = set;
-        _exclamationMark.gameObject.SetActive(set);
+        // _exclamationMark.gameObject.SetActive(set);
     }
 }

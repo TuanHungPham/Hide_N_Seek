@@ -7,6 +7,7 @@ public class RunAwayState : MovingState
         LoadComponents(stateMachineController);
         SetupMovingType();
         _iMovingSystemAI.SetInitialDestination();
+        base.OnEnterState(stateMachineController);
 
         // Debug.Log($"{currentAIPlayer.name} - Patrolling state.....");
     }

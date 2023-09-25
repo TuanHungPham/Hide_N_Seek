@@ -12,6 +12,7 @@ public class Controller : MonoBehaviour
 
     [SerializeField] protected InteractingSystem _interactingSystem;
     [SerializeField] protected SeekerVisionInteractingSystem _seekerVision;
+    [SerializeField] protected AnimationHandler _animationHandler;
 
     #endregion
 
@@ -76,5 +77,20 @@ public class Controller : MonoBehaviour
     public void SetDetectedState(bool set)
     {
         _inGameState.SetDetectedState(set);
+    }
+
+    public void SetAnimationState(int animationID)
+    {
+        _animationHandler.SetAnimation(animationID);
+    }
+
+    public void SetIdleAnimationState()
+    {
+        _animationHandler.SetIdleAnimation();
+    }
+
+    public void SetMovingAnimation(float value)
+    {
+        _animationHandler.SetNormalizedVelocity(value);
     }
 }

@@ -11,6 +11,7 @@ public abstract class MovingState : IState
 
     public virtual void OnEnterState(StateMachineController stateMachineController)
     {
+        SetMovingAnimation(1);
         _aiController.GetInGameState().SetIsMakingFootstep(true);
     }
 
@@ -48,5 +49,10 @@ public abstract class MovingState : IState
     public virtual void Move(Vector3 pos)
     {
         _navMeshAgent.SetDestination(pos);
+    }
+
+    public virtual void SetMovingAnimation(float value)
+    {
+        _aiController.SetMovingAnimation(value);
     }
 }

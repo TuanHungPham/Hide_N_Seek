@@ -6,6 +6,7 @@ public class RescuingState : MovingState
     {
         LoadComponents(stateMachineController);
         SetupMovingType();
+        base.OnEnterState(stateMachineController);
 
         Debug.Log($"{currentAIPlayer.name} - Rescuing state.....");
     }
