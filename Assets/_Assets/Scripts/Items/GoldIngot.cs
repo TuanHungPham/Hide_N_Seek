@@ -11,4 +11,9 @@ public class GoldIngot : MonoBehaviour, IPickupable
     {
         Destroy(gameObject);
     }
+
+    public void SetPickupVFX()
+    {
+        
+    }
 }

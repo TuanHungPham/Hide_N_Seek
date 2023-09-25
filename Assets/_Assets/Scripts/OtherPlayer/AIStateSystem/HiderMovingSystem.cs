@@ -31,17 +31,11 @@ public class HiderMovingSystem : IMovingSystemAI
 
     public void SetDestination()
     {
-        List<Vector3> limitPosList = MapLevelSystem.Instance.GetLimitPosList();
+        List<Vector3> hidePosList = MapLevelSystem.Instance.GetPatrolPointList();
 
-        Vector3 maxX = limitPosList.Find((x) => x.x > 0);
-        Vector3 minX = limitPosList.Find((x) => x.x < 0);
-        Vector3 maxZ = limitPosList.Find((x) => x.z > 0);
-        Vector3 minZ = limitPosList.Find((x) => x.z < 0);
+        int randomIndex = Random.Range(0, hidePosList.Count);
 
-        float posX = Random.Range(minX.x, maxX.x);
-        float posZ = Random.Range(minZ.z, maxZ.z);
-
-        Vector3 newDestination = new Vector3(posX, 0, posZ);
+        Vector3 newDestination = hidePosList[randomIndex];
         Vector3 seekerCurrentPos = GameplaySystem.Instance.GetNearestSeekerPosition(CurrentAIPlayer);
 
         float distance = Vector3.Distance(seekerCurrentPos, newDestination);

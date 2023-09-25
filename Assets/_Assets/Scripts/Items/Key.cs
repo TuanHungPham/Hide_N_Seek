@@ -11,4 +11,8 @@ public class Key : MonoBehaviour, IPickupable
     {
         Destroy(gameObject);
     }
+
+    public void SetPickupVFX()
+    {
+    }
 }

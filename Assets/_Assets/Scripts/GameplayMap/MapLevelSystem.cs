@@ -11,13 +11,10 @@ public class MapLevelSystem : MonoBehaviour
 
     [SerializeField] private Vector3 _mainPointPos;
 
-    [SerializeField] private Transform _mapLimitPointPool;
-
     [SerializeField] private Transform _patrolPointPool;
 
     [SerializeField] private Transform _startingPointPool;
 
-    [SerializeField] private List<Vector3> _limitPosList;
     [SerializeField] private List<Vector3> _patrolPointList;
     [SerializeField] private List<Vector3> _startingPointList;
 
@@ -36,7 +33,6 @@ public class MapLevelSystem : MonoBehaviour
 
     private void LoadComponents()
     {
-        InitializePosList(_limitPosList, _mapLimitPointPool);
         InitializePosList(_patrolPointList, _patrolPointPool);
         InitializePosList(_startingPointList, _startingPointPool);
     }
@@ -49,11 +45,6 @@ public class MapLevelSystem : MonoBehaviour
 
             list.Add(child.position);
         }
-    }
-
-    public List<Vector3> GetLimitPosList()
-    {
-        return _limitPosList;
     }
 
     public List<Vector3> GetPatrolPointList()

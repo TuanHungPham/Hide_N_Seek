@@ -11,4 +11,9 @@ public class Coin : MonoBehaviour, IPickupable
     {
         Destroy(gameObject);
     }
+
+    public void SetPickupVFX()
+    {
+        
+    }
 }

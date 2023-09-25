@@ -15,4 +15,9 @@ public class GoThroughWallsBooster : MonoBehaviour, IPickupable
     public void DestroyItem()
     {
     }
+
+    public void SetPickupVFX()
+    {
+        
+    }
 }
