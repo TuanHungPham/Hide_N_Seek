@@ -11,4 +11,6 @@ public enum EventID
     END_HIDING_TIME,
     STARTING_GAME,
     GAME_STARTED,
+    END_GAME_TIME,
+    RETRYING_GAME,
 }

@@ -24,6 +24,8 @@ public class InGameState : MonoBehaviour
     [Space(20)] [Header("For Both")] [Space(20)] [SerializeField]
     private FootPrintSystem _footPrintSystem;
 
+    [SerializeField] private Controller _controller;
+
     #endregion
 
     private void Awake()
@@ -124,6 +126,7 @@ public class InGameState : MonoBehaviour
 
     public void SetCaughtState(bool set)
     {
+        _controller.SetIdleAnimationState();
         _isCaught = set;
         _beingFoundHandler.SetupBeingFoundState(set);
     }

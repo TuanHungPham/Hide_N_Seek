@@ -56,7 +56,7 @@ public class GameplayTimeSystem : MonoBehaviour
 
     private void RunGameplayTimer()
     {
-        if (GameplaySystem.Instance.IsInHidingTimer()) return;
+        if (GameplaySystem.Instance.IsInHidingTimer() || _isTimeUp) return;
 
         if (_gamePlayTimer > 0)
         {
@@ -67,11 +67,17 @@ public class GameplayTimeSystem : MonoBehaviour
 
         _gamePlayTimer = 0;
         _isTimeUp = true;
+        EmitEndGameTimeEvent();
     }
 
     private void EmitEndHidingTimeEvent()
     {
         EventManager.EmitEvent(EventID.END_HIDING_TIME);
+    }
+
+    private void EmitEndGameTimeEvent()
+    {
+        EventManager.EmitEvent(EventID.END_GAME_TIME);
     }
 
     public bool IsInHidingTimer()

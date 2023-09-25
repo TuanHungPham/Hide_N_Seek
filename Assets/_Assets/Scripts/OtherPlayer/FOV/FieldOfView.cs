@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,6 @@ public class FieldOfView : MonoBehaviour
 
     [Space(20)] public Transform thisObject;
     public Vector3 normal;
-    public LayerMask targetlayerMask;
     public LayerMask obstaclelayerMask;
     public Vector3 from => thisObject.forward;
     public Color _color;
@@ -86,9 +86,9 @@ public class FieldOfView : MonoBehaviour
 
         if (angleToTarget < viewAngle / 2)
         {
-            float distanceToTarget = Vector3.Distance(thisObject.position, target.position);
+            float distanceToTarget = Vector3.Distance(thisObject.position + Vector3.up / 2, target.position + Vector3.up / 2);
 
-            bool hit = Physics.Raycast(thisObject.position, directionToTarget, distanceToTarget,
+            bool hit = Physics.Raycast(thisObject.position + Vector3.up / 2, directionToTarget, distanceToTarget,
                 obstaclelayerMask);
 
             if (!hit)
@@ -96,6 +96,8 @@ public class FieldOfView : MonoBehaviour
                 Debug.Log($"Spotted {target.name}...");
                 _spottedObjectList.Add(target);
                 EmitSpottedObjectEvent();
+                // Time.timeScale = 0;
+                return;
             }
         }
     }
