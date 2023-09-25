@@ -31,7 +31,7 @@ public class Controller : MonoBehaviour
         _inGameState = GetComponentInChildren<InGameState>();
         _model = GetComponentInChildren<Transform>();
         _seekerVision = GetComponentInChildren<SeekerVisionInteractingSystem>();
-        _interactingSystem = GetComponent<InteractingSystem>();
+        _interactingSystem = GetComponentInChildren<InteractingSystem>();
     }
 
     public virtual Transform GetMeshRenderer()

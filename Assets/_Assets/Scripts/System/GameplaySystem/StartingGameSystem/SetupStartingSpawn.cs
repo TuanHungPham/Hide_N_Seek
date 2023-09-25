@@ -37,7 +37,7 @@ public class SetupStartingSpawn : MonoBehaviour
     {
         List<Vector3> startingPointList = MapLevelSystem.Instance.GetStartingPointList();
 
-        for (int i = 1; i < startingPointList.Count; i++)
+        for (int i = 0; i < startingPointList.Count; i++)
         {
             GameObject player = Instantiate(_otherPlayerPrefab);
             player.transform.position = startingPointList[i];
@@ -45,6 +45,7 @@ public class SetupStartingSpawn : MonoBehaviour
             player.transform.SetParent(_allPlayerParent, true);
 
             player.gameObject.name = string.Format($"OtherPlayer[{i}]");
+            Debug.Log($"{player.gameObject.name} --- Pos: {player.transform.position}");
         }
 
         Debug.Log("Spawning all player...");

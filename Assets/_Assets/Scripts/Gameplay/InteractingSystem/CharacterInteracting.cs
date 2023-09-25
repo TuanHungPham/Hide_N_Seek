@@ -1,39 +1,15 @@
-using System;
-using TigerForge;
 using UnityEngine;
+using TigerForge;
 
-public class InteractingSystem : MonoBehaviour
+public class CharacterInteracting : MonoBehaviour
 {
     [SerializeField] private Controller _controller;
     [SerializeField] private LayerMask _layerMask;
 
-    private void Awake()
+    public void CheckObjColliderState(GameObject target)
     {
-        LoadComponents();
-    }
+        if (!CanInteract(target)) return;
 
-    private void Reset()
-    {
-        LoadComponents();
-    }
-
-    private void LoadComponents()
-    {
-        _controller = GetComponentInParent<Controller>();
-    }
-
-    private void OnTriggerStay(Collider target)
-    {
-        if (GameplaySystem.Instance.IsInHidingTimer()) return;
-
-        if ((_layerMask.value & (1 << target.gameObject.layer)) == 0) return;
-
-        CheckObjColliderState(target.gameObject);
-        // Debug.Log("Colliding...........");
-    }
-
-    private void CheckObjColliderState(GameObject target)
-    {
         Controller targetController = target.GetComponent<Controller>();
         if (targetController == null) return;
 
@@ -58,6 +34,13 @@ public class InteractingSystem : MonoBehaviour
     {
         targetController.SetCaughtState(false);
         EmitRescuingEvent();
+    }
+
+    private bool CanInteract(GameObject target)
+    {
+        if ((_layerMask.value & (1 << target.gameObject.layer)) == 0) return false;
+
+        return true;
     }
 
     private void EmitRescuingEvent()
