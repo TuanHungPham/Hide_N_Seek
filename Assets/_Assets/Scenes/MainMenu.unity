@@ -1200,7 +1200,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 619890708}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 662817856}
+        m_TargetAssemblyTypeName: MainMenuButtonHandler, Assembly-CSharp
+        m_MethodName: LoadPopup
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CostumeShop
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &619890708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1375,6 +1387,7 @@ GameObject:
   - component: {fileID: 635713123}
   - component: {fileID: 635713125}
   - component: {fileID: 635713126}
+  - component: {fileID: 635713127}
   m_Layer: 5
   m_Name: GameplayTypeButtonPanel
   m_TagString: Untagged
@@ -1480,6 +1493,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f906d3cd65d4f449b8c51779ce9913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &635713127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635713121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d37f8d4339749b5ab816d76fc1f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &662817851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,6 +1517,7 @@ GameObject:
   - component: {fileID: 662817854}
   - component: {fileID: 662817853}
   - component: {fileID: 662817852}
+  - component: {fileID: 662817856}
   m_Layer: 5
   m_Name: MainMenuUI
   m_TagString: Untagged
@@ -1587,6 +1613,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &662817856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662817851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a825244f1fde5b647bc0468be4096e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &710482953
 GameObject:
   m_ObjectHideFlags: 0
