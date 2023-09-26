@@ -4,10 +4,10 @@ using UnityEngine;
 public class ShopItemUIPanel : MonoBehaviour
 {
     [SerializeField] private CostumeShopData _costumeShopData;
-    [SerializeField] private CostumeData _costumeData;
     [SerializeField] private List<ShopItemUI> _shopItemUIList = new List<ShopItemUI>();
     [SerializeField] private ShopItemUI _shopItemUIPrefab;
     [SerializeField] private CostumeShop _currentSelectedCostume;
+    private CostumeDataManager CostumeDataManager => CostumeDataManager.Instance;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class ShopItemUIPanel : MonoBehaviour
     private void InitializeShopItemUI()
     {
         List<CostumeShop> shopItemUIList = _costumeShopData.CostumeShopList;
-        List<Costume> costumeDataList = _costumeData.CostumeDataList;
+        List<Costume> costumeDataList = CostumeDataManager.GetCostumeDataList();
 
         for (int i = 0; i < shopItemUIList.Count; i++)
         {
@@ -41,7 +41,7 @@ public class ShopItemUIPanel : MonoBehaviour
             HandleSettingShopUIData(shopItemUI, shopItemUIList[i], costumeDataList[i].IsOwned());
 
             _shopItemUIList.Add(shopItemUI);
-            shopItemUI.OnClickItemEvent += SelectShopItem;
+            shopItemUI.OnClickItemEvent += InteractShopItem;
         }
     }
 
@@ -56,13 +56,20 @@ public class ShopItemUIPanel : MonoBehaviour
         shopItemUI.SetUIData(costumeShop, isOwned);
     }
 
-    private void SelectShopItem(ShopItemUI shopItemUI)
+    private void InteractShopItem(ShopItemUI shopItemUI)
     {
         if (shopItemUI == null) return;
 
+        if (shopItemUI.IsOwned())
+        {
+            DeselectAllShopItem();
+            shopItemUI.Select();
+            _currentSelectedCostume = shopItemUI.GetCostumeShop();
+            return;
+        }
+
         DeselectAllShopItem();
-        shopItemUI.Select();
-        _currentSelectedCostume = shopItemUI.GetCostumeShop();
+        shopItemUI.Buy();
     }
 
     private void DeselectAllShopItem()

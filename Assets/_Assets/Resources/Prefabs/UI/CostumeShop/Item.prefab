@@ -326,10 +326,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9b660fe6e093a4997eea2ab3b00b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isOwned: 0
+  _isSelected: 0
   _priceText: {fileID: 8911284532130129857}
   _itemImg: {fileID: 8911284530826469683}
-  _buyButton: {fileID: 8911284530993453498}
+  _buyButton: {fileID: 8911284530993453496}
   _selectButton: {fileID: 725705233}
+  _costumeShop:
+    _costumeID: 0
+    _costumePrice: 0
+    _costumeImage: {fileID: 0}
 --- !u!1 &8911284530993453498
 GameObject:
   m_ObjectHideFlags: 0
