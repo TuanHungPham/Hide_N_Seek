@@ -97,7 +97,6 @@ public class FieldOfView : MonoBehaviour
                 _spottedObjectList.Add(target);
                 EmitSpottedObjectEvent();
                 // Time.timeScale = 0;
-                return;
             }
         }
     }
