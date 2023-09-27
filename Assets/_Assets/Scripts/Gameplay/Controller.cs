@@ -6,7 +6,7 @@ public class Controller : MonoBehaviour
 
     [SerializeField] protected PlayerType _playerType;
 
-    [SerializeField] protected Transform _model;
+    [SerializeField] protected Model _model;
 
     [SerializeField] protected InGameState _inGameState;
 
@@ -29,12 +29,12 @@ public class Controller : MonoBehaviour
     protected virtual void LoadComponents()
     {
         _inGameState = GetComponentInChildren<InGameState>();
-        _model = GetComponentInChildren<Transform>();
+        _model = GetComponentInChildren<Model>();
         _seekerVision = GetComponentInChildren<SeekerVisionInteractingSystem>();
         _interactingSystem = GetComponentInChildren<InteractingSystem>();
     }
 
-    public virtual Transform GetMeshRenderer()
+    public virtual Model GetModel()
     {
         return _model;
     }
@@ -57,6 +57,11 @@ public class Controller : MonoBehaviour
     public SeekerVisionInteractingSystem GetSeekerVision()
     {
         return _seekerVision;
+    }
+
+    public void SetModelMaterial(Material material)
+    {
+        _model.SetModelMaterial(material);
     }
 
     public void SetTriggeredState(bool set)

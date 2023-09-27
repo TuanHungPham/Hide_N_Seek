@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 using TigerForge;
-using UnityEngine.Serialization;
+using UnityEngine.AI;
 
 public class InGameState : MonoBehaviour
 {
@@ -19,6 +18,8 @@ public class InGameState : MonoBehaviour
     [SerializeField] private bool _isHearingSomething;
     [SerializeField] private GameObject _seekerVision;
     [SerializeField] private GameObject _triggerSystem;
+
+    [SerializeField] private NavMeshObstacle _navMeshObstacle;
     // [SerializeField] private GameObject _exclamationMark;
 
     [Space(20)] [Header("For Both")] [Space(20)] [SerializeField]
@@ -74,6 +75,7 @@ public class InGameState : MonoBehaviour
                 _triggerSystem.gameObject.SetActive(true);
             }
 
+            _navMeshObstacle.enabled = true;
             return;
         }
 
@@ -82,6 +84,8 @@ public class InGameState : MonoBehaviour
         {
             _triggerSystem.gameObject.SetActive(false);
         }
+
+        _navMeshObstacle.enabled = false;
     }
 
     public bool IsSeeker()

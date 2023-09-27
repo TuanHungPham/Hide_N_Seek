@@ -263,6 +263,7 @@ MonoBehaviour:
   _isHearingSomething: 0
   _seekerVision: {fileID: 645719886}
   _triggerSystem: {fileID: 0}
+  _navMeshObstacle: {fileID: 6766232614014473004}
   _footPrintSystem: {fileID: 0}
   _controller: {fileID: 1543048203}
 --- !u!1 &1506604607
@@ -449,7 +450,6 @@ MonoBehaviour:
   _color: {r: 1, g: 0.14508255, b: 0, a: 1}
   _spottedObjectList: []
   _objectInViewList: []
-  testGizmos: 0
 --- !u!114 &6392288776902878898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21544,6 +21544,7 @@ MonoBehaviour:
   _controller: {fileID: 1543048203}
   _characterModel: {fileID: 6596507167669886879}
   _skinnedMeshRenderer: {fileID: 462830274961433127}
+  _modelMaterial: {fileID: 0}
 --- !u!1 &4319294173017530518
 GameObject:
   m_ObjectHideFlags: 0
@@ -27265,6 +27266,7 @@ GameObject:
   - component: {fileID: 6392288775459449511}
   - component: {fileID: 1543048203}
   - component: {fileID: 1543048205}
+  - component: {fileID: 6766232614014473004}
   m_Layer: 10
   m_Name: MainCharacter
   m_TagString: Player
@@ -27356,6 +27358,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactingHandler: {fileID: 2394121986158664576}
+--- !u!208 &6766232614014473004
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6392288775459449514}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.5, y: 0.21, z: 2.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.7, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6392288775550391665
 GameObject:
   m_ObjectHideFlags: 0

@@ -1084,12 +1084,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCharacter
       objectReference: {fileID: 0}
-    - target: {fileID: 6392288776902878895, guid: 06ae471b1a2a1ef418ba7a2294498b5a, type: 3}
-      propertyPath: testGizmos
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06ae471b1a2a1ef418ba7a2294498b5a, type: 3}
+--- !u!114 &2394121986102327956 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1543048203, guid: 06ae471b1a2a1ef418ba7a2294498b5a, type: 3}
+  m_PrefabInstance: {fileID: 2394121986102327955}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a77a0c479ecc264387d37d53bac972f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3518248448492741064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1097,6 +1104,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 629180723}
     m_Modifications:
+    - target: {fileID: 578892465, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
+      propertyPath: _mainCharacterController
+      value: 
+      objectReference: {fileID: 2394121986102327956}
     - target: {fileID: 855699351, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
       propertyPath: _mainCharacter
       value: 

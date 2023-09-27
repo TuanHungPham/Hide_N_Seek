@@ -10,6 +10,7 @@ public class Model : MonoBehaviour
     [Space(20)] [SerializeField] private Controller _controller;
     [SerializeField] private Transform _characterModel;
     [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
+    [SerializeField] private Material _modelMaterial;
 
     #endregion
 
@@ -57,5 +58,11 @@ public class Model : MonoBehaviour
         if (!_controller.GetInGameState().IsSeeker()) return;
 
         _characterModel.localScale *= _seekerSizeMultiple;
+    }
+
+    public void SetModelMaterial(Material material)
+    {
+        _modelMaterial = material;
+        _skinnedMeshRenderer.material = material;
     }
 }

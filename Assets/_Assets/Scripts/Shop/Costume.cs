@@ -6,7 +6,13 @@ public class Costume
 {
     [SerializeField] private int _costumeID;
     [SerializeField] private Material _costumeMaterial;
+    [SerializeField] private bool _isSelected;
     [SerializeField] private bool _isOwned;
+
+    public void SetSelectedCostume(bool set)
+    {
+        _isSelected = set;
+    }
 
     public void SetOwned(bool set)
     {
@@ -26,5 +32,10 @@ public class Costume
     public bool IsOwned()
     {
         return _isOwned;
+    }
+
+    public bool IsSelected()
+    {
+        return _isSelected;
     }
 }

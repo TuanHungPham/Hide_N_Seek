@@ -13,4 +13,5 @@ public enum EventID
     GAME_STARTED,
     END_GAME_TIME,
     RETRYING_GAME,
+    CLOSING_SHOP,
 }

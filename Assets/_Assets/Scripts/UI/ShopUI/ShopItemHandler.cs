@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TigerForge;
 
-public class ShopItemUIPanel : MonoBehaviour
+public class ShopItemHandler : MonoBehaviour
 {
-    [SerializeField] private CostumeShopData _costumeShopData;
+    [SerializeField] private ItemShopData itemShopData;
     [SerializeField] private List<ShopItemUI> _shopItemUIList = new List<ShopItemUI>();
     [SerializeField] private ShopItemUI _shopItemUIPrefab;
-    [SerializeField] private CostumeShop _currentSelectedCostume;
-    private CostumeDataManager CostumeDataManager => CostumeDataManager.Instance;
+    [SerializeField] private ItemShop currentSelectedItem;
+    private IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
     private void Awake()
     {
@@ -30,8 +31,9 @@ public class ShopItemUIPanel : MonoBehaviour
 
     private void InitializeShopItemUI()
     {
-        List<CostumeShop> shopItemUIList = _costumeShopData.CostumeShopList;
-        List<Costume> costumeDataList = CostumeDataManager.GetCostumeDataList();
+        Debug.Log("Initializing Shop...");
+        List<ItemShop> shopItemUIList = itemShopData.ItemShopList;
+        List<Costume> costumeDataList = IngameDataManager.GetCostumeDataList();
 
         for (int i = 0; i < shopItemUIList.Count; i++)
         {
@@ -51,9 +53,9 @@ public class ShopItemUIPanel : MonoBehaviour
         newShopItemUI.transform.SetParent(transform, true);
     }
 
-    private void HandleSettingShopUIData(ShopItemUI shopItemUI, CostumeShop costumeShop, bool isOwned)
+    private void HandleSettingShopUIData(ShopItemUI shopItemUI, ItemShop itemShop, bool isOwned)
     {
-        shopItemUI.SetUIData(costumeShop, isOwned);
+        shopItemUI.SetUIData(itemShop, isOwned);
     }
 
     private void InteractShopItem(ShopItemUI shopItemUI)
@@ -63,13 +65,27 @@ public class ShopItemUIPanel : MonoBehaviour
         if (shopItemUI.IsOwned())
         {
             DeselectAllShopItem();
-            shopItemUI.Select();
-            _currentSelectedCostume = shopItemUI.GetCostumeShop();
+            SelectItem(shopItemUI);
+            currentSelectedItem = shopItemUI.GetCostumeShop();
             return;
         }
 
         DeselectAllShopItem();
+        BuyItem(shopItemUI);
+    }
+
+    private void SelectItem(ShopItemUI shopItemUI)
+    {
+        int itemID = shopItemUI.GetItemID();
+        shopItemUI.Select();
+        IngameDataManager.SetCurrentUsingCostume(itemID);
+    }
+
+    private void BuyItem(ShopItemUI shopItemUI)
+    {
+        int itemID = shopItemUI.GetItemID();
         shopItemUI.Buy();
+        IngameDataManager.SetCostumeOwnedStateData(itemID, true);
     }
 
     private void DeselectAllShopItem()

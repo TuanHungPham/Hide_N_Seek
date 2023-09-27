@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ShopItemUI : MonoBehaviour, IPointerClickHandler
@@ -21,7 +22,7 @@ public class ShopItemUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image _itemImg;
     [SerializeField] private Button _buyButton;
     [SerializeField] private GameObject _selectButton;
-    [SerializeField] private CostumeShop _costumeShop;
+    [SerializeField] private ItemShop _itemShop;
 
     #endregion
 
@@ -40,12 +41,12 @@ public class ShopItemUI : MonoBehaviour, IPointerClickHandler
         _buyButton.onClick.AddListener(InvokeOnClickEvent);
     }
 
-    public void SetUIData(CostumeShop costumeShop, bool isOwned)
+    public void SetUIData(ItemShop itemShop, bool isOwned)
     {
         _isOwned = isOwned;
-        _costumeShop = costumeShop;
-        _priceText.text = costumeShop.GetCostumePrice().ToString();
-        _itemImg.sprite = costumeShop.GetCostumeImage();
+        _itemShop = itemShop;
+        _priceText.text = itemShop.GetItemPrice().ToString();
+        _itemImg.sprite = itemShop.GetItemImage();
 
         if (isOwned)
         {
@@ -91,9 +92,14 @@ public class ShopItemUI : MonoBehaviour, IPointerClickHandler
         OnClickItemEvent?.Invoke(this);
     }
 
-    public CostumeShop GetCostumeShop()
+    public ItemShop GetCostumeShop()
     {
-        return _costumeShop;
+        return _itemShop;
+    }
+
+    public int GetItemID()
+    {
+        return _itemShop.GetItemID();
     }
 
     public bool IsOwned()
