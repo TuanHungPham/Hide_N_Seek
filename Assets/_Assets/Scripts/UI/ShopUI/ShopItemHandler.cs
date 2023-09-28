@@ -41,6 +41,7 @@ public class ShopItemHandler : MonoBehaviour
 
             CreateShopItemUI(_shopItemUIPrefab, out shopItemUI);
             HandleSettingShopUIData(shopItemUI, shopItemUIList[i], costumeDataList[i].IsOwned());
+            HandleSettingShopUIData(shopItemUI, shopItemUIList[i], false);
 
             _shopItemUIList.Add(shopItemUI);
             shopItemUI.OnClickItemEvent += InteractShopItem;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/CostumeList")]
+[CreateAssetMenu(menuName = "Data/ShopData/CostumeList")]
 public class CostumeData : ScriptableObject
 {
     [SerializeField] private List<Costume> _costumeDataList = new List<Costume>();

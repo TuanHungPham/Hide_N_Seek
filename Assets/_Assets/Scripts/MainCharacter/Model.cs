@@ -37,7 +37,7 @@ public class Model : MonoBehaviour
 
     private void Update()
     {
-        HandleInvisibleModelInRuntime();
+        // HandleInvisibleModelInRuntime();
     }
 
     private void HandleInvisibleModelInRuntime()
