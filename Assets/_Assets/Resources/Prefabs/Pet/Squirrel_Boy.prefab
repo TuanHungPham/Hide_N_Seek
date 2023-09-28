@@ -1110,8 +1110,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4327313863156341}
   - component: {fileID: 95585458591923895}
+  - component: {fileID: 8312114476177837744}
   m_Layer: 0
-  m_Name: Squirrel_Boy
+  m_Name: Squirrel_Boy_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1126,7 +1127,7 @@ Transform:
   m_GameObject: {fileID: 1473874174021629}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4309129635590818}
@@ -1155,6 +1156,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8312114476177837744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473874174021629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12f1c753d7e7bf14eb99621d171c616c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 95585458591923895}
 --- !u!1 &1487236529174385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,9 +1904,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4513657999389711}
-  - component: {fileID: 195162600178747768}
-  m_Layer: 0
-  m_Name: Squirrel_Boy_0
+  - component: {fileID: 26035788368059584}
+  - component: {fileID: 6674829905910921771}
+  m_Layer: 13
+  m_Name: Squirrel_Boy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1907,14 +1922,14 @@ Transform:
   m_GameObject: {fileID: 1736249732665720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4327313863156341}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
---- !u!195 &195162600178747768
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &26035788368059584
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1924,18 +1939,33 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.12
-  m_Speed: 4
-  m_Acceleration: 30
+  m_Speed: 4.5
+  m_Acceleration: 50
   avoidancePriority: 1
   m_AngularSpeed: 300
   m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 0.48
+  m_Height: 1.33
   m_BaseOffset: 0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
+--- !u!114 &6674829905910921771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736249732665720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f352c85a123cf14b80b86d6b012ae17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _holder: {fileID: 0}
+  _navMeshAgent: {fileID: 26035788368059584}
+  _petAnimationSystem: {fileID: 8312114476177837744}
 --- !u!1 &1738269692251617
 GameObject:
   m_ObjectHideFlags: 0

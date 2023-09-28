@@ -18,7 +18,7 @@ public class AnimationHandler : MonoBehaviour
     {
         _animator.SetFloat(IS_PLAYER_PARAM, 1);
 
-        _animator.SetFloat(NORMALIZED_VELOCITY_VALUE, 0);
+        _animator.SetFloat(NORMALIZED_VELOCITY_VALUE, 0, 0.05f, Time.deltaTime);
         _animator.SetInteger(ANIMATION_ID, ANIMATION_TRANSITION_STATE);
     }
 
