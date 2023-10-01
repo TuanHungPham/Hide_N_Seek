@@ -1,4 +1,3 @@
-using System;
 using TigerForge;
 using UnityEngine;
 
@@ -7,14 +6,15 @@ public class CostumeManager : MonoBehaviour
     private IngameDataManager IngameDataManager => IngameDataManager.Instance;
     [SerializeField] private Controller _mainCharacterController;
 
-    private void Awake()
-    {
-        EventManager.StartListening(EventID.CLOSING_SHOP, SetModel);
-    }
-
     private void Start()
     {
+        ListenEvent();
         SetModel();
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.CLOSING_SHOP, SetModel);
     }
 
     private void SetModel()

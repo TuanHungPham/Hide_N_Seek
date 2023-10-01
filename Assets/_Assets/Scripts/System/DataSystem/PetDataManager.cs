@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
 
-public class CostumeDataManager : MonoBehaviour
+public class PetDataManager : MonoBehaviour
 {
-    [SerializeField] private CostumeData _costumeData;
+    [SerializeField] private PetData _petData;
     [SerializeField] private ItemShopData _itemShopData;
-    [SerializeField] private List<Costume> _costumeDataList = new List<Costume>();
-    [SerializeField] private Costume _currentUsingCostume;
+    [SerializeField] private List<Pet> _petDataList = new List<Pet>();
+    [SerializeField] private Pet _currentUsingPet;
 
     private void Awake()
     {
         LoadComponents();
-        LoadCurrentUsingCostume();
+        LoadCurrentUsingPet();
         ListenEvent();
     }
 
@@ -23,7 +23,7 @@ public class CostumeDataManager : MonoBehaviour
 
     private void LoadComponents()
     {
-        _costumeDataList = _costumeData.CostumeDataList;
+        _petDataList = _petData.PetDataList;
     }
 
     private void ListenEvent()
@@ -31,9 +31,9 @@ public class CostumeDataManager : MonoBehaviour
         EventManager.StartListening(EventID.CLOSING_SHOP, SetData);
     }
 
-    private void LoadCurrentUsingCostume()
+    private void LoadCurrentUsingPet()
     {
-        _currentUsingCostume = _costumeDataList.Find((x) => x.IsSelected());
+        _currentUsingPet = _petDataList.Find((x) => x.IsSelected());
     }
 
     private void SetData()
@@ -46,18 +46,23 @@ public class CostumeDataManager : MonoBehaviour
             bool isOwned = itemShopList[i].IsOwned();
             bool isSelected = itemShopList[i].IsSelected();
 
-            _costumeDataList[i].SetOwned(isOwned);
-            _costumeDataList[i].SetSelected(isSelected);
+            _petDataList[i].SetOwned(isOwned);
+            _petDataList[i].SetSelected(isSelected);
 
             if (isSelected)
             {
-                _currentUsingCostume = _costumeDataList[i];
+                _currentUsingPet = _petDataList[i];
             }
         }
     }
 
-    public Costume GetCurrentUsingItem()
+    public Pet GetCurrentUsingItem()
     {
-        return _currentUsingCostume;
+        return _currentUsingPet;
+    }
+
+    public GameObject GetCurrentPet()
+    {
+        return _currentUsingPet.GetPet();
     }
 }

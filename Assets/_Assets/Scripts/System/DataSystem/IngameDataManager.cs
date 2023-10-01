@@ -1,12 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DataType
+{
+    COSTUME_DATA,
+    PET_DATA,
+}
+
 public class IngameDataManager : MonoBehaviour
 {
     private static IngameDataManager instance;
     public static IngameDataManager Instance => instance;
 
     [SerializeField] private CostumeDataManager _costumeDataManager;
+    [SerializeField] private PetDataManager _petDataManager;
 
     private void Awake()
     {
@@ -22,25 +29,16 @@ public class IngameDataManager : MonoBehaviour
     private void LoadComponents()
     {
         _costumeDataManager = GetComponentInChildren<CostumeDataManager>();
-    }
-
-    public List<Costume> GetCostumeDataList()
-    {
-        return _costumeDataManager.GetCostumeDataList();
-    }
-
-    public void SetCostumeOwnedStateData(int costumeID, bool isOwned)
-    {
-        _costumeDataManager.SetCostumeOwnedStateData(costumeID, isOwned);
-    }
-
-    public void SetCurrentUsingCostume(int costumeID)
-    {
-        _costumeDataManager.SetCurrentUsingCostume(costumeID);
+        _petDataManager = GetComponentInChildren<PetDataManager>();
     }
 
     public Costume GetCurrentUsingCostume()
     {
-        return _costumeDataManager.GetCurrentUsingCostume();
+        return _costumeDataManager.GetCurrentUsingItem();
+    }
+
+    public GameObject GetCurrentUsingPet()
+    {
+        return _petDataManager.GetCurrentPet();
     }
 }

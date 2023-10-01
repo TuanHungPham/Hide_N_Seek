@@ -7,8 +7,6 @@ public class ShopItemHandler : MonoBehaviour
     [SerializeField] private ItemShopData itemShopData;
     [SerializeField] private List<ShopItemUI> _shopItemUIList = new List<ShopItemUI>();
     [SerializeField] private ShopItemUI _shopItemUIPrefab;
-    [SerializeField] private ItemShop currentSelectedItem;
-    private IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
     private void Awake()
     {
@@ -33,15 +31,13 @@ public class ShopItemHandler : MonoBehaviour
     {
         Debug.Log("Initializing Shop...");
         List<ItemShop> shopItemUIList = itemShopData.ItemShopList;
-        List<Costume> costumeDataList = IngameDataManager.GetCostumeDataList();
 
         for (int i = 0; i < shopItemUIList.Count; i++)
         {
             ShopItemUI shopItemUI;
 
             CreateShopItemUI(_shopItemUIPrefab, out shopItemUI);
-            HandleSettingShopUIData(shopItemUI, shopItemUIList[i], costumeDataList[i].IsOwned());
-            HandleSettingShopUIData(shopItemUI, shopItemUIList[i], false);
+            HandleSettingShopUIData(shopItemUI, shopItemUIList[i], shopItemUIList[i].IsOwned(), shopItemUIList[i].IsSelected());
 
             _shopItemUIList.Add(shopItemUI);
             shopItemUI.OnClickItemEvent += InteractShopItem;
@@ -54,9 +50,9 @@ public class ShopItemHandler : MonoBehaviour
         newShopItemUI.transform.SetParent(transform, true);
     }
 
-    private void HandleSettingShopUIData(ShopItemUI shopItemUI, ItemShop itemShop, bool isOwned)
+    private void HandleSettingShopUIData(ShopItemUI shopItemUI, ItemShop itemShop, bool isOwned, bool isSelected)
     {
-        shopItemUI.SetUIData(itemShop, isOwned);
+        shopItemUI.SetUIData(itemShop, isOwned, isSelected);
     }
 
     private void InteractShopItem(ShopItemUI shopItemUI)
@@ -67,7 +63,6 @@ public class ShopItemHandler : MonoBehaviour
         {
             DeselectAllShopItem();
             SelectItem(shopItemUI);
-            currentSelectedItem = shopItemUI.GetCostumeShop();
             return;
         }
 
@@ -79,14 +74,12 @@ public class ShopItemHandler : MonoBehaviour
     {
         int itemID = shopItemUI.GetItemID();
         shopItemUI.Select();
-        IngameDataManager.SetCurrentUsingCostume(itemID);
     }
 
     private void BuyItem(ShopItemUI shopItemUI)
     {
         int itemID = shopItemUI.GetItemID();
         shopItemUI.Buy();
-        IngameDataManager.SetCostumeOwnedStateData(itemID, true);
     }
 
     private void DeselectAllShopItem()

@@ -9,7 +9,7 @@ public class Pet
     [SerializeField] private bool _isSelected;
     [SerializeField] private bool _isOwned;
 
-    public void SetSelectedPet(bool set)
+    public void SetSelected(bool set)
     {
         _isSelected = set;
     }

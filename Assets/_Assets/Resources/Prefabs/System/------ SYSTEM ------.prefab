@@ -94,6 +94,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164975b56411d984a835717d4914b030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &376902562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 376902563}
+  - component: {fileID: 3407891645601644403}
+  m_Layer: 0
+  m_Name: PetDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &376902563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376902562}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4522594346494095008}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3407891645601644403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376902562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cfbcde46700a674f932abf02b746260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _petData: {fileID: 11400000, guid: eaec616c7a2e44a4c95f87b8d09719e5, type: 2}
+  _itemShopData: {fileID: 11400000, guid: 5250fa4b927328147babcca74aacd8ae, type: 2}
+  _petDataList: []
+  _currentUsingPet:
+    _petID: 0
+    _petPrefab: {fileID: 0}
+    _isSelected: 0
+    _isOwned: 0
 --- !u!1 &578892463
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,6 +358,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 578892464}
+  - {fileID: 9137987195080542367}
   m_Father: {fileID: 3518248447433267568}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -540,6 +593,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5774614072037238061}
+  - {fileID: 376902563}
   m_Father: {fileID: 3518248447433267568}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -556,6 +610,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _costumeDataManager: {fileID: 1965849571906993749}
+  _petDataManager: {fileID: 3407891645601644403}
+--- !u!1 &2953096736354137116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9137987195080542367}
+  - component: {fileID: 8381903817379312821}
+  m_Layer: 0
+  m_Name: PetManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9137987195080542367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2953096736354137116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1428526723}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8381903817379312821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2953096736354137116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1969abb5ab1556d47ab620dc27d8f9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainCharacterController: {fileID: 0}
 --- !u!1 &3518248447433267583
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _costumeData: {fileID: 11400000, guid: a2718157d28ce474ebbd38f7988f6e43, type: 2}
+  _itemShopData: {fileID: 11400000, guid: 00d08ae327dd57e4a97140b6ae55d873, type: 2}
   _costumeDataList: []
   _currentUsingCostume:
     _costumeID: 0

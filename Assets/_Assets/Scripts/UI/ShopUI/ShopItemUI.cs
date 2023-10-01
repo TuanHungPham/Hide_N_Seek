@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ShopItemUI : MonoBehaviour, IPointerClickHandler
@@ -41,41 +40,60 @@ public class ShopItemUI : MonoBehaviour, IPointerClickHandler
         _buyButton.onClick.AddListener(InvokeOnClickEvent);
     }
 
-    public void SetUIData(ItemShop itemShop, bool isOwned)
+    public void SetUIData(ItemShop itemShop, bool isOwned, bool isSelected)
     {
-        _isOwned = isOwned;
         _itemShop = itemShop;
+
+        _itemShop.SetOwnedState(isOwned);
+        _itemShop.SetSelectState(isSelected);
+
         _priceText.text = itemShop.GetItemPrice().ToString();
         _itemImg.sprite = itemShop.GetItemImage();
 
-        if (isOwned)
+        SetUIState();
+    }
+
+    private void SetUIState()
+    {
+        if (_itemShop.IsOwned())
         {
             _buyButton.gameObject.SetActive(false);
-            _selectButton.SetActive(false);
         }
         else
         {
             _buyButton.gameObject.SetActive(true);
+        }
+
+        if (_itemShop.IsSelected())
+        {
+            _selectButton.SetActive(true);
+        }
+        else
+        {
             _selectButton.SetActive(false);
         }
     }
 
     public void Buy()
     {
-        _isOwned = true;
+        _itemShop.SetOwnedState(true);
+        Select();
+
         _buyButton.gameObject.SetActive(false);
         _selectButton.SetActive(true);
     }
 
     public void Select()
     {
-        _isSelected = true;
+        _itemShop.SetSelectState(true);
+
         _selectButton.SetActive(true);
     }
 
     public void Deselect()
     {
-        _isSelected = false;
+        _itemShop.SetSelectState(false);
+
         _selectButton.SetActive(false);
     }
 
@@ -92,7 +110,7 @@ public class ShopItemUI : MonoBehaviour, IPointerClickHandler
         OnClickItemEvent?.Invoke(this);
     }
 
-    public ItemShop GetCostumeShop()
+    public ItemShop GetItemShop()
     {
         return _itemShop;
     }

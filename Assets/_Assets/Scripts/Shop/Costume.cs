@@ -9,7 +9,7 @@ public class Costume
     [SerializeField] private bool _isSelected;
     [SerializeField] private bool _isOwned;
 
-    public void SetSelectedCostume(bool set)
+    public void SetSelected(bool set)
     {
         _isSelected = set;
     }

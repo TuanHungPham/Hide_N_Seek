@@ -7,6 +7,7 @@ public class PlayerController : Controller
 
     #region private
 
+    [SerializeField] private Transform _petHolder;
     [SerializeField] private MovingSystem _movingSystem;
     [SerializeField] private BoosterUsingHandler _boosterUsingHandler;
 
@@ -38,5 +39,15 @@ public class PlayerController : Controller
     public void SetCurrentUsingBooster(BoosterID boosterID)
     {
         _boosterUsingHandler.SetCurrentUsingBooster(boosterID);
+    }
+
+    public Transform GetPetHolder()
+    {
+        return _petHolder;
+    }
+
+    public Vector3 GetPetHolderPosition()
+    {
+        return _petHolder.position;
     }
 }

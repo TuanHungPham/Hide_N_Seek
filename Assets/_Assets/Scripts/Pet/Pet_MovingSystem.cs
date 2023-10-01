@@ -50,4 +50,9 @@ public class Pet_MovingSystem : MonoBehaviour
         if (distanceToCharacter <= 1f) return false;
         return true;
     }
+
+    public void SetHolder(Transform holder)
+    {
+        _holder = holder;
+    }
 }
