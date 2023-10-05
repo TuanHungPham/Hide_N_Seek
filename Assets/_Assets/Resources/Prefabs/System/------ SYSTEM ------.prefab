@@ -94,58 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164975b56411d984a835717d4914b030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &376902562
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 376902563}
-  - component: {fileID: 3407891645601644403}
-  m_Layer: 0
-  m_Name: PetDataManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &376902563
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376902562}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4522594346494095008}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3407891645601644403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376902562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cfbcde46700a674f932abf02b746260, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _petData: {fileID: 11400000, guid: eaec616c7a2e44a4c95f87b8d09719e5, type: 2}
-  _itemShopData: {fileID: 11400000, guid: 5250fa4b927328147babcca74aacd8ae, type: 2}
-  _petDataList: []
-  _currentUsingPet:
-    _petID: 0
-    _petPrefab: {fileID: 0}
-    _isSelected: 0
-    _isOwned: 0
 --- !u!1 &578892463
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,8 +123,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1428526723}
-  m_RootOrder: 0
+  m_Father: {fileID: 2146585954}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &578892465
 MonoBehaviour:
@@ -283,51 +231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyboardInputValue: {x: 0, y: 0}
---- !u!1 &1179630062
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1179630063}
-  - component: {fileID: 1179630064}
-  m_Layer: 0
-  m_Name: CostumeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1179630063
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179630062}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2146585954}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1179630064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179630062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46849f8e0fe9a7e40abe2d9034bd7a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainCharacterController: {fileID: 0}
 --- !u!1 &1428526722
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,10 +260,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 578892464}
+  - {fileID: 720910140258441703}
   - {fileID: 9137987195080542367}
   m_Father: {fileID: 3518248447433267568}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1428526724
 MonoBehaviour:
@@ -545,7 +448,7 @@ Transform:
   m_Children:
   - {fileID: 1830838679}
   - {fileID: 285347337}
-  - {fileID: 1179630063}
+  - {fileID: 578892464}
   m_Father: {fileID: 3518248447433267568}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -563,7 +466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourcesManager: {fileID: 1830838680}
   _gameFlowManager: {fileID: 285347338}
---- !u!1 &2629935441609263624
+--- !u!1 &720910140258441720
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -571,46 +474,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4522594346494095008}
-  - component: {fileID: 3518248448492741067}
+  - component: {fileID: 720910140258441703}
+  - component: {fileID: 720910140258441702}
   m_Layer: 0
-  m_Name: IngameDataManager
+  m_Name: CostumeManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4522594346494095008
+--- !u!4 &720910140258441703
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2629935441609263624}
+  m_GameObject: {fileID: 720910140258441720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5774614072037238061}
-  - {fileID: 376902563}
-  m_Father: {fileID: 3518248447433267568}
-  m_RootOrder: 3
+  m_Children: []
+  m_Father: {fileID: 1428526723}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3518248448492741067
+--- !u!114 &720910140258441702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2629935441609263624}
+  m_GameObject: {fileID: 720910140258441720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38350e846deef1e4f80f284bc74d2b6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 46849f8e0fe9a7e40abe2d9034bd7a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _costumeDataManager: {fileID: 1965849571906993749}
-  _petDataManager: {fileID: 3407891645601644403}
+  _mainCharacterController: {fileID: 0}
 --- !u!1 &2953096736354137116
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +579,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3518248447433267583}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -687,63 +587,10 @@ Transform:
   - {fileID: 9134092522314061450}
   - {fileID: 1170807042}
   - {fileID: 2146585954}
-  - {fileID: 4522594346494095008}
   - {fileID: 1428526723}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8258166746374551159
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5774614072037238061}
-  - component: {fileID: 1965849571906993749}
-  m_Layer: 0
-  m_Name: CostumeDataManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5774614072037238061
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8258166746374551159}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4522594346494095008}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1965849571906993749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8258166746374551159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b6344ae1c994b22a3838673279853a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _costumeData: {fileID: 11400000, guid: a2718157d28ce474ebbd38f7988f6e43, type: 2}
-  _itemShopData: {fileID: 11400000, guid: 00d08ae327dd57e4a97140b6ae55d873, type: 2}
-  _costumeDataList: []
-  _currentUsingCostume:
-    _costumeID: 0
-    _costumeMaterial: {fileID: 0}
-    _isSelected: 0
-    _isOwned: 0
 --- !u!1 &9134092522314061449
 GameObject:
   m_ObjectHideFlags: 0

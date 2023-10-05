@@ -17,6 +17,7 @@ public class IngameDataManager : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this);
         instance = this;
         LoadComponents();
     }
