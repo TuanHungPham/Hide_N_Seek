@@ -74,12 +74,14 @@ public class ShopItemHandler : MonoBehaviour
     {
         int itemID = shopItemUI.GetItemID();
         shopItemUI.Select();
+        EmitChoosingItemShopEvent();
     }
 
     private void BuyItem(ShopItemUI shopItemUI)
     {
         int itemID = shopItemUI.GetItemID();
         shopItemUI.Buy();
+        EmitChoosingItemShopEvent();
     }
 
     private void DeselectAllShopItem()
@@ -88,5 +90,10 @@ public class ShopItemHandler : MonoBehaviour
         {
             shopItemUI.Deselect();
         }
+    }
+
+    private void EmitChoosingItemShopEvent()
+    {
+        EventManager.EmitEvent(EventID.CHOOSING_ITEM_SHOP);
     }
 }

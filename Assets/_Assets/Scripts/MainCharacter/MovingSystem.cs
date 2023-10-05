@@ -10,6 +10,9 @@ public class MovingSystem : MonoBehaviour
     private const int RUNNING_ANIMATION_ID = 7;
     private const int WALKING_ANIMATION_ID = 8;
 
+    public float gravityScale = 1.0f;
+    public static float globalGravity = -9.81f;
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;
 
@@ -34,11 +37,20 @@ public class MovingSystem : MonoBehaviour
         rb = GetComponentInParent<Rigidbody>();
         _controller = GetComponentInParent<Controller>();
         player = transform.parent;
+
+        rb.useGravity = false;
     }
 
     private void FixedUpdate()
     {
         Move();
+        HandleGravity();
+    }
+
+    private void HandleGravity()
+    {
+        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+        rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
     private void Move()

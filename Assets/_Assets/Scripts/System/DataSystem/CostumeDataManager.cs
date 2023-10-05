@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
 
@@ -12,8 +13,8 @@ public class CostumeDataManager : MonoBehaviour
     private void Awake()
     {
         LoadComponents();
-        LoadCurrentUsingCostume();
-        ListenEvent();
+        // LoadCurrentUsingCostume();
+        SetData();
     }
 
     private void Reset()
@@ -26,14 +27,14 @@ public class CostumeDataManager : MonoBehaviour
         _costumeDataList = _costumeData.CostumeDataList;
     }
 
-    private void ListenEvent()
+    private void Start()
     {
-        EventManager.StartListening(EventID.CLOSING_SHOP, SetData);
+        ListenEvent();
     }
 
-    private void LoadCurrentUsingCostume()
+    private void ListenEvent()
     {
-        _currentUsingCostume = _costumeDataList.Find((x) => x.IsSelected());
+        EventManager.StartListening(EventID.CHOOSING_ITEM_SHOP, SetData);
     }
 
     private void SetData()

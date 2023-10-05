@@ -33,25 +33,25 @@ public abstract class MovingState : IState
 
     public abstract void OnCheckingState(StateMachineController stateMachineController);
 
-    public virtual void LoadComponents(StateMachineController stateMachineController)
+    public void LoadComponents(StateMachineController stateMachineController)
     {
         _aiController = stateMachineController.GetAIController();
         _navMeshAgent = stateMachineController.GetNavMeshAgent();
         currentAIPlayer = stateMachineController.GetAIPlayer();
     }
 
-    public virtual void GetDestination()
+    public void GetDestination()
     {
         _iMovingSystemAI.HandleGettingDestination();
         destination = _iMovingSystemAI.Destination;
     }
 
-    public virtual void Move(Vector3 pos)
+    public void Move(Vector3 pos)
     {
         _navMeshAgent.SetDestination(pos);
     }
 
-    public virtual void SetMovingAnimation(float value)
+    public void SetMovingAnimation(float value)
     {
         _aiController.SetMovingAnimation(value);
     }

@@ -13,6 +13,7 @@ public class Controller : MonoBehaviour
     [SerializeField] protected InteractingSystem _interactingSystem;
     [SerializeField] protected SeekerVisionInteractingSystem _seekerVision;
     [SerializeField] protected AnimationHandler _animationHandler;
+    [SerializeField] protected PetHolderHandler _petHolderHandler;
 
     #endregion
 
@@ -32,6 +33,7 @@ public class Controller : MonoBehaviour
         _model = GetComponentInChildren<Model>();
         _seekerVision = GetComponentInChildren<SeekerVisionInteractingSystem>();
         _interactingSystem = GetComponentInChildren<InteractingSystem>();
+        _petHolderHandler = GetComponentInChildren<PetHolderHandler>();
     }
 
     public virtual Model GetModel()
@@ -97,5 +99,25 @@ public class Controller : MonoBehaviour
     public void SetMovingAnimation(float value)
     {
         _animationHandler.SetNormalizedVelocity(value);
+    }
+
+    public void SetPetToHolder(GameObject pet)
+    {
+        _petHolderHandler.SetPetToHolder(pet);
+    }
+
+    public Transform GetPetHolder()
+    {
+        return _petHolderHandler.GetPetHolder();
+    }
+
+    public Vector3 GetPetHolderPosition()
+    {
+        return _petHolderHandler.GetPetHolderPosition();
+    }
+
+    public void ChangePet(GameObject pet)
+    {
+        _petHolderHandler.ChangePet(pet);
     }
 }

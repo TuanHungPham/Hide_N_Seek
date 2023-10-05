@@ -9,32 +9,21 @@ public class PetManager : MonoBehaviour
     private void Start()
     {
         ListenEvent();
-        CreatePet();
+        SetupPetToCharacter();
     }
 
     private void ListenEvent()
     {
-        EventManager.StartListening(EventID.CLOSING_SHOP, CreatePet);
+        EventManager.StartListening(EventID.CLOSING_SHOP, SetupPetToCharacter);
     }
 
-    private void CreatePet()
+    private void SetupPetToCharacter()
     {
         if (_mainCharacterController == null) return;
 
         GameObject currentUsingPet = IngameDataManager.GetCurrentUsingPet();
         if (currentUsingPet == null) return;
 
-        GameObject pet = Instantiate(currentUsingPet);
-
-        pet.transform.position = _mainCharacterController.GetPetHolderPosition();
-
-        SetupPetState(pet);
-    }
-
-    private void SetupPetState(GameObject pet)
-    {
-        Pet_MovingSystem petMovingSystem = pet.GetComponent<Pet_MovingSystem>();
-
-        petMovingSystem.SetHolder(_mainCharacterController.GetPetHolder());
+        _mainCharacterController.ChangePet(currentUsingPet);
     }
 }

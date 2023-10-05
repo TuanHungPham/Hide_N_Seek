@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
@@ -12,8 +13,8 @@ public class PetDataManager : MonoBehaviour
     private void Awake()
     {
         LoadComponents();
-        LoadCurrentUsingPet();
         ListenEvent();
+        SetData();
     }
 
     private void Reset()
@@ -26,14 +27,14 @@ public class PetDataManager : MonoBehaviour
         _petDataList = _petData.PetDataList;
     }
 
-    private void ListenEvent()
+    private void Start()
     {
-        EventManager.StartListening(EventID.CLOSING_SHOP, SetData);
+        ListenEvent();
     }
 
-    private void LoadCurrentUsingPet()
+    private void ListenEvent()
     {
-        _currentUsingPet = _petDataList.Find((x) => x.IsSelected());
+        EventManager.StartListening(EventID.CHOOSING_ITEM_SHOP, SetData);
     }
 
     private void SetData()
