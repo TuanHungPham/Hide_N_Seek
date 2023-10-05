@@ -256,7 +256,7 @@ Transform:
   - {fileID: 705507995}
   - {fileID: 7501978636816032088}
   - {fileID: 827342387}
-  - {fileID: 3518248448492741065}
+  - {fileID: 1194260664}
   - {fileID: 1103337707}
   - {fileID: 1813071035}
   - {fileID: 575307270}
@@ -461,6 +461,11 @@ Transform:
   m_Father: {fileID: 629180723}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1194260664 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3518248447433267568, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
+  m_PrefabInstance: {fileID: 4238586131004738207}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1813071034
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,17 +857,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a77a0c479ecc264387d37d53bac972f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &3518248448492741064
+--- !u!1001 &4238586131004738207
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 629180723}
     m_Modifications:
-    - target: {fileID: 578892465, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
-      propertyPath: _mainCharacterController
-      value: 
-      objectReference: {fileID: 2394121986102327956}
     - target: {fileID: 855699351, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
       propertyPath: _mainCharacter
       value: 
@@ -871,6 +872,10 @@ PrefabInstance:
       propertyPath: _allPlayerParent
       value: 
       objectReference: {fileID: 827342387}
+    - target: {fileID: 720910140258441702, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
+      propertyPath: _mainCharacterController
+      value: 
+      objectReference: {fileID: 2394121986102327956}
     - target: {fileID: 3518248447433267568, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -929,11 +934,6 @@ PrefabInstance:
       objectReference: {fileID: 827342387}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
---- !u!4 &3518248448492741065 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3518248447433267568, guid: 6a03800f790cc8b4594144e55abeeb28, type: 3}
-  m_PrefabInstance: {fileID: 3518248448492741064}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6766232614014473003 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6392288775459449509, guid: 06ae471b1a2a1ef418ba7a2294498b5a, type: 3}
