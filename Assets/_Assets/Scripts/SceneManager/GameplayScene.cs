@@ -26,4 +26,9 @@ public class GameplayScene : SSController
     {
         SSSceneManager.Instance.PopUp("LoseScene");
     }
+
+    public void ResetScene()
+    {
+        SSSceneManager.Instance.Reset();
+    }
 }

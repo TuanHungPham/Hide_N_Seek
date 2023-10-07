@@ -72,7 +72,6 @@ public class GameFlowManager : MonoBehaviour
     private void ResetGame()
     {
         Time.timeScale = 1;
-        GameplayScene.CloseScene();
-        SceneManager.LoadScene("BaseScene");
+        GameplayScene.ResetScene();
     }
 }
