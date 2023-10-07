@@ -13,8 +13,6 @@ public enum eResourceDataType
 
 public class ResourceDataManager : MonoBehaviour
 {
-    [SerializeField] private long _coin;
-    [SerializeField] private long _adsTicket;
     private Dictionary<eResourceDataType, long> _resourcesDataDic = new Dictionary<eResourceDataType, long>();
 
     private void Awake()

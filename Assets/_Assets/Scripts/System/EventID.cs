@@ -16,4 +16,6 @@ public enum EventID
     RETRYING_GAME,
     CLOSING_SHOP,
     CHOOSING_ITEM_SHOP,
+    ADDING_COIN,
+    CONSUMING_COIN,
 }

@@ -18,16 +18,10 @@ public class ResourcesManager : MonoBehaviour
     [SerializeField] private long _totalCoin;
     private Dictionary<eAddingCoinType, long> _coinTypeDic = new Dictionary<eAddingCoinType, long>();
 
-    private void Start()
+    private void Awake()
     {
-        ListenEvent();
         InitializeCoinDictionary();
         InitializeCoin();
-    }
-
-    private void ListenEvent()
-    {
-        EventManager.StartListening(EventID.END_GAME, SetTotalCoin);
     }
 
     private void InitializeCoin()
@@ -69,11 +63,26 @@ public class ResourcesManager : MonoBehaviour
 
         _coinTypeDic[type] += quantity;
         LogSystem.LogDictionary(_coinTypeDic);
+        SetTotalCoin();
+
+        EmitAddingCoinEvent();
     }
 
     public void ConsumeCoin(long quantity)
     {
         _totalCoin -= quantity;
         SetTotalCoin();
+
+        EmitConsumingCoinEvent();
+    }
+
+    private void EmitAddingCoinEvent()
+    {
+        EventManager.EmitEvent(EventID.ADDING_COIN);
+    }
+
+    private void EmitConsumingCoinEvent()
+    {
+        EventManager.EmitEvent(EventID.CONSUMING_COIN);
     }
 }
