@@ -24,4 +24,19 @@ public class GameplayManager : MonoBehaviour
         _resourcesManager = GetComponentInChildren<ResourcesManager>();
         _gameFlowManager = GetComponentInChildren<GameFlowManager>();
     }
+
+    public void AddCoin(eAddingCoinType type, long quantity)
+    {
+        _resourcesManager.AddCoin(type, quantity);
+    }
+
+    public void ConsumeCoin(long quantity)
+    {
+        _resourcesManager.ConsumeCoin(quantity);
+    }
+
+    public long GetTotalCoin()
+    {
+        return _resourcesManager.GetTotalCoin();
+    }
 }

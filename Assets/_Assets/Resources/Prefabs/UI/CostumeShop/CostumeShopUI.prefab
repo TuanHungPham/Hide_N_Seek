@@ -1204,6 +1204,7 @@ GameObject:
   - component: {fileID: 2042123989412085273}
   - component: {fileID: 2042123989412085274}
   - component: {fileID: 2042123989412085275}
+  - component: {fileID: 810199034804082288}
   m_Layer: 0
   m_Name: CoinPanel
   m_TagString: Untagged
@@ -1297,6 +1298,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &810199034804082288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042123989412085348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48a3fad63b797b4fb581e1e7e0181d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinText: {fileID: 1828005201576677883}
+  _adsTicketText: {fileID: 2042123988111104964}
 --- !u!1 &2042123989447513675
 GameObject:
   m_ObjectHideFlags: 0

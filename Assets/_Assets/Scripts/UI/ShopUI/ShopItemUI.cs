@@ -79,6 +79,8 @@ public class ShopItemUI : MonoBehaviour, IPointerClickHandler
         _itemShop.SetOwnedState(true);
         Select();
 
+        GameplayManager.Instance.ConsumeCoin(_itemShop.GetItemPrice());
+
         _buyButton.gameObject.SetActive(false);
         _selectButton.SetActive(true);
     }
@@ -120,8 +122,13 @@ public class ShopItemUI : MonoBehaviour, IPointerClickHandler
         return _itemShop.GetItemID();
     }
 
+    public int GetItemPrice()
+    {
+        return _itemShop.GetItemPrice();
+    }
+
     public bool IsOwned()
     {
-        return _isOwned;
+        return _itemShop.IsOwned();
     }
 }

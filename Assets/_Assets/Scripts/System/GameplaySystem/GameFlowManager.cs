@@ -60,13 +60,20 @@ public class GameFlowManager : MonoBehaviour
     private void SetWin()
     {
         Time.timeScale = 0;
+        EmitEndGameEvent();
         GameplayScene.ShowWinPopup();
     }
 
     private void SetLose()
     {
         Time.timeScale = 0;
+        EmitEndGameEvent();
         GameplayScene.ShowLosePopup();
+    }
+
+    private void EmitEndGameEvent()
+    {
+        EventManager.EmitEvent(EventID.END_GAME);
     }
 
     private void ResetGame()

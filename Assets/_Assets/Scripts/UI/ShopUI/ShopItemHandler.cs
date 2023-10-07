@@ -61,27 +61,39 @@ public class ShopItemHandler : MonoBehaviour
 
         if (shopItemUI.IsOwned())
         {
-            DeselectAllShopItem();
             SelectItem(shopItemUI);
             return;
         }
 
-        DeselectAllShopItem();
         BuyItem(shopItemUI);
     }
 
     private void SelectItem(ShopItemUI shopItemUI)
     {
-        int itemID = shopItemUI.GetItemID();
+        DeselectAllShopItem();
+
         shopItemUI.Select();
+
         EmitChoosingItemShopEvent();
     }
 
     private void BuyItem(ShopItemUI shopItemUI)
     {
-        int itemID = shopItemUI.GetItemID();
+        if (CanBuyItem(shopItemUI)) return;
+
+        DeselectAllShopItem();
+
         shopItemUI.Buy();
+
         EmitChoosingItemShopEvent();
+    }
+
+    private static bool CanBuyItem(ShopItemUI shopItemUI)
+    {
+        long totalCoin = IngameDataManager.Instance.GetResourceData(eResourceDataType.COIN);
+        int itemPrice = shopItemUI.GetItemPrice();
+        if (totalCoin < itemPrice) return true;
+        return false;
     }
 
     private void DeselectAllShopItem()
