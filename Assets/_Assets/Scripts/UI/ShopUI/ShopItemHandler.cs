@@ -2,11 +2,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TigerForge;
 
+public enum eShopDataType
+{
+    NONE,
+    PET_SHOP,
+    COSTUME_SHOP,
+
+    MAX_SHOP_DATA_TYPE_COUNT
+}
+
 public class ShopItemHandler : MonoBehaviour
 {
-    [SerializeField] private ItemShopData itemShopData;
-    [SerializeField] private List<ShopItemUI> _shopItemUIList = new List<ShopItemUI>();
     [SerializeField] private ShopItemUI _shopItemUIPrefab;
+    [SerializeField] private eShopDataType _shopDataType;
+    [SerializeField] private List<ShopItemUI> _shopItemUIList = new List<ShopItemUI>();
+    [SerializeField] private List<ItemShop> _itemShopList = new List<ItemShop>();
 
     private void Awake()
     {
@@ -30,14 +40,14 @@ public class ShopItemHandler : MonoBehaviour
     private void InitializeShopItemUI()
     {
         Debug.Log("Initializing Shop...");
-        List<ItemShop> shopItemUIList = itemShopData.ItemShopList;
+        _itemShopList = IngameDataManager.Instance.GetItemShopDataList(_shopDataType);
 
-        for (int i = 0; i < shopItemUIList.Count; i++)
+        for (int i = 0; i < _itemShopList.Count; i++)
         {
             ShopItemUI shopItemUI;
 
             CreateShopItemUI(_shopItemUIPrefab, out shopItemUI);
-            HandleSettingShopUIData(shopItemUI, shopItemUIList[i], shopItemUIList[i].IsOwned(), shopItemUIList[i].IsSelected());
+            HandleSettingShopUIData(shopItemUI, _itemShopList[i], _itemShopList[i].IsOwned(), _itemShopList[i].IsSelected());
 
             _shopItemUIList.Add(shopItemUI);
             shopItemUI.OnClickItemEvent += InteractShopItem;

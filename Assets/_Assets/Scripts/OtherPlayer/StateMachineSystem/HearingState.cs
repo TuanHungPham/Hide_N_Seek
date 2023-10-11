@@ -12,11 +12,11 @@ public class HearingState : IState
     public void OnEnterState(StateMachineController stateMachineController)
     {
         LoadComponents(stateMachineController);
-        SetIdleAnimation();
     }
 
     public void OnUpdateState(StateMachineController stateMachineController)
     {
+        SetIdleAnimation();
         RunHearingTimer();
         FaceAtFootstepDirection();
         OnCheckingState(stateMachineController);

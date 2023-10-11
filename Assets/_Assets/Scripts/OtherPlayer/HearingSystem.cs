@@ -48,6 +48,11 @@ public class HearingSystem : MonoBehaviour
     {
         while (true)
         {
+            if (GameplaySystem.Instance.IsTimeUp())
+            {
+                yield break;
+            }
+
             HearAround();
             yield return new WaitForSeconds(checkingDelayTime);
         }

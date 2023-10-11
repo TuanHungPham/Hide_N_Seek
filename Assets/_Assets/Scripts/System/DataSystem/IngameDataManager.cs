@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,18 +9,28 @@ public enum DataType
 
 public class IngameDataManager : MonoBehaviour
 {
-    private static IngameDataManager instance;
-    public static IngameDataManager Instance => instance;
-
     [SerializeField] private CostumeDataManager _costumeDataManager;
     [SerializeField] private PetDataManager _petDataManager;
     [SerializeField] private ResourceDataManager _resourceDataManager;
 
+    public static IngameDataManager Instance { get; private set; }
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
-        instance = this;
+        HandleSingleton();
         LoadComponents();
+    }
+
+    private void HandleSingleton()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
     }
 
     private void Reset()
@@ -34,6 +43,19 @@ public class IngameDataManager : MonoBehaviour
         _costumeDataManager = GetComponentInChildren<CostumeDataManager>();
         _petDataManager = GetComponentInChildren<PetDataManager>();
         _resourceDataManager = GetComponentInChildren<ResourceDataManager>();
+    }
+
+    public List<ItemShop> GetItemShopDataList(eShopDataType type)
+    {
+        switch (type)
+        {
+            case eShopDataType.PET_SHOP:
+                return _petDataManager.GetItemShopList();
+            case eShopDataType.COSTUME_SHOP:
+                return _costumeDataManager.GetItemShopList();
+            default:
+                return null;
+        }
     }
 
     public Costume GetCurrentUsingCostume()

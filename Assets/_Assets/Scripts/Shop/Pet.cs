@@ -2,12 +2,20 @@
 using UnityEngine;
 
 [Serializable]
-public class Pet
+public class Pet : ICloneable
 {
     [SerializeField] private int _petID;
     [SerializeField] private GameObject _petPrefab;
     [SerializeField] private bool _isSelected;
     [SerializeField] private bool _isOwned;
+
+    public Pet(int id, GameObject petObj, bool isSelected, bool isOwned)
+    {
+        _petID = id;
+        _petPrefab = petObj;
+        _isSelected = isSelected;
+        _isOwned = isOwned;
+    }
 
     public void SetSelected(bool set)
     {
@@ -37,5 +45,10 @@ public class Pet
     public bool IsSelected()
     {
         return _isSelected;
+    }
+
+    public object Clone()
+    {
+        return new Pet(_petID, _petPrefab, _isSelected, _isOwned);
     }
 }

@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 public class MissingScriptUtility : EditorWindow
 {
     bool includeInactive = true;
     bool includePrefabs = true;
+
 
     [MenuItem("Window/MissingScriptUtility")]
     public static void ShowWindow()
@@ -126,3 +128,4 @@ public class MissingScriptUtility : EditorWindow
 
     #endregion
 }
+#endif

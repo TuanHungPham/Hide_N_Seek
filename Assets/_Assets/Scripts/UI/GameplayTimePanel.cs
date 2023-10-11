@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,12 @@ public class GameplayTimePanel : MonoBehaviour
     [SerializeField] private TMP_Text _timeText;
     [SerializeField] private Image _watchImage;
     private GameplaySystem GameplaySystem => GameplaySystem.Instance;
+
+    private void Start()
+    {
+        _timeText.color = Color.white;
+        _watchImage.color = Color.white;
+    }
 
     private void Update()
     {
@@ -20,7 +27,7 @@ public class GameplayTimePanel : MonoBehaviour
         float min = Mathf.FloorToInt(time / 60);
         float sec = Mathf.CeilToInt(time % 60);
 
-        SetUIPanelColor(sec);
+        SetUIPanelColor(time);
 
         if (sec < 10)
         {
@@ -41,7 +48,9 @@ public class GameplayTimePanel : MonoBehaviour
 
     private void SetUIPanelColor(float sec)
     {
-        if (sec > 10) return;
+        if (sec > 10)
+            return;
+
 
         if (GameplaySystem.IsSeekerGameplay())
         {

@@ -9,13 +9,13 @@ public class StationaryState : IState
     public void OnEnterState(StateMachineController stateMachineController)
     {
         LoadComponents(stateMachineController);
-        SetIdleAnimation();
         SetSystemType();
         // Debug.Log($"{currentAIPlayer.name} - IDLE state.....");
     }
 
     public void OnUpdateState(StateMachineController stateMachineController)
     {
+        SetIdleAnimation();
         OnCheckingState(stateMachineController);
     }
 
