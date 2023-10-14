@@ -27,11 +27,12 @@ public class PetDataManager : MonoBehaviour
 
     [Space(20)] [SerializeField] private Pet _currentUsingPet;
 
+    public List<PetBaseData> PetBaseDataList => _petBaseDataList;
+
     private void Awake()
     {
-        LoadTemplateListFromSO();
         LoadComponents();
-        SetData();
+        LoadTemplate();
     }
 
     private void Reset()
@@ -46,6 +47,7 @@ public class PetDataManager : MonoBehaviour
     private void Start()
     {
         ListenEvent();
+        LoadShopData();
     }
 
     private void ListenEvent()
@@ -53,7 +55,7 @@ public class PetDataManager : MonoBehaviour
         EventManager.StartListening(EventID.CHOOSING_ITEM_SHOP, SetData);
     }
 
-    public void LoadTemplateListFromSO()
+    public void LoadTemplate()
     {
         foreach (var data in _petData.PetDataList)
         {
@@ -65,16 +67,43 @@ public class PetDataManager : MonoBehaviour
         {
             ItemShop itemShop = (ItemShop)data.Clone();
             _petShopList.Add(itemShop);
+
+            PetBaseData petBaseData = new PetBaseData();
+            petBaseData.AddData(itemShop.GetItemID(), itemShop.IsSelected(), itemShop.IsOwned());
+            AddBaseData(petBaseData);
+        }
+    }
+
+    public void LoadShopData()
+    {
+        if (PetBaseDataList.Count <= 0) return;
+
+        for (int i = 0; i < PetBaseDataList.Count; i++)
+        {
+            int itemID = PetBaseDataList[i].id;
+            bool isSelected = PetBaseDataList[i].isSelected;
+            bool isOwned = PetBaseDataList[i].isOwned;
+
+            ItemShop itemShop = _petShopList.Find(x => x.GetItemID() == itemID);
+            Pet pet = _petDataList.Find(x => x.GetPetID() == itemID);
+
+            itemShop.SetOwnedState(isOwned);
+            itemShop.SetSelectState(isSelected);
+
+            if (isSelected)
+            {
+                _currentUsingPet = pet;
+            }
         }
     }
 
     public void AddBaseData(PetBaseData petBaseData)
     {
-        PetBaseData existedBaseData = _petBaseDataList.Find(x => x.id == petBaseData.id);
+        PetBaseData existedBaseData = PetBaseDataList.Find(x => x.id == petBaseData.id);
 
         if (existedBaseData == null)
         {
-            _petBaseDataList.Add(petBaseData);
+            PetBaseDataList.Add(petBaseData);
         }
         else
         {
@@ -89,8 +118,8 @@ public class PetDataManager : MonoBehaviour
             bool isOwned = _petShopList[i].IsOwned();
             bool isSelected = _petShopList[i].IsSelected();
 
-            _petDataList[i].SetOwned(isOwned);
-            _petDataList[i].SetSelected(isSelected);
+            PetBaseDataList[i].SetOwnedState(isOwned);
+            PetBaseDataList[i].SetSelectionState(isSelected);
 
             if (isSelected)
             {

@@ -1,18 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DataType
-{
-    COSTUME_DATA,
-    PET_DATA,
-}
-
 public class IngameDataManager : MonoBehaviour
 {
     [SerializeField] private CostumeDataManager _costumeDataManager;
     [SerializeField] private PetDataManager _petDataManager;
     [SerializeField] private ResourceDataManager _resourceDataManager;
-
     public static IngameDataManager Instance { get; private set; }
 
     private void Awake()
@@ -81,15 +74,5 @@ public class IngameDataManager : MonoBehaviour
     public long GetResourceData(eResourceDataType type)
     {
         return _resourceDataManager.GetResourceData(type);
-    }
-
-    private void SaveData()
-    {
-        _resourceDataManager.SaveData();
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveData();
     }
 }

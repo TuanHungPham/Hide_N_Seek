@@ -16,7 +16,6 @@ namespace TigerForge
     /// </summary>
     public class EasyFileSave
     {
-
         #region " VARIABLES & PROPERTIES "
 
         // The file internal storage.
@@ -138,7 +137,6 @@ namespace TigerForge
                     return false;
                 }
             }
-
         }
 
         #endregion
@@ -171,7 +169,7 @@ namespace TigerForge
         }
 
         #endregion
-        
+
 
         #region " SAVE, APPEND, LOAD, ADD "
 
@@ -191,17 +189,17 @@ namespace TigerForge
                     saveFile.Close();
                     Dispose();
                     return true;
-                } else
+                }
+                else
                 {
                     return SaveSecure(password);
-                }                
+                }
             }
             catch (System.Exception e)
             {
                 Error = "[Easy File Save] This system exeption has been thrown during saving: " + e.Message;
                 return false;
             }
-            
         }
 
         /// <summary>
@@ -226,7 +224,8 @@ namespace TigerForge
                         FileStream openFile = File.Open(fileName, FileMode.Open);
                         fileStorage = (Dictionary<string, object>)bf2.Deserialize(openFile);
                         openFile.Close();
-                    } else
+                    }
+                    else
                     {
                         var loadPassword = (password + "easyfilesavesecure1234").Substring(0, 16);
                         byte[] key = Encoding.UTF8.GetBytes(loadPassword);
@@ -258,7 +257,6 @@ namespace TigerForge
                             fileStorage.Add(item.Key, item.Value);
                         }
                     }
-
                 }
                 else
                 {
@@ -272,7 +270,8 @@ namespace TigerForge
                     bf.Serialize(saveFile, fileStorage);
                     saveFile.Close();
                     Dispose();
-                } else
+                }
+                else
                 {
                     var savePassword = (password + "easyfilesavesecure1234").Substring(0, 16);
                     byte[] key = Encoding.UTF8.GetBytes(savePassword);
@@ -301,8 +300,6 @@ namespace TigerForge
                 Error = "[Easy File Save] This system exeption has been thrown during append data: " + e.Message;
                 return false;
             }
-
-            
         }
 
         /// <summary>
@@ -328,18 +325,17 @@ namespace TigerForge
                     storage = (Dictionary<string, object>)bf.Deserialize(loadFile);
                     loadFile.Close();
                     return true;
-                } else
+                }
+                else
                 {
                     return LoadSecure(password);
                 }
-                
             }
             catch (System.Exception e)
             {
                 Error = "[Easy File Save] This system exeption has been thrown during loading: " + e.Message;
                 return false;
             }
-
         }
 
         /// <summary>
@@ -349,6 +345,28 @@ namespace TigerForge
         /// </summary>
         public void Add(string key, object value, bool ignoreExistingKey = false)
         {
+            if (KeyExists(key))
+            {
+                if (ignoreExistingKey)
+                {
+                    Warning("[Easy File Save] Trying to reuse the key '" + key + "' to put a value into the storage!");
+                }
+                else
+                {
+                    value = ConvertUnityTypes(value);
+                    storage[key] = value;
+                }
+            }
+            else
+            {
+                value = ConvertUnityTypes(value);
+                storage.Add(key, value);
+            }
+        }
+
+        public void Add(eDataType type, object value, bool ignoreExistingKey = false)
+        {
+            string key = type.ToString();
             if (KeyExists(key))
             {
                 if (ignoreExistingKey)
@@ -384,7 +402,6 @@ namespace TigerForge
 
             try
             {
-
                 byte[] key = Encoding.UTF8.GetBytes(password);
                 byte[] iv = Encoding.UTF8.GetBytes(password);
 
@@ -408,7 +425,8 @@ namespace TigerForge
             }
             catch (System.Exception e)
             {
-                Error = "[Easy File Save] This system exeption has been thrown during SaveSecure: " + e.Message;Debug.Log(e.Message);
+                Error = "[Easy File Save] This system exeption has been thrown during SaveSecure: " + e.Message;
+                Debug.Log(e.Message);
                 return false;
             }
         }
@@ -446,7 +464,8 @@ namespace TigerForge
             }
             catch (System.Exception e)
             {
-                Error = "[Easy File Save] This system exeption has been thrown during LoadSecure: " + e.Message; Debug.Log(e.Message);
+                Error = "[Easy File Save] This system exeption has been thrown during LoadSecure: " + e.Message;
+                Debug.Log(e.Message);
                 return false;
             }
         }
@@ -577,7 +596,6 @@ namespace TigerForge
                     Debug.Log("[Easy File Save] >> TEST #2 NOT PASSED: there is a problem loading data!\n");
                     Debug.Log(Error);
                 }
-
             }
             else
             {
@@ -588,7 +606,6 @@ namespace TigerForge
             Debug.Log("====================================================================================\n");
 
             return false;
-
         }
 
         #endregion
@@ -606,7 +623,23 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return storage[key];
+                else return defaultValue;
+            }
+            catch (System.Exception)
+            {
+                Warning("[Easy File Save] GetData error using key: " + key);
+                return defaultValue;
+            }
+        }
+
+        public object GetData(eDataType type, object defaultValue = null)
+        {
+            string key = type.ToString();
+            try
+            {
+                if (storage.ContainsKey(key)) return storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -624,7 +657,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (int)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (int)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -642,7 +676,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (bool)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (bool)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -660,7 +695,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (float)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (float)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -678,7 +714,23 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (string)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (string)storage[key];
+                else return defaultValue;
+            }
+            catch (System.Exception)
+            {
+                Warning("[Easy File Save] GetString error using key: " + key);
+                return defaultValue;
+            }
+        }
+
+        public string GetString(eDataType type, string defaultValue = "")
+        {
+            string key = type.ToString();
+            try
+            {
+                if (storage.ContainsKey(key)) return (string)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -696,7 +748,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (byte)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (byte)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -714,7 +767,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (char)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (char)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -732,7 +786,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (long)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (long)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -750,7 +805,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (short)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (short)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -768,7 +824,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (uint)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (uint)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -786,7 +843,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (ulong)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (ulong)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -804,7 +862,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (ushort)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (ushort)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -822,7 +881,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (IntPtr)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (IntPtr)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -840,7 +900,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (UIntPtr)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (UIntPtr)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -858,7 +919,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (DateTime)storage[key]; else return defaultValue;
+                if (storage.ContainsKey(key)) return (DateTime)storage[key];
+                else return defaultValue;
             }
             catch (System.Exception)
             {
@@ -877,7 +939,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (T[]) storage[key]; else return Array.Empty<T>();
+                if (storage.ContainsKey(key)) return (T[])storage[key];
+                else return Array.Empty<T>();
             }
             catch (System.Exception)
             {
@@ -896,7 +959,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (List<T>)storage[key]; else return new List<T>();
+                if (storage.ContainsKey(key)) return (List<T>)storage[key];
+                else return new List<T>();
             }
             catch (System.Exception)
             {
@@ -916,7 +980,8 @@ namespace TigerForge
         {
             try
             {
-                if (storage.ContainsKey(key)) return (Dictionary<T, V>)storage[key]; else return new Dictionary<T, V>();
+                if (storage.ContainsKey(key)) return (Dictionary<T, V>)storage[key];
+                else return new Dictionary<T, V>();
             }
             catch (System.Exception)
             {
@@ -952,7 +1017,8 @@ namespace TigerForge
             try
             {
                 var obj = GetData(key);
-                if (obj != null) return Deserialize(obj, type); else return null;
+                if (obj != null) return Deserialize(obj, type);
+                else return null;
             }
             catch (System.Exception)
             {
@@ -987,9 +1053,8 @@ namespace TigerForge
         {
             try
             {
-                
-                if (storage.ContainsKey(key)) {
-
+                if (storage.ContainsKey(key))
+                {
                     if (!customs.mapping.ContainsKey(extensionName))
                     {
                         Debug.LogWarning("[Easy File Save] GetCustom: an extension with name '" + extensionName + "' doesn't exist.");
@@ -1022,7 +1087,7 @@ namespace TigerForge
                     {
                         customData.Add(mapping[i], new CustomData { data = dataToLoad[i] });
                     }
-                    
+
                     return customData;
                 }
             }
@@ -1030,6 +1095,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetCustom error using key: " + key);
             }
+
             return null;
         }
 
@@ -1069,13 +1135,14 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetBinary error using key: " + key);
             }
+
             return null;
         }
 
         #endregion
 
 
-        #region  " UNITY TYPES (SETTERS & GETTERS) "       
+        #region " UNITY TYPES (SETTERS & GETTERS) "
 
         /// <summary>
         /// Return the Vector2 data for the given key (or the defined defaultValue if nothing found).
@@ -1097,6 +1164,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetUnityVector2 error using key: " + key);
             }
+
             return defaultValue;
         }
 
@@ -1118,6 +1186,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetUnityVector3 error using key: " + key);
             }
+
             return defaultValue;
         }
 
@@ -1139,6 +1208,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetUnityVector4 error using key: " + key);
             }
+
             return defaultValue;
         }
 
@@ -1160,6 +1230,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetUnityQuaternion error using key: " + key);
             }
+
             return defaultValue;
         }
 
@@ -1208,6 +1279,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetUnityTransform error using key: " + key);
             }
+
             return defaultValue;
         }
 
@@ -1229,6 +1301,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetUnityColor error using key: " + key);
             }
+
             return defaultValue;
         }
 
@@ -1250,6 +1323,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetUnityColor32 error using key: " + key);
             }
+
             return defaultValue;
         }
 
@@ -1276,8 +1350,8 @@ namespace TigerForge
                         newData.xMin = dataList[15];
                         newData.yMax = dataList[16];
                         newData.yMin = dataList[17];
-
                     }
+
                     return newData;
                 }
             }
@@ -1285,6 +1359,7 @@ namespace TigerForge
             {
                 Warning("[Easy File Save] GetUnityRect error using key: " + key);
             }
+
             return defaultValue;
         }
 
@@ -1309,6 +1384,7 @@ namespace TigerForge
             {
                 if (File.Exists(fileName)) File.Delete(fileName);
             }
+
             filesArchive = new List<string>();
         }
 
@@ -1357,7 +1433,6 @@ namespace TigerForge
 
         public class Converter
         {
-
             /// <summary>
             /// Cast the object into integer value.
             /// </summary>
@@ -1421,7 +1496,6 @@ namespace TigerForge
                     return false;
                 }
             }
-
         }
 
         #endregion
@@ -1566,8 +1640,5 @@ namespace TigerForge
         }
 
         #endregion
-
     }
 }
-
-

@@ -15,4 +15,17 @@ public static class LogSystem
 
         Debug.Log(stringBuilder);
     }
+
+    public static void LogList<T>(List<T> list, string listName = "")
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"--- {listName} LIST LOGGING ---");
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            stringBuilder.AppendLine($" [{i}]: {list[i]}");
+        }
+
+        Debug.Log(stringBuilder);
+    }
 }

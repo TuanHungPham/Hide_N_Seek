@@ -31,9 +31,8 @@ public class CostumeDataManager : MonoBehaviour
 
     private void Awake()
     {
-        LoadTemplateListFromSO();
         LoadComponents();
-        SetData();
+        LoadTemplate();
     }
 
     private void Reset()
@@ -48,6 +47,7 @@ public class CostumeDataManager : MonoBehaviour
     private void Start()
     {
         ListenEvent();
+        LoadShopData();
     }
 
     private void ListenEvent()
@@ -55,7 +55,7 @@ public class CostumeDataManager : MonoBehaviour
         EventManager.StartListening(EventID.CHOOSING_ITEM_SHOP, SetData);
     }
 
-    public void LoadTemplateListFromSO()
+    public void LoadTemplate()
     {
         foreach (var data in _costumeData.CostumeDataList)
         {
@@ -71,6 +71,29 @@ public class CostumeDataManager : MonoBehaviour
             CostumeBaseData costumeBaseData = new CostumeBaseData();
             costumeBaseData.AddData(itemShop.GetItemID(), itemShop.IsSelected(), itemShop.IsOwned());
             AddBaseData(costumeBaseData);
+        }
+    }
+
+    public void LoadShopData()
+    {
+        if (CostumeBaseDataList.Count <= 0) return;
+
+        for (int i = 0; i < CostumeBaseDataList.Count; i++)
+        {
+            int itemID = CostumeBaseDataList[i].id;
+            bool isSelected = CostumeBaseDataList[i].isSelected;
+            bool isOwned = CostumeBaseDataList[i].isOwned;
+
+            ItemShop itemShop = _costumeShopList.Find(x => x.GetItemID() == itemID);
+            Costume costume = _costumeDataList.Find(x => x.GetCostumeID() == itemID);
+
+            itemShop.SetOwnedState(isOwned);
+            itemShop.SetSelectState(isSelected);
+
+            if (isSelected)
+            {
+                _currentUsingCostume = costume;
+            }
         }
     }
 
@@ -95,8 +118,8 @@ public class CostumeDataManager : MonoBehaviour
             bool isOwned = _costumeShopList[i].IsOwned();
             bool isSelected = _costumeShopList[i].IsSelected();
 
-            _costumeDataList[i].SetOwned(isOwned);
-            _costumeDataList[i].SetSelected(isSelected);
+            _costumeBaseDataList[i].SetOwnedState(isOwned);
+            _costumeBaseDataList[i].SetSelectionState(isSelected);
 
             if (isSelected)
             {
