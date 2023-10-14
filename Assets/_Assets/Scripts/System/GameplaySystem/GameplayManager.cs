@@ -30,6 +30,11 @@ public class GameplayManager : MonoBehaviour
         _resourcesManager.AddCoin(type, quantity);
     }
 
+    public void AddCoin(long quantity)
+    {
+        _resourcesManager.AddTotalCoin(quantity);
+    }
+
     public void ConsumeCoin(long quantity)
     {
         _resourcesManager.ConsumeCoin(quantity);

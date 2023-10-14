@@ -24,6 +24,16 @@ public class ResourcesManager : MonoBehaviour
         InitializeCoin();
     }
 
+    private void Start()
+    {
+        ListenEvent();
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.RETRYING_GAME, ResetCoinDictionary);
+    }
+
     private void InitializeCoin()
     {
         _totalCoin = IngameDataManager.Instance.GetResourceData(eResourceDataType.COIN);
@@ -42,19 +52,24 @@ public class ResourcesManager : MonoBehaviour
         }
     }
 
-    private void SetTotalCoin()
+    private void ResetCoinDictionary()
     {
-        foreach (KeyValuePair<eAddingCoinType, long> item in _coinTypeDic)
+        foreach (var coin in _coinTypeDic)
         {
-            _totalCoin += item.Value;
+            _coinTypeDic[coin.Key] = 0;
         }
-
-        IngameDataManager.Instance.SetResourceData(eResourceDataType.COIN, _totalCoin);
     }
 
     public long GetTotalCoin()
     {
         return _totalCoin;
+    }
+
+    public void AddTotalCoin(long quantity)
+    {
+        _totalCoin += quantity;
+        SetTotalCoin();
+        EmitAddingCoinEvent();
     }
 
     public void AddCoin(eAddingCoinType type, long quantity)
@@ -63,7 +78,8 @@ public class ResourcesManager : MonoBehaviour
 
         _coinTypeDic[type] += quantity;
         LogSystem.LogDictionary(_coinTypeDic);
-        SetTotalCoin();
+
+        AddTotalCoin(quantity);
 
         EmitAddingCoinEvent();
     }
@@ -74,6 +90,11 @@ public class ResourcesManager : MonoBehaviour
         SetTotalCoin();
 
         EmitConsumingCoinEvent();
+    }
+
+    private void SetTotalCoin()
+    {
+        IngameDataManager.Instance.SetResourceData(eResourceDataType.COIN, _totalCoin);
     }
 
     private void EmitAddingCoinEvent()
