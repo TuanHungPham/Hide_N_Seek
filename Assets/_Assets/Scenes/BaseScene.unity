@@ -186,6 +186,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7499361bded0b64468bbd3381366d23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _costumeDataManager: {fileID: 0}
+  _petDataManager: {fileID: 0}
+  _resourceDataManager: {fileID: 0}
 --- !u!1 &196701538
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,9 +289,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIType: 0
-  m_LoadingSceneName: LoadingScene
+  m_LoadingSceneName: 
   m_FirstSceneName: GameplayScene
-  m_HomeSceneName: GameplayScene
+  m_HomeSceneName: 
   m_DefaultShieldColor: {r: 0, g: 0, b: 0, a: 0}
   m_SceneDistance: 10
   m_IsLoadAsync: 0
