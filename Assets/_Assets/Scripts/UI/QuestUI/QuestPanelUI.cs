@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class QuestPanelUI : MonoBehaviour
 {
-    [SerializeField] private int _maxQuestNumber;
     [SerializeField] private GameObject _questUIPrefab;
     [SerializeField] private List<QuestUI> _questUiList = new List<QuestUI>();
     [SerializeField] private QuestTemplate _questTemplate;
+
+    private IngameDataManager InGameDataManager => IngameDataManager.Instance;
 
     private void Awake()
     {
@@ -30,8 +31,8 @@ public class QuestPanelUI : MonoBehaviour
 
     private void InitializeQuestUIList()
     {
-        List<Quest> questTemplateList = _questTemplate.QuestList;
-        for (int i = 0; i < _maxQuestNumber; i++)
+        List<Quest> questTemplateList = InGameDataManager.GetTodayQuestTemplateList();
+        for (int i = 0; i < questTemplateList.Count; i++)
         {
             GameObject questUI = Instantiate(_questUIPrefab, transform, true);
             Quest questTemplate = (Quest)questTemplateList[i].Clone();

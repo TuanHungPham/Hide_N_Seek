@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class QuestUI : MonoBehaviour
 {
     [SerializeField] private Quest _quest;
+    [SerializeField] private bool _isCompleted;
 
     [Header("Image UI")] [SerializeField] private Image _questIcon;
     [SerializeField] private Image _questPrizeImg;
@@ -34,6 +35,7 @@ public class QuestUI : MonoBehaviour
         _questProgressText.text = string.Format($"{quest.currentProgress}/{quest.targetProgress}");
         _questPrizeQuantity.text = quest.prizeQuantity.ToString();
         _questPrizeType = quest.prizeType;
+        _isCompleted = quest.isCompleted;
 
         SetUI();
         UpdateUIData(quest.currentProgress, quest.targetProgress);
@@ -41,6 +43,10 @@ public class QuestUI : MonoBehaviour
 
     public void UpdateUIData(float currentProgress, float targetProgress)
     {
+        if (_isCompleted)
+        {
+        }
+
         float progress = currentProgress / targetProgress;
         float newWidth = (maxSizeProgressBar - minSizeProgressBar) * progress;
 

@@ -156,6 +156,7 @@ MonoBehaviour:
   _costumeDataManager: {fileID: 196701539}
   _petDataManager: {fileID: 1915894695}
   _resourceDataManager: {fileID: 2060423238}
+  _questDataManager: {fileID: 813792203}
 --- !u!4 &2201331
 Transform:
   m_ObjectHideFlags: 0
@@ -171,6 +172,7 @@ Transform:
   - {fileID: 196701540}
   - {fileID: 1915894696}
   - {fileID: 2060423239}
+  - {fileID: 813792202}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -189,6 +191,7 @@ MonoBehaviour:
   _costumeDataManager: {fileID: 0}
   _petDataManager: {fileID: 0}
   _resourceDataManager: {fileID: 0}
+  _questDataManager: {fileID: 0}
 --- !u!1 &196701538
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +246,55 @@ Transform:
   m_Father: {fileID: 2201331}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &813792201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 813792202}
+  - component: {fileID: 813792203}
+  m_Layer: 0
+  m_Name: QuestDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &813792202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813792201}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2201331}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &813792203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813792201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf47630f2dd564468e5747645def9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _questBaseDataList: []
+  _questTemplateList: []
+  _todayQuestTemplateList: []
+  _questTemplate: {fileID: 11400000, guid: a42853b1e0919104387dfc30e9da22a3, type: 2}
+  _numberOfQuest: 3
 --- !u!1 &1418063810
 GameObject:
   m_ObjectHideFlags: 0

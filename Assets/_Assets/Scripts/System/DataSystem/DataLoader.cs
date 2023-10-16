@@ -13,6 +13,8 @@ public class DataLoader : MonoBehaviour
     [SerializeField] private CostumeDataManager _costumeDataManager;
     [SerializeField] private PetDataManager _petDataManager;
     [SerializeField] private ResourceDataManager _resourceDataManager;
+    [SerializeField] private QuestDataManager _questDataManager;
+
     private EasyFileSave myFile;
 
     private void Awake()
@@ -25,6 +27,8 @@ public class DataLoader : MonoBehaviour
         _costumeDataManager = GetComponentInChildren<CostumeDataManager>();
         _petDataManager = GetComponentInChildren<PetDataManager>();
         _resourceDataManager = GetComponentInChildren<ResourceDataManager>();
+        _questDataManager = GetComponentInChildren<QuestDataManager>();
+
 
         myFile = new EasyFileSave();
     }

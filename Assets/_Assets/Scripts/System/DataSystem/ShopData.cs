@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using UnityEngine;
 
 [Serializable]
 public class ShopData : BaseData
@@ -21,14 +20,7 @@ public class ShopData : BaseData
         SetModified(true);
     }
 
-    public string ToJsonString()
-    {
-        string jsonString = JsonConvert.SerializeObject(this);
-        Debug.Log($"(DATA) SHOPDATA Json String: {jsonString}");
-        return jsonString;
-    }
-
-    public void ParseToData(string json)
+    public override void ParseToData(string json)
     {
         ShopData parsedShopData = JsonConvert.DeserializeObject<ShopData>(json);
         AddData(parsedShopData.id, parsedShopData.isSelected, parsedShopData.isOwned);

@@ -6,6 +6,7 @@ public class IngameDataManager : MonoBehaviour
     [SerializeField] private CostumeDataManager _costumeDataManager;
     [SerializeField] private PetDataManager _petDataManager;
     [SerializeField] private ResourceDataManager _resourceDataManager;
+    [SerializeField] private QuestDataManager _questDataManager;
     public static IngameDataManager Instance { get; private set; }
 
     private void Awake()
@@ -36,6 +37,7 @@ public class IngameDataManager : MonoBehaviour
         _costumeDataManager = GetComponentInChildren<CostumeDataManager>();
         _petDataManager = GetComponentInChildren<PetDataManager>();
         _resourceDataManager = GetComponentInChildren<ResourceDataManager>();
+        _questDataManager = GetComponentInChildren<QuestDataManager>();
     }
 
     public List<ItemShop> GetItemShopDataList(eShopDataType type)
@@ -74,5 +76,10 @@ public class IngameDataManager : MonoBehaviour
     public long GetResourceData(eResourceDataType type)
     {
         return _resourceDataManager.GetResourceData(type);
+    }
+
+    public List<Quest> GetTodayQuestTemplateList()
+    {
+        return _questDataManager.GetTodayQuestTemplateList();
     }
 }

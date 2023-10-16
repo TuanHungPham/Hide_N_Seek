@@ -13,8 +13,10 @@ public class Quest : ICloneable
     public float currentProgress;
     public float targetProgress;
     public eResourceDataType prizeType;
+    public bool isCompleted;
 
-    public Quest(int questID, Sprite questIcon, Sprite prizeIcon, string questDescription, long prizeQuantity, float currentProgress, float targetProgress, eResourceDataType prizeType)
+    public Quest(int questID, Sprite questIcon, Sprite prizeIcon, string questDescription, long prizeQuantity, float currentProgress, float targetProgress, eResourceDataType prizeType,
+        bool isCompleted)
     {
         this.questID = questID;
         this.questIcon = questIcon;
@@ -24,10 +26,11 @@ public class Quest : ICloneable
         this.currentProgress = currentProgress;
         this.targetProgress = targetProgress;
         this.prizeType = prizeType;
+        this.isCompleted = isCompleted;
     }
 
     public object Clone()
     {
-        return new Quest(questID, questIcon, prizeIcon, questDescription, prizeQuantity, currentProgress, targetProgress, prizeType);
+        return new Quest(questID, questIcon, prizeIcon, questDescription, prizeQuantity, currentProgress, targetProgress, prizeType, isCompleted);
     }
 }
