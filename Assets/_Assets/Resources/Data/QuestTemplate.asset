@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38490c9284fad34dbf751bd8789086d, type: 3}
+  m_Name: QuestTemplate
+  m_EditorClassIdentifier: 
+  _questList:
+  - questID: 0
+    questIcon: {fileID: 21300000, guid: cd42332d04ce56444a5684c431a32414, type: 3}
+    prizeIcon: {fileID: 21300000, guid: 821182ffb2f8bb24595b77b089aca9f7, type: 3}
+    questDescription: Complete 10 Levels
+    prizeQuantity: 500
+    currentProgress: 0
+    targetProgress: 10
+    prizeType: 1
+  - questID: 1
+    questIcon: {fileID: 21300000, guid: 6bcee24db7c8bc04b9a27a13919fd62e, type: 3}
+    prizeIcon: {fileID: 21300000, guid: b5393743e7db7fc49951da821bc2a536, type: 3}
+    questDescription: Find 10 players
+    prizeQuantity: 2
+    currentProgress: 0
+    targetProgress: 10
+    prizeType: 2
+  - questID: 2
+    questIcon: {fileID: 21300000, guid: fd8bb977d5b18b14dbdfc6c3d1d68d4f, type: 3}
+    prizeIcon: {fileID: 21300000, guid: b5393743e7db7fc49951da821bc2a536, type: 3}
+    questDescription: Rescue 10 players
+    prizeQuantity: 3
+    currentProgress: 0
+    targetProgress: 10
+    prizeType: 2
