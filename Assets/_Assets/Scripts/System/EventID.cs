@@ -18,4 +18,5 @@ public enum EventID
     CHOOSING_ITEM_SHOP,
     ADDING_COIN,
     CONSUMING_COIN,
+    QUEST_UPDATING,
 }

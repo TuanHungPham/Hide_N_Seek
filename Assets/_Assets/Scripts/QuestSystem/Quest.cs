@@ -29,6 +29,12 @@ public class Quest : ICloneable
         this.isCompleted = isCompleted;
     }
 
+    public void FinishQuest()
+    {
+        currentProgress = targetProgress;
+        isCompleted = true;
+    }
+
     public object Clone()
     {
         return new Quest(questID, questIcon, prizeIcon, questDescription, prizeQuantity, currentProgress, targetProgress, prizeType, isCompleted);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using TigerForge;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -9,31 +10,43 @@ using Random = UnityEngine.Random;
 public class QuestBaseData : BaseData
 {
     public int questID;
+    public float currentProgress;
+    public float targetProgress;
     public bool isCompleted;
 
     public void AddData(QuestBaseData questBaseData)
     {
         questID = questBaseData.questID;
+        currentProgress = questBaseData.currentProgress;
+        targetProgress = questBaseData.targetProgress;
         isCompleted = questBaseData.isCompleted;
     }
 
-    public void AddData(int questID, bool isCompleted)
+    public void AddData(int questID, float currentProgress, float targetProgress, bool isCompleted)
     {
         this.questID = questID;
+        this.currentProgress = currentProgress;
+        this.targetProgress = targetProgress;
+        this.isCompleted = isCompleted;
+    }
+
+    public void ModifyData(float currentProgress, float targetProgress, bool isCompleted)
+    {
+        this.currentProgress = currentProgress;
+        this.targetProgress = targetProgress;
         this.isCompleted = isCompleted;
     }
 
     public override void ParseToData(string json)
     {
         QuestBaseData parsedQuestData = JsonConvert.DeserializeObject<QuestBaseData>(json);
-        AddData(parsedQuestData.questID, parsedQuestData.isCompleted);
+        AddData(parsedQuestData.questID, parsedQuestData.currentProgress, parsedQuestData.targetProgress, parsedQuestData.isCompleted);
     }
 }
 
 public class QuestDataManager : MonoBehaviour
 {
     [SerializeField] private List<QuestBaseData> _questBaseDataList = new List<QuestBaseData>();
-    [SerializeField] private List<Quest> _questTemplateList = new List<Quest>();
     [SerializeField] private List<Quest> _todayQuestTemplateList = new List<Quest>();
     [SerializeField] private QuestTemplate _questTemplate;
     [SerializeField] private int _numberOfQuest;
@@ -45,25 +58,37 @@ public class QuestDataManager : MonoBehaviour
         LoadTemplate();
     }
 
+    private void Start()
+    {
+        ListenEvent();
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.QUEST_UPDATING, UpdateBaseData);
+    }
+
     private void LoadTemplate()
     {
+        List<Quest> questTemplateList = new List<Quest>();
+
         foreach (var questTemplate in _questTemplate.QuestList)
         {
             Quest quest = (Quest)questTemplate.Clone();
 
-            _questTemplateList.Add(quest);
+            questTemplateList.Add(quest);
         }
 
-        RandomTodayQuestTemplate();
+        RandomTodayQuestTemplate(questTemplateList);
     }
 
-    private void RandomTodayQuestTemplate()
+    private void RandomTodayQuestTemplate(List<Quest> questTemplateList)
     {
         for (int i = 0; i < _numberOfQuest; i++)
         {
-            int randomIndex = Random.Range(0, _questTemplateList.Count - 1);
+            int randomIndex = Random.Range(0, questTemplateList.Count - 1);
 
-            Quest quest = _questTemplateList[randomIndex];
+            Quest quest = questTemplateList[randomIndex];
 
             if (_todayQuestTemplateList.Contains(quest))
             {
@@ -74,7 +99,7 @@ public class QuestDataManager : MonoBehaviour
             _todayQuestTemplateList.Add(quest);
 
             QuestBaseData questBaseData = new QuestBaseData();
-            questBaseData.AddData(quest.questID, quest.isCompleted);
+            questBaseData.AddData(quest.questID, quest.currentProgress, quest.targetProgress, quest.isCompleted);
             AddBaseData(questBaseData);
         }
     }
@@ -90,6 +115,17 @@ public class QuestDataManager : MonoBehaviour
         else
         {
             existedBaseData.AddData(questBaseData);
+        }
+    }
+
+    private void UpdateBaseData()
+    {
+        for (int i = 0; i < _todayQuestTemplateList.Count; i++)
+        {
+            Quest quest = _todayQuestTemplateList[i];
+            QuestBaseData questBaseData = _questBaseDataList[i];
+
+            questBaseData.ModifyData(quest.currentProgress, quest.targetProgress, quest.isCompleted);
         }
     }
 

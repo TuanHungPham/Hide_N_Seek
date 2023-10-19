@@ -1,3 +1,4 @@
+using TigerForge;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,9 +7,11 @@ public class QuestUI : MonoBehaviour
 {
     [SerializeField] private Quest _quest;
     [SerializeField] private bool _isCompleted;
+    [SerializeField] private Button _adsButton;
 
     [Header("Image UI")] [SerializeField] private Image _questIcon;
     [SerializeField] private Image _questPrizeImg;
+    [SerializeField] private Image _checkImg;
 
     [Header("Text UI")] [SerializeField] private TMP_Text _questDescription;
     [SerializeField] private TMP_Text _questProgressText;
@@ -26,26 +29,46 @@ public class QuestUI : MonoBehaviour
 
     [SerializeField] private Color _color_2;
 
+    private InGameManager InGameManager => InGameManager.Instance;
+
+    private void OnEnable()
+    {
+        UpdateProgressUIData();
+    }
+
     public void SetUIData(Quest quest)
     {
         _quest = quest;
         _questIcon.sprite = quest.questIcon;
         _questPrizeImg.sprite = quest.prizeIcon;
         _questDescription.text = quest.questDescription;
-        _questProgressText.text = string.Format($"{quest.currentProgress}/{quest.targetProgress}");
         _questPrizeQuantity.text = quest.prizeQuantity.ToString();
         _questPrizeType = quest.prizeType;
-        _isCompleted = quest.isCompleted;
 
         SetUI();
-        UpdateUIData(quest.currentProgress, quest.targetProgress);
+        UpdateProgressUIData();
     }
 
-    public void UpdateUIData(float currentProgress, float targetProgress)
+    public void UpdateProgressUIData()
     {
+        if (_isCompleted) return;
+
+        _isCompleted = _quest.isCompleted;
+
         if (_isCompleted)
         {
+            _adsButton.gameObject.SetActive(false);
+            _checkImg.gameObject.SetActive(true);
         }
+        else
+        {
+            _checkImg.gameObject.SetActive(false);
+        }
+
+        var currentProgress = _quest.currentProgress;
+        var targetProgress = _quest.targetProgress;
+
+        _questProgressText.text = string.Format($"{currentProgress}/{targetProgress}");
 
         float progress = currentProgress / targetProgress;
         float newWidth = (maxSizeProgressBar - minSizeProgressBar) * progress;
@@ -64,5 +87,13 @@ public class QuestUI : MonoBehaviour
         }
 
         _questPrizeQuantity.color = _color_2;
+    }
+
+    public void SkipQuest()
+    {
+        _quest.FinishQuest();
+        UpdateProgressUIData();
+
+        InGameManager.FinishQuest(_quest.questID);
     }
 }
