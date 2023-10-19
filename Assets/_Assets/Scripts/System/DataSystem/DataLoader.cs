@@ -6,6 +6,7 @@ public enum eDataType
 {
     COSTUME_DATA,
     PET_DATA,
+    QUEST_DATA,
 }
 
 public class DataLoader : MonoBehaviour
@@ -29,7 +30,6 @@ public class DataLoader : MonoBehaviour
         _resourceDataManager = GetComponentInChildren<ResourceDataManager>();
         _questDataManager = GetComponentInChildren<QuestDataManager>();
 
-
         myFile = new EasyFileSave();
     }
 
@@ -43,6 +43,7 @@ public class DataLoader : MonoBehaviour
         _resourceDataManager.SaveData();
         SaveCostumeData();
         SavePetData();
+        SaveQuestData();
 
         myFile.Append();
     }
@@ -58,6 +59,7 @@ public class DataLoader : MonoBehaviour
 
         LoadCostumeData();
         LoadPetData();
+        LoadQuestData();
 
         myFile.Dispose();
     }
@@ -84,6 +86,18 @@ public class DataLoader : MonoBehaviour
         }
 
         AddToSaveCache(eDataType.PET_DATA, jsonStringList);
+    }
+
+    private void SaveQuestData()
+    {
+        List<string> jsonStringList = new List<string>();
+        foreach (var baseData in _questDataManager.QuestBaseDataList)
+        {
+            string jsonString = baseData.ToJsonString();
+            jsonStringList.Add(jsonString);
+        }
+
+        AddToSaveCache(eDataType.QUEST_DATA, jsonStringList);
     }
 
     private void LoadCostumeData()
@@ -117,6 +131,23 @@ public class DataLoader : MonoBehaviour
         }
 
         string listName = "LOADING PET DATA";
+        LogSystem.LogList(jsonStringList, listName);
+    }
+
+    private void LoadQuestData()
+    {
+        List<string> jsonStringList = GetJsonStringList(eDataType.QUEST_DATA);
+        if (jsonStringList == null) return;
+
+        foreach (var json in jsonStringList)
+        {
+            QuestBaseData loadedData = new QuestBaseData();
+            loadedData.ParseToData(json);
+
+            _questDataManager.AddBaseData(loadedData);
+        }
+
+        string listName = "LOADING QUEST DATA";
         LogSystem.LogList(jsonStringList, listName);
     }
 

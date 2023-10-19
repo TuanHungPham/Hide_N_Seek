@@ -1,6 +1,13 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
+
+public enum eQuestType
+{
+    WINNING,
+    RESCUING,
+    CATCHING,
+    COMPLETION
+}
 
 [Serializable]
 public class Quest : ICloneable
@@ -14,9 +21,10 @@ public class Quest : ICloneable
     public float targetProgress;
     public eResourceDataType prizeType;
     public bool isCompleted;
+    public eQuestType questType;
 
     public Quest(int questID, Sprite questIcon, Sprite prizeIcon, string questDescription, long prizeQuantity, float currentProgress, float targetProgress, eResourceDataType prizeType,
-        bool isCompleted)
+        bool isCompleted, eQuestType questType)
     {
         this.questID = questID;
         this.questIcon = questIcon;
@@ -27,6 +35,7 @@ public class Quest : ICloneable
         this.targetProgress = targetProgress;
         this.prizeType = prizeType;
         this.isCompleted = isCompleted;
+        this.questType = questType;
     }
 
     public void FinishQuest()
@@ -37,6 +46,6 @@ public class Quest : ICloneable
 
     public object Clone()
     {
-        return new Quest(questID, questIcon, prizeIcon, questDescription, prizeQuantity, currentProgress, targetProgress, prizeType, isCompleted);
+        return new Quest(questID, questIcon, prizeIcon, questDescription, prizeQuantity, currentProgress, targetProgress, prizeType, isCompleted, questType);
     }
 }

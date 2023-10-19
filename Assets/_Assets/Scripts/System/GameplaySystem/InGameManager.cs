@@ -34,6 +34,11 @@ public class InGameManager : MonoBehaviour
         _questManager = GetComponentInChildren<QuestManager>();
     }
 
+    public void UpdateQuestProgress(eQuestType questType, float addingProgress)
+    {
+        _questManager.UpdateQuestProgress(questType, addingProgress);
+    }
+
     public void FinishQuest(int questID)
     {
         _questManager.FinishQuest(questID);

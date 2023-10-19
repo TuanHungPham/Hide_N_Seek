@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,6 @@ public class QuestPanelUI : MonoBehaviour
 {
     [SerializeField] private GameObject _questUIPrefab;
     [SerializeField] private List<QuestUI> _questUiList = new List<QuestUI>();
-    [SerializeField] private QuestTemplate _questTemplate;
 
     private InGameManager InGameManager => InGameManager.Instance;
 
@@ -43,7 +41,9 @@ public class QuestPanelUI : MonoBehaviour
     private void SetupQuestUI(GameObject _questUI, Quest quest)
     {
         QuestUI questUI = _questUI.GetComponent<QuestUI>();
+        if (questUI == null) return;
 
+        _questUiList.Add(questUI);
         questUI.SetUIData(quest);
     }
 }

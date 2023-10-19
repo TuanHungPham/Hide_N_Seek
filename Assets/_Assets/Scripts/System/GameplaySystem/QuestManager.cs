@@ -16,8 +16,13 @@ public class QuestManager : MonoBehaviour
         _todayQuestList = IngameDataManager.Instance.GetTodayQuestTemplateList();
     }
 
-    public void UpdateQuest()
+    public void UpdateQuestProgress(eQuestType questType, float addingProgress)
     {
+        Quest quest = _todayQuestList.Find(x => x.questType == questType);
+        if (quest == null) return;
+
+        quest.currentProgress += addingProgress;
+        CheckQuestState(quest);
     }
 
     public void FinishQuest(int questID)
@@ -32,6 +37,17 @@ public class QuestManager : MonoBehaviour
     public List<Quest> GetTodayQuestList()
     {
         return _todayQuestList;
+    }
+
+    private void CheckQuestState(Quest quest)
+    {
+        if (quest.currentProgress == quest.targetProgress)
+        {
+            quest.isCompleted = true;
+            return;
+        }
+
+        quest.isCompleted = false;
     }
 
     private void EmitUpdatingQuestEvent()

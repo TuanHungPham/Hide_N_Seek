@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using TigerForge;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 [Serializable]
@@ -50,17 +49,33 @@ public class QuestDataManager : MonoBehaviour
     [SerializeField] private List<Quest> _todayQuestTemplateList = new List<Quest>();
     [SerializeField] private QuestTemplate _questTemplate;
     [SerializeField] private int _numberOfQuest;
+    private List<Quest> _questTemplateList = new List<Quest>();
+    private long _initTime;
+    private TimeSpan _resetDelayTimeSpan = TimeSpan.FromHours(24);
+
 
     public List<QuestBaseData> QuestBaseDataList => _questBaseDataList;
 
     private void Awake()
     {
+        LoadTime();
         LoadTemplate();
+    }
+
+    private void LoadTime()
+    {
+        _initTime = long.Parse(PlayerPrefs.GetString("QUEST_INIT_TIME", "0"));
+    }
+
+    private void SaveTime()
+    {
+        PlayerPrefs.SetString("QUEST_INIT_TIME", _initTime.ToString());
     }
 
     private void Start()
     {
         ListenEvent();
+        LoadData();
     }
 
     private void ListenEvent()
@@ -70,27 +85,53 @@ public class QuestDataManager : MonoBehaviour
 
     private void LoadTemplate()
     {
-        List<Quest> questTemplateList = new List<Quest>();
-
         foreach (var questTemplate in _questTemplate.QuestList)
         {
             Quest quest = (Quest)questTemplate.Clone();
 
-            questTemplateList.Add(quest);
+            _questTemplateList.Add(quest);
+        }
+    }
+
+    public void LoadData()
+    {
+        if (QuestBaseDataList.Count <= 0 || IsNewDay())
+        {
+            RandomTodayQuestTemplate(_questTemplateList);
+            return;
         }
 
-        RandomTodayQuestTemplate(questTemplateList);
+        Debug.Log($"(QUEST) Loading quest list...");
+
+        for (int i = 0; i < QuestBaseDataList.Count; i++)
+        {
+            int questID = QuestBaseDataList[i].questID;
+            float currentProgress = QuestBaseDataList[i].currentProgress;
+            bool isCompleted = QuestBaseDataList[i].isCompleted;
+
+            Quest quest = _questTemplateList.Find(x => x.questID == questID);
+            if (quest == null) return;
+
+            quest.currentProgress = currentProgress;
+            quest.isCompleted = isCompleted;
+
+            _todayQuestTemplateList.Add(quest);
+        }
     }
 
     private void RandomTodayQuestTemplate(List<Quest> questTemplateList)
     {
+        QuestBaseDataList.Clear();
+
+        Debug.Log($"(QUEST) Resetting new quest list...");
         for (int i = 0; i < _numberOfQuest; i++)
         {
             int randomIndex = Random.Range(0, questTemplateList.Count - 1);
 
             Quest quest = questTemplateList[randomIndex];
+            Quest existedQuest = _todayQuestTemplateList.Find(x => x.questType == quest.questType);
 
-            if (_todayQuestTemplateList.Contains(quest))
+            if (_todayQuestTemplateList.Contains(quest) || existedQuest != null)
             {
                 i -= 1;
                 continue;
@@ -102,6 +143,12 @@ public class QuestDataManager : MonoBehaviour
             questBaseData.AddData(quest.questID, quest.currentProgress, quest.targetProgress, quest.isCompleted);
             AddBaseData(questBaseData);
         }
+
+        _initTime = DateTime.Today.Ticks;
+        DateTime initDate = new DateTime(_initTime);
+        Debug.Log($"--- (QUEST) INIT QUEST TIME --- DAY: {initDate}");
+
+        SaveTime();
     }
 
     public void AddBaseData(QuestBaseData questBaseData)
@@ -132,5 +179,16 @@ public class QuestDataManager : MonoBehaviour
     public List<Quest> GetTodayQuestTemplateList()
     {
         return _todayQuestTemplateList;
+    }
+
+    private bool IsNewDay()
+    {
+        long nextResetTime = _initTime + _resetDelayTimeSpan.Ticks;
+        long todayTicks = DateTime.Today.Ticks;
+        Debug.Log($"(QUEST) nextResetTimeTicks: {nextResetTime} --- todayTicks: {todayTicks}");
+
+        if (todayTicks > nextResetTime) return true;
+
+        return false;
     }
 }

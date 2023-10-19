@@ -12,6 +12,7 @@ public class QuestUI : MonoBehaviour
     [Header("Image UI")] [SerializeField] private Image _questIcon;
     [SerializeField] private Image _questPrizeImg;
     [SerializeField] private Image _checkImg;
+    [SerializeField] private Image _darkLayer;
 
     [Header("Text UI")] [SerializeField] private TMP_Text _questDescription;
     [SerializeField] private TMP_Text _questProgressText;
@@ -59,10 +60,12 @@ public class QuestUI : MonoBehaviour
         {
             _adsButton.gameObject.SetActive(false);
             _checkImg.gameObject.SetActive(true);
+            _darkLayer.gameObject.SetActive(true);
         }
         else
         {
             _checkImg.gameObject.SetActive(false);
+            _darkLayer.gameObject.SetActive(false);
         }
 
         var currentProgress = _quest.currentProgress;
