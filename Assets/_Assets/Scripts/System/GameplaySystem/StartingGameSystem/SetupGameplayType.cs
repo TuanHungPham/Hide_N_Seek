@@ -85,7 +85,7 @@ public class SetupGameplayType : MonoBehaviour
 
             Controller playerController = player.GetComponent<Controller>();
 
-            if (playerController.GetPlayerType() == PlayerType.MAIN_CHARACTER ||
+            if (playerController.GetPlayerType() == ePlayerType.MAIN_CHARACTER ||
                 playerController.GetInGameState().IsSeeker())
                 continue;
 

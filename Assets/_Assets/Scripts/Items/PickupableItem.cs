@@ -4,7 +4,7 @@ public class PickupableItem : MonoBehaviour
 {
     #region private
 
-    [SerializeField] private PlayerType _targetForGettingItemFunction;
+    [SerializeField] private ePlayerType _targetForGettingItemFunction;
     private IPickupable _pickupable;
 
     #endregion

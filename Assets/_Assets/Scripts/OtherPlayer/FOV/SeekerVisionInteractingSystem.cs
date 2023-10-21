@@ -8,7 +8,7 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
     #region private
 
     [SerializeField] private Transform _thisPlayer;
-
+    [SerializeField] private ePlayerType _playerType;
     [SerializeField] private CircleVision _circleVision;
     [SerializeField] private FrontVision _frontVision;
 
@@ -45,6 +45,8 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
     {
         _circleVision = GetComponentInChildren<CircleVision>();
         _frontVision = GetComponentInChildren<FrontVision>();
+
+        Debug.Log($"LAYER NAME: {_thisPlayer.gameObject.layer}");
     }
 
     private void Update()
@@ -73,7 +75,10 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
         if (targetController == null || !CanCheckColliding()) return;
 
         targetController.SetCaughtState(true);
+
         EmitCatchingHiderEvent();
+
+        UpdateInGameAchievement();
     }
 
     private void EmitCatchingHiderEvent()
@@ -91,5 +96,12 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
     public Transform GetThisPlayerTransform()
     {
         return _thisPlayer;
+    }
+
+    private void UpdateInGameAchievement()
+    {
+        if (_playerType == ePlayerType.NPC) return;
+
+        InGameManager.Instance.AddAchievementPoint(eAchievementType.CATCHING_TIME);
     }
 }

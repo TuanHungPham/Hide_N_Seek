@@ -144,4 +144,9 @@ public class GameplaySystem : MonoBehaviour
     {
         _startingGameSystem.SetNumberOfSeeker(number);
     }
+
+    public void SetGameplayTimer(float hidingTimer)
+    {
+        _gameplayTimeSystem.SetGameplayTimer(hidingTimer);
+    }
 }

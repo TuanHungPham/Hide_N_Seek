@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Controller : MonoBehaviour
 {
     #region private
 
-    [SerializeField] protected PlayerType _playerType;
+    [FormerlySerializedAs("_playerType")] [SerializeField] protected ePlayerType ePlayerType;
 
     [SerializeField] protected Model _model;
 
@@ -51,9 +52,9 @@ public class Controller : MonoBehaviour
         return _interactingSystem;
     }
 
-    public virtual PlayerType GetPlayerType()
+    public virtual ePlayerType GetPlayerType()
     {
-        return _playerType;
+        return ePlayerType;
     }
 
     public SeekerVisionInteractingSystem GetSeekerVision()

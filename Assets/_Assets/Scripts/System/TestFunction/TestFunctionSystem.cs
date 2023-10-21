@@ -11,4 +11,9 @@ public class TestFunctionSystem : MonoBehaviour
         IngameDataManager.Instance.GetQuestDataManager().RandomTodayQuestTemplate();
         EventManager.EmitEvent(EventID.QUEST_RESETTING);
     }
+
+    public void OnEndLevel()
+    {
+        GameplaySystem.Instance.SetGameplayTimer(0);
+    }
 }

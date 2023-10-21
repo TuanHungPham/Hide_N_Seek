@@ -7,6 +7,8 @@ public class GameFlowManager : MonoBehaviour
     private GameplaySystem GameplaySystem => GameplaySystem.Instance;
     private GameplayScene GameplayScene => GameplayScene.Instance;
 
+    private InGameManager InGameManager => InGameManager.Instance;
+
     private void Awake()
     {
         ListenEvent();
@@ -60,15 +62,21 @@ public class GameFlowManager : MonoBehaviour
     private void SetWin()
     {
         Time.timeScale = 0;
-        EmitEndGameEvent();
+        EndLevel();
         GameplayScene.ShowWinPopup();
     }
 
     private void SetLose()
     {
         Time.timeScale = 0;
-        EmitEndGameEvent();
+        EndLevel();
         GameplayScene.ShowLosePopup();
+    }
+
+    private void EndLevel()
+    {
+        UpdateQuest();
+        EmitEndGameEvent();
     }
 
     private void EmitEndGameEvent()
@@ -80,5 +88,11 @@ public class GameFlowManager : MonoBehaviour
     {
         Time.timeScale = 1;
         GameplayScene.ResetScene();
+    }
+
+    private void UpdateQuest()
+    {
+        InGameManager.UpdateQuestProgress(eQuestType.CATCHING, eAchievementType.CATCHING_TIME);
+        InGameManager.UpdateQuestProgress(eQuestType.RESCUING, eAchievementType.RESCUING_TIME);
     }
 }

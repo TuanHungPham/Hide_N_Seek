@@ -734,9 +734,21 @@ PrefabInstance:
       value: TestUICanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4177261050585403610, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177261050585403610, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 629180726}
+    - target: {fileID: 4177261050585403610, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowTestPopup
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177261050585403610, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameplayScene, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
 --- !u!1001 &4238586131004738207

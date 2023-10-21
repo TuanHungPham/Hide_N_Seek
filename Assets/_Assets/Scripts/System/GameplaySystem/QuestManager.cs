@@ -5,6 +5,7 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] private List<Quest> _todayQuestList;
+    private InGameManager InGameManager => InGameManager.Instance;
 
     private void Start()
     {
@@ -16,13 +17,14 @@ public class QuestManager : MonoBehaviour
         _todayQuestList = IngameDataManager.Instance.GetTodayQuestTemplateList();
     }
 
-    public void UpdateQuestProgress(eQuestType questType, float addingProgress)
+    public void UpdateQuestProgress(eQuestType questType, eAchievementType achievementType)
     {
         Quest quest = _todayQuestList.Find(x => x.questType == questType);
         if (quest == null) return;
 
-        quest.currentProgress += addingProgress;
+        quest.currentProgress += InGameManager.GetAchievementPoint(achievementType);
         CheckQuestState(quest);
+        EmitUpdatingQuestEvent();
     }
 
     public void FinishQuest(int questID)

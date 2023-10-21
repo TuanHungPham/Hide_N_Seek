@@ -9,7 +9,7 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private PetManager _petManager;
     [SerializeField] private CostumeManager _costumeManager;
     [SerializeField] private QuestManager _questManager;
-
+    [SerializeField] private AchievementManager _achievementManager;
 
     private void Awake()
     {
@@ -32,11 +32,12 @@ public class InGameManager : MonoBehaviour
         _petManager = GetComponentInChildren<PetManager>();
         _costumeManager = GetComponentInChildren<CostumeManager>();
         _questManager = GetComponentInChildren<QuestManager>();
+        _achievementManager = GetComponentInChildren<AchievementManager>();
     }
 
-    public void UpdateQuestProgress(eQuestType questType, float addingProgress)
+    public void UpdateQuestProgress(eQuestType questType, eAchievementType achievementType)
     {
-        _questManager.UpdateQuestProgress(questType, addingProgress);
+        _questManager.UpdateQuestProgress(questType, achievementType);
     }
 
     public void FinishQuest(int questID)
@@ -47,5 +48,15 @@ public class InGameManager : MonoBehaviour
     public List<Quest> GetTodayQuestList()
     {
         return _questManager.GetTodayQuestList();
+    }
+
+    public void AddAchievementPoint(eAchievementType type)
+    {
+        _achievementManager.AddAchievementPoint(type);
+    }
+
+    public float GetAchievementPoint(eAchievementType type)
+    {
+        return _achievementManager.GetAchievementPoint(type);
     }
 }

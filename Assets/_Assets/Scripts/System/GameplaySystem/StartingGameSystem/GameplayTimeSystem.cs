@@ -109,4 +109,9 @@ public class GameplayTimeSystem : MonoBehaviour
     {
         return _timer;
     }
+
+    public void SetGameplayTimer(float gameplayTimer)
+    {
+        _gamePlayTimer = gameplayTimer;
+    }
 }
