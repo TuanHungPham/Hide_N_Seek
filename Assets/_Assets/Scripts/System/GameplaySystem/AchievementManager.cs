@@ -7,6 +7,8 @@ public enum eAchievementType
 {
     CATCHING_TIME,
     RESCUING_TIME,
+    WINNING_TIME,
+    COMPLETE_LEVEL_TIME,
 
     MAX_COUNT,
 }

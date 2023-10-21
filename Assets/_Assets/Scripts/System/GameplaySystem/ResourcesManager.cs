@@ -24,16 +24,6 @@ public class ResourcesManager : MonoBehaviour
         InitializeCoin();
     }
 
-    private void Start()
-    {
-        ListenEvent();
-    }
-
-    private void ListenEvent()
-    {
-        EventManager.StartListening(EventID.RETRYING_GAME, ResetCoinDictionary);
-    }
-
     private void InitializeCoin()
     {
         _totalCoin = IngameDataManager.Instance.GetResourceData(eResourceDataType.COIN);
@@ -49,14 +39,6 @@ public class ResourcesManager : MonoBehaviour
             long coinQuantity = 0;
 
             _coinTypeDic.Add(coinType, coinQuantity);
-        }
-    }
-
-    private void ResetCoinDictionary()
-    {
-        foreach (var coin in _coinTypeDic)
-        {
-            _coinTypeDic[coin.Key] = 0;
         }
     }
 

@@ -62,15 +62,27 @@ public class GameFlowManager : MonoBehaviour
     private void SetWin()
     {
         Time.timeScale = 0;
-        EndLevel();
         GameplayScene.ShowWinPopup();
+
+        AddAchievementPoint(eAchievementType.WINNING_TIME);
+        AddAchievementPoint(eAchievementType.COMPLETE_LEVEL_TIME);
+
+        EndLevel();
+    }
+
+    private void AddAchievementPoint(eAchievementType type)
+    {
+        InGameManager.AddAchievementPoint(type);
     }
 
     private void SetLose()
     {
         Time.timeScale = 0;
-        EndLevel();
         GameplayScene.ShowLosePopup();
+
+        AddAchievementPoint(eAchievementType.COMPLETE_LEVEL_TIME);
+
+        EndLevel();
     }
 
     private void EndLevel()
@@ -94,5 +106,7 @@ public class GameFlowManager : MonoBehaviour
     {
         InGameManager.UpdateQuestProgress(eQuestType.CATCHING, eAchievementType.CATCHING_TIME);
         InGameManager.UpdateQuestProgress(eQuestType.RESCUING, eAchievementType.RESCUING_TIME);
+        InGameManager.UpdateQuestProgress(eQuestType.WINNING, eAchievementType.WINNING_TIME);
+        InGameManager.UpdateQuestProgress(eQuestType.COMPLETION, eAchievementType.COMPLETE_LEVEL_TIME);
     }
 }

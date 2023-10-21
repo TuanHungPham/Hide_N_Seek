@@ -22,9 +22,20 @@ public class QuestManager : MonoBehaviour
         Quest quest = _todayQuestList.Find(x => x.questType == questType);
         if (quest == null) return;
 
-        quest.currentProgress += InGameManager.GetAchievementPoint(achievementType);
+        float newProgress = quest.currentProgress + InGameManager.GetAchievementPoint(achievementType);
+
+        if (CanUpdateQuest(quest, newProgress)) return;
+
+        quest.currentProgress = newProgress;
         CheckQuestState(quest);
-        EmitUpdatingQuestEvent();
+    }
+
+    private static bool CanUpdateQuest(Quest quest, float newProgress)
+    {
+        if (quest.currentProgress >= quest.targetProgress) return true;
+        if (newProgress <= quest.targetProgress) return true;
+
+        return false;
     }
 
     public void FinishQuest(int questID)
@@ -43,13 +54,16 @@ public class QuestManager : MonoBehaviour
 
     private void CheckQuestState(Quest quest)
     {
-        if (quest.currentProgress == quest.targetProgress)
+        if (quest.currentProgress >= quest.targetProgress)
         {
             quest.isCompleted = true;
-            return;
+        }
+        else
+        {
+            quest.isCompleted = false;
         }
 
-        quest.isCompleted = false;
+        EmitUpdatingQuestEvent();
     }
 
     private void EmitUpdatingQuestEvent()
