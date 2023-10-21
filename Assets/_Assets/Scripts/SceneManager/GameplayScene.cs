@@ -27,6 +27,11 @@ public class GameplayScene : SSController
         SSSceneManager.Instance.PopUp("LoseScene");
     }
 
+    public void ShowTestPopup()
+    {
+        SSSceneManager.Instance.PopUp("TestFunctionScene");
+    }
+
     public void ResetScene()
     {
         SSSceneManager.Instance.Reset();

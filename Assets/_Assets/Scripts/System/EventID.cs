@@ -19,4 +19,5 @@ public enum EventID
     ADDING_COIN,
     CONSUMING_COIN,
     QUEST_UPDATING,
+    QUEST_RESETTING,
 }

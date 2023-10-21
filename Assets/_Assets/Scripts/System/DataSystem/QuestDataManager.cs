@@ -97,7 +97,7 @@ public class QuestDataManager : MonoBehaviour
     {
         if (QuestBaseDataList.Count <= 0 || IsNewDay())
         {
-            RandomTodayQuestTemplate(_questTemplateList);
+            RandomTodayQuestTemplate();
             return;
         }
 
@@ -119,16 +119,24 @@ public class QuestDataManager : MonoBehaviour
         }
     }
 
-    private void RandomTodayQuestTemplate(List<Quest> questTemplateList)
+    public void RandomTodayQuestTemplate()
     {
-        QuestBaseDataList.Clear();
+        if (QuestBaseDataList.Count > 0)
+        {
+            QuestBaseDataList.Clear();
+        }
+
+        if (_todayQuestTemplateList.Count > 0)
+        {
+            _todayQuestTemplateList.Clear();
+        }
 
         Debug.Log($"(QUEST) Resetting new quest list...");
         for (int i = 0; i < _numberOfQuest; i++)
         {
-            int randomIndex = Random.Range(0, questTemplateList.Count - 1);
+            int randomIndex = Random.Range(0, _questTemplateList.Count - 1);
 
-            Quest quest = questTemplateList[randomIndex];
+            Quest quest = (Quest)_questTemplateList[randomIndex].Clone();
             Quest existedQuest = _todayQuestTemplateList.Find(x => x.questType == quest.questType);
 
             if (_todayQuestTemplateList.Contains(quest) || existedQuest != null)
@@ -144,9 +152,13 @@ public class QuestDataManager : MonoBehaviour
             AddBaseData(questBaseData);
         }
 
+        EventManager.EmitEvent(EventID.QUEST_RESETTING);
+
         _initTime = DateTime.Today.Ticks;
         DateTime initDate = new DateTime(_initTime);
         Debug.Log($"--- (QUEST) INIT QUEST TIME --- DAY: {initDate}");
+        DateTime nextResetDate = initDate + _resetDelayTimeSpan;
+        Debug.Log($"--- (QUEST) NEXT RESET QUEST TIME --- DAY: {nextResetDate}");
 
         SaveTime();
     }

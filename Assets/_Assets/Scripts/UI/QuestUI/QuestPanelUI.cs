@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TigerForge;
 using UnityEngine;
 
 public class QuestPanelUI : MonoBehaviour
@@ -25,6 +26,12 @@ public class QuestPanelUI : MonoBehaviour
     private void Start()
     {
         InitializeQuestUIList();
+        ListenEvent();
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.QUEST_RESETTING, ResetQuestUIList);
     }
 
     private void InitializeQuestUIList()
@@ -32,18 +39,34 @@ public class QuestPanelUI : MonoBehaviour
         List<Quest> todayQuestList = InGameManager.GetTodayQuestList();
         for (int i = 0; i < todayQuestList.Count; i++)
         {
-            GameObject questUI = Instantiate(_questUIPrefab, transform, true);
-            Quest questTemplate = (Quest)todayQuestList[i].Clone();
-            SetupQuestUI(questUI, questTemplate);
+            GameObject questUI;
+            questUI = Instantiate(_questUIPrefab, transform, true);
+
+            QuestUI questUIScript = questUI.GetComponent<QuestUI>();
+            _questUiList.Add(questUIScript);
+
+            Quest questTemplate = todayQuestList[i];
+            SetupQuestUI(questUIScript, questTemplate);
         }
     }
 
-    private void SetupQuestUI(GameObject _questUI, Quest quest)
+    private void ResetQuestUIList()
     {
-        QuestUI questUI = _questUI.GetComponent<QuestUI>();
+        List<Quest> todayQuestList = InGameManager.GetTodayQuestList();
+        for (int i = 0; i < todayQuestList.Count; i++)
+        {
+            GameObject questUI = _questUiList[i].gameObject;
+            QuestUI questUIScript = questUI.GetComponent<QuestUI>();
+
+            Quest questTemplate = todayQuestList[i];
+            SetupQuestUI(questUIScript, questTemplate);
+        }
+    }
+
+    private void SetupQuestUI(QuestUI questUI, Quest quest)
+    {
         if (questUI == null) return;
 
-        _questUiList.Add(questUI);
         questUI.SetUIData(quest);
     }
 }
