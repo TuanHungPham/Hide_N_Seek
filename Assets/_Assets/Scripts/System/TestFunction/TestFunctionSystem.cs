@@ -8,7 +8,7 @@ public class TestFunctionSystem : MonoBehaviour
 {
     public void OnResetQuest()
     {
-        IngameDataManager.Instance.GetQuestDataManager().RandomTodayQuestTemplate();
+        IngameDataManager.Instance.GetQuestDataManager().RandomDailyQuest();
         EventManager.EmitEvent(EventID.QUEST_RESETTING);
     }
 

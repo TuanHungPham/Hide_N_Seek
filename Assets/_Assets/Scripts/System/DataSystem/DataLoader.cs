@@ -7,6 +7,7 @@ public enum eDataType
     COSTUME_DATA,
     PET_DATA,
     QUEST_DATA,
+    SPECIAL_QUEST_DATA,
 }
 
 public class DataLoader : MonoBehaviour
@@ -44,6 +45,7 @@ public class DataLoader : MonoBehaviour
         SaveCostumeData();
         SavePetData();
         SaveQuestData();
+        SaveSpecialQuestData();
 
         myFile.Append();
     }
@@ -60,6 +62,7 @@ public class DataLoader : MonoBehaviour
         LoadCostumeData();
         LoadPetData();
         LoadQuestData();
+        LoadSpecialQuestData();
 
         myFile.Dispose();
     }
@@ -98,6 +101,17 @@ public class DataLoader : MonoBehaviour
         }
 
         AddToSaveCache(eDataType.QUEST_DATA, jsonStringList);
+    }
+
+    private void SaveSpecialQuestData()
+    {
+        List<string> jsonStringList = new List<string>();
+
+        BaseData baseData = _questDataManager.SpecialQuestBaseData;
+        string jsonString = baseData.ToJsonString();
+        jsonStringList.Add(jsonString);
+
+        AddToSaveCache(eDataType.SPECIAL_QUEST_DATA, jsonStringList);
     }
 
     private void LoadCostumeData()
@@ -144,10 +158,27 @@ public class DataLoader : MonoBehaviour
             QuestBaseData loadedData = new QuestBaseData();
             loadedData.ParseToData(json);
 
-            _questDataManager.AddBaseData(loadedData);
+            _questDataManager.AddNormalQuestBaseData(loadedData);
         }
 
         string listName = "LOADING QUEST DATA";
+        LogSystem.LogList(jsonStringList, listName);
+    }
+
+    private void LoadSpecialQuestData()
+    {
+        List<string> jsonStringList = GetJsonStringList(eDataType.SPECIAL_QUEST_DATA);
+        if (jsonStringList == null) return;
+
+        foreach (var json in jsonStringList)
+        {
+            QuestBaseData loadedData = new QuestBaseData();
+            loadedData.ParseToData(json);
+
+            _questDataManager.AddSpecialQuestBaseData(loadedData);
+        }
+
+        string listName = "LOADING SPECIAL QUEST DATA";
         LogSystem.LogList(jsonStringList, listName);
     }
 

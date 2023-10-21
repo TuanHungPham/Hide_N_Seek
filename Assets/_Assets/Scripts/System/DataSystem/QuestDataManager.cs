@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using TigerForge;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+
+public enum eQuestDataType
+{
+    NORMAL_QUEST,
+    SPECIAL_QUEST
+}
 
 [Serializable]
 public class QuestBaseData : BaseData
@@ -46,15 +53,19 @@ public class QuestBaseData : BaseData
 public class QuestDataManager : MonoBehaviour
 {
     [SerializeField] private List<QuestBaseData> _questBaseDataList = new List<QuestBaseData>();
-    [SerializeField] private List<Quest> _todayQuestTemplateList = new List<Quest>();
+    [SerializeField] private QuestBaseData _specialQuestBaseData;
+    [SerializeField] private List<Quest> _todayQuestList = new List<Quest>();
+    [SerializeField] private SpecialQuest _todaySpecialQuest;
     [SerializeField] private QuestTemplate _questTemplate;
+    [SerializeField] private SpecialQuestTemplate _specialQuestTemplate;
     [SerializeField] private int _numberOfQuest;
     private List<Quest> _questTemplateList = new List<Quest>();
+    private List<SpecialQuest> _specialQuestTemplateList = new List<SpecialQuest>();
     private long _initTime;
     private TimeSpan _resetDelayTimeSpan = TimeSpan.FromHours(24);
 
-
     public List<QuestBaseData> QuestBaseDataList => _questBaseDataList;
+    public QuestBaseData SpecialQuestBaseData => _specialQuestBaseData;
 
     private void Awake()
     {
@@ -85,6 +96,22 @@ public class QuestDataManager : MonoBehaviour
 
     private void LoadTemplate()
     {
+        LoadNormalQuestTemplateList();
+        LoadSpecialQuestTemplateList();
+    }
+
+    private void LoadSpecialQuestTemplateList()
+    {
+        foreach (var questTemplate in _specialQuestTemplate.SpecialQuestList)
+        {
+            SpecialQuest quest = (SpecialQuest)questTemplate.Clone();
+
+            _specialQuestTemplateList.Add(quest);
+        }
+    }
+
+    private void LoadNormalQuestTemplateList()
+    {
         foreach (var questTemplate in _questTemplate.QuestList)
         {
             Quest quest = (Quest)questTemplate.Clone();
@@ -97,12 +124,35 @@ public class QuestDataManager : MonoBehaviour
     {
         if (QuestBaseDataList.Count <= 0 || IsNewDay())
         {
-            RandomTodayQuestTemplate();
+            RandomDailyQuest();
             return;
         }
 
         Debug.Log($"(QUEST) Loading quest list...");
 
+        LoadNormalQuestData();
+        LoadSpecialQuestData();
+    }
+
+    private void LoadSpecialQuestData()
+    {
+        int specialQuestID = SpecialQuestBaseData.questID;
+        float currentProgress = SpecialQuestBaseData.currentProgress;
+        bool isCompleted = SpecialQuestBaseData.isCompleted;
+
+        SpecialQuest specialQuest = _specialQuestTemplateList.Find(x => x.questID == specialQuestID);
+        if (specialQuest == null) return;
+
+        SpecialQuest loadedSpecialQuest = (SpecialQuest)specialQuest.Clone();
+
+        loadedSpecialQuest.currentProgress = currentProgress;
+        loadedSpecialQuest.isCompleted = isCompleted;
+
+        _todaySpecialQuest = loadedSpecialQuest;
+    }
+
+    private void LoadNormalQuestData()
+    {
         for (int i = 0; i < QuestBaseDataList.Count; i++)
         {
             int questID = QuestBaseDataList[i].questID;
@@ -112,45 +162,30 @@ public class QuestDataManager : MonoBehaviour
             Quest quest = _questTemplateList.Find(x => x.questID == questID);
             if (quest == null) return;
 
-            quest.currentProgress = currentProgress;
-            quest.isCompleted = isCompleted;
+            Quest loadedQuest = (Quest)quest.Clone();
 
-            _todayQuestTemplateList.Add(quest);
+            loadedQuest.currentProgress = currentProgress;
+            loadedQuest.isCompleted = isCompleted;
+
+            _todayQuestList.Add(loadedQuest);
         }
     }
 
-    public void RandomTodayQuestTemplate()
+    public void RandomDailyQuest()
     {
         if (QuestBaseDataList.Count > 0)
         {
             QuestBaseDataList.Clear();
         }
 
-        if (_todayQuestTemplateList.Count > 0)
+        if (_todayQuestList.Count > 0)
         {
-            _todayQuestTemplateList.Clear();
+            _todayQuestList.Clear();
         }
 
         Debug.Log($"(QUEST) Resetting new quest list...");
-        for (int i = 0; i < _numberOfQuest; i++)
-        {
-            int randomIndex = Random.Range(0, _questTemplateList.Count - 1);
-
-            Quest quest = (Quest)_questTemplateList[randomIndex].Clone();
-            Quest existedQuest = _todayQuestTemplateList.Find(x => x.questType == quest.questType);
-
-            if (_todayQuestTemplateList.Contains(quest) || existedQuest != null)
-            {
-                i -= 1;
-                continue;
-            }
-
-            _todayQuestTemplateList.Add(quest);
-
-            QuestBaseData questBaseData = new QuestBaseData();
-            questBaseData.AddData(quest.questID, quest.currentProgress, quest.targetProgress, quest.isCompleted);
-            AddBaseData(questBaseData);
-        }
+        RandomNormalQuest();
+        RandomSpecialQuest();
 
         EventManager.EmitEvent(EventID.QUEST_RESETTING);
 
@@ -163,7 +198,41 @@ public class QuestDataManager : MonoBehaviour
         SaveTime();
     }
 
-    public void AddBaseData(QuestBaseData questBaseData)
+    private void RandomNormalQuest()
+    {
+        for (int i = 0; i < _numberOfQuest; i++)
+        {
+            int randomIndex = Random.Range(0, _questTemplateList.Count - 1);
+
+            Quest quest = (Quest)_questTemplateList[randomIndex].Clone();
+            Quest existedQuest = _todayQuestList.Find(x => x.questType == quest.questType);
+
+            if (_todayQuestList.Contains(quest) || existedQuest != null)
+            {
+                i -= 1;
+                continue;
+            }
+
+            _todayQuestList.Add(quest);
+
+            QuestBaseData questBaseData = new QuestBaseData();
+            questBaseData.AddData(quest.questID, quest.currentProgress, quest.targetProgress, quest.isCompleted);
+            AddNormalQuestBaseData(questBaseData);
+        }
+    }
+
+    private void RandomSpecialQuest()
+    {
+        int randomIndex = Random.Range(0, _specialQuestTemplateList.Count - 1);
+
+        _todaySpecialQuest = (SpecialQuest)_specialQuestTemplateList[randomIndex].Clone();
+
+        QuestBaseData questBaseData = new QuestBaseData();
+        questBaseData.AddData(_todaySpecialQuest.questID, _todaySpecialQuest.currentProgress, _todaySpecialQuest.targetProgress, _todaySpecialQuest.isCompleted);
+        AddSpecialQuestBaseData(questBaseData);
+    }
+
+    public void AddNormalQuestBaseData(QuestBaseData questBaseData)
     {
         QuestBaseData existedBaseData = QuestBaseDataList.Find(x => x.questID == questBaseData.questID);
 
@@ -177,11 +246,16 @@ public class QuestDataManager : MonoBehaviour
         }
     }
 
+    public void AddSpecialQuestBaseData(QuestBaseData questBaseData)
+    {
+        SpecialQuestBaseData.AddData(questBaseData);
+    }
+
     private void UpdateBaseData()
     {
-        for (int i = 0; i < _todayQuestTemplateList.Count; i++)
+        for (int i = 0; i < _todayQuestList.Count; i++)
         {
-            Quest quest = _todayQuestTemplateList[i];
+            Quest quest = _todayQuestList[i];
             QuestBaseData questBaseData = _questBaseDataList[i];
 
             questBaseData.ModifyData(quest.currentProgress, quest.targetProgress, quest.isCompleted);
@@ -190,7 +264,12 @@ public class QuestDataManager : MonoBehaviour
 
     public List<Quest> GetTodayQuestTemplateList()
     {
-        return _todayQuestTemplateList;
+        return _todayQuestList;
+    }
+
+    public SpecialQuest GetTodaySpecialQuest()
+    {
+        return _todaySpecialQuest;
     }
 
     private bool IsNewDay()

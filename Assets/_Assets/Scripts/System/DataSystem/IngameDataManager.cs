@@ -83,6 +83,11 @@ public class IngameDataManager : MonoBehaviour
         return _questDataManager.GetTodayQuestTemplateList();
     }
 
+    public SpecialQuest GetTodaySpecialQuest()
+    {
+        return _questDataManager.GetTodaySpecialQuest();
+    }
+
     public QuestDataManager GetQuestDataManager()
     {
         return _questDataManager;

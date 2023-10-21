@@ -291,8 +291,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questBaseDataList: []
-  _todayQuestTemplateList: []
+  _specialQuestBaseData:
+    _isModified: 0
+    questID: 0
+    currentProgress: 0
+    targetProgress: 0
+    isCompleted: 0
+  _todayQuestList: []
+  _todaySpecialQuest:
+    questID: 0
+    ticketPrizeIcon: {fileID: 0}
+    coinPrizeIcon: {fileID: 0}
+    skinPrizeIcon: {fileID: 0}
+    skinPrizeMaterial: {fileID: 0}
+    ticketPrizeQuantity: 0
+    coinPrizeQuantity: 0
+    currentProgress: 0
+    targetProgress: 0
+    isCompleted: 0
   _questTemplate: {fileID: 11400000, guid: a42853b1e0919104387dfc30e9da22a3, type: 2}
+  _specialQuestTemplate: {fileID: 11400000, guid: e462b3cdf94839c44819f90f1eee7e9f, type: 2}
   _numberOfQuest: 3
 --- !u!1 &1418063810
 GameObject:
