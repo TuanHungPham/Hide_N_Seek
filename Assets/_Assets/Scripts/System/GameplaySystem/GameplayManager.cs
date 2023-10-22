@@ -40,8 +40,23 @@ public class GameplayManager : MonoBehaviour
         _resourcesManager.ConsumeCoin(quantity);
     }
 
+    public void AddTicket(long quantity)
+    {
+        _resourcesManager.AddTicket(quantity);
+    }
+
+    public void ConsumeTicket(long quantity)
+    {
+        _resourcesManager.ConsumeTicket(quantity);
+    }
+
     public long GetTotalCoin()
     {
         return _resourcesManager.GetTotalCoin();
+    }
+
+    public long GetTotalTicket()
+    {
+        return _resourcesManager.GetTotalTicket();
     }
 }

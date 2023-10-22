@@ -16,7 +16,9 @@ public enum eAddingCoinType
 public class ResourcesManager : MonoBehaviour
 {
     [SerializeField] private long _totalCoin;
+    [SerializeField] private long _totalTicket;
     private Dictionary<eAddingCoinType, long> _coinTypeDic = new Dictionary<eAddingCoinType, long>();
+    private IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
     private void Awake()
     {
@@ -47,11 +49,29 @@ public class ResourcesManager : MonoBehaviour
         return _totalCoin;
     }
 
+    public long GetTotalTicket()
+    {
+        return _totalTicket;
+    }
+
     public void AddTotalCoin(long quantity)
     {
         _totalCoin += quantity;
         SetTotalCoin();
-        EmitAddingCoinEvent();
+        EmitAddingResourcesEvent();
+    }
+
+    public void AddTicket(long quantity)
+    {
+        _totalTicket += quantity;
+        SetTotalTicket();
+        EmitAddingResourcesEvent();
+    }
+
+    public void ConsumeTicket(long quantity)
+    {
+        _totalTicket -= quantity;
+        EmitConsumingResourcesEvent();
     }
 
     public void AddCoin(eAddingCoinType type, long quantity)
@@ -63,7 +83,7 @@ public class ResourcesManager : MonoBehaviour
 
         AddTotalCoin(quantity);
 
-        EmitAddingCoinEvent();
+        EmitAddingResourcesEvent();
     }
 
     public void ConsumeCoin(long quantity)
@@ -71,21 +91,26 @@ public class ResourcesManager : MonoBehaviour
         _totalCoin -= quantity;
         SetTotalCoin();
 
-        EmitConsumingCoinEvent();
+        EmitConsumingResourcesEvent();
+    }
+
+    private void SetTotalTicket()
+    {
+        IngameDataManager.SetResourceData(eResourceDataType.ADS_TICKET, _totalTicket);
     }
 
     private void SetTotalCoin()
     {
-        IngameDataManager.Instance.SetResourceData(eResourceDataType.COIN, _totalCoin);
+        IngameDataManager.SetResourceData(eResourceDataType.COIN, _totalCoin);
     }
 
-    private void EmitAddingCoinEvent()
+    private void EmitAddingResourcesEvent()
     {
-        EventManager.EmitEvent(EventID.ADDING_COIN);
+        EventManager.EmitEvent(EventID.ADDING_RESOURCES);
     }
 
-    private void EmitConsumingCoinEvent()
+    private void EmitConsumingResourcesEvent()
     {
-        EventManager.EmitEvent(EventID.CONSUMING_COIN);
+        EventManager.EmitEvent(EventID.CONSUMING_RESOURCES);
     }
 }
