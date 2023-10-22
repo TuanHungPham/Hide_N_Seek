@@ -50,6 +50,11 @@ public class InGameManager : MonoBehaviour
         return _questManager.GetTodayQuestList();
     }
 
+    public SpecialQuest GetTodaySpecialQuest()
+    {
+        return _questManager.GetTodaySpecialQuest();
+    }
+
     public void AddAchievementPoint(eAchievementType type)
     {
         _achievementManager.AddAchievementPoint(type);

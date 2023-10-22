@@ -52,8 +52,6 @@ public class QuestUI : MonoBehaviour
 
     public void UpdateProgressUIData()
     {
-        if (_isCompleted) return;
-
         _isCompleted = _quest.isCompleted;
 
         if (_isCompleted)
@@ -64,6 +62,7 @@ public class QuestUI : MonoBehaviour
         }
         else
         {
+            _adsButton.gameObject.SetActive(true);
             _checkImg.gameObject.SetActive(false);
             _darkLayer.gameObject.SetActive(false);
         }

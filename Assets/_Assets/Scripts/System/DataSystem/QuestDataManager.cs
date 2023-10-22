@@ -260,6 +260,10 @@ public class QuestDataManager : MonoBehaviour
 
             questBaseData.ModifyData(quest.currentProgress, quest.targetProgress, quest.isCompleted);
         }
+
+        if (_todaySpecialQuest.currentProgress == SpecialQuestBaseData.currentProgress) return;
+
+        SpecialQuestBaseData.ModifyData(_todaySpecialQuest.currentProgress, _todaySpecialQuest.targetProgress, _todaySpecialQuest.isCompleted);
     }
 
     public List<Quest> GetTodayQuestTemplateList()

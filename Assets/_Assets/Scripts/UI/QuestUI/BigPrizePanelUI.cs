@@ -19,20 +19,27 @@ public class BigPrizePanelUI : MonoBehaviour
     [Space(10)] [SerializeField] private SpecialQuest _specialQuest;
     [SerializeField] private SpecialQuestTemplate _specialQuestTemplate;
 
+    private InGameManager InGameManager => InGameManager.Instance;
+
     private void Start()
     {
         ListenEvent();
+    }
+
+    private void OnEnable()
+    {
         InitializeUI();
     }
 
     private void ListenEvent()
     {
         EventManager.StartListening(EventID.QUEST_RESETTING, InitializeUI);
+        EventManager.StartListening(EventID.QUEST_UPDATING, InitializeUI);
     }
 
     private void InitializeUI()
     {
-        _specialQuest = IngameDataManager.Instance.GetTodaySpecialQuest();
+        _specialQuest = InGameManager.GetTodaySpecialQuest();
 
         _ticketPrizeImg.sprite = _specialQuest.ticketPrizeIcon;
         _coinPrizeImg.sprite = _specialQuest.coinPrizeIcon;
