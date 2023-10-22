@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
@@ -8,6 +7,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private List<Quest> _todayQuestList;
     [SerializeField] private SpecialQuest _todaySpecialQuest;
     private InGameManager InGameManager => InGameManager.Instance;
+    private GameplayManager GameplayManager => GameplayManager.Instance;
     private IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
     private void Awake()
@@ -67,6 +67,7 @@ public class QuestManager : MonoBehaviour
         if (quest == null) return;
 
         quest.FinishQuest();
+        RewardQuestPrize(quest);
         UpdateSpecialQuestProgress();
         EmitUpdatingQuestEvent();
     }
@@ -86,6 +87,7 @@ public class QuestManager : MonoBehaviour
         if (quest.currentProgress >= quest.targetProgress)
         {
             quest.isCompleted = true;
+            RewardQuestPrize(quest);
             UpdateSpecialQuestProgress();
         }
         else
@@ -101,11 +103,37 @@ public class QuestManager : MonoBehaviour
         if (specialQuest.currentProgress >= specialQuest.targetProgress)
         {
             specialQuest.isCompleted = true;
+            RewardQuestPrize(specialQuest);
         }
         else
         {
             specialQuest.isCompleted = false;
         }
+    }
+
+    private void RewardQuestPrize(Quest quest)
+    {
+        eResourceDataType prizeType = quest.prizeType;
+        long prizeQuantity = quest.prizeQuantity;
+
+        switch (prizeType)
+        {
+            case eResourceDataType.COIN:
+                GameplayManager.AddCoin(prizeQuantity);
+                break;
+            case eResourceDataType.ADS_TICKET:
+                GameplayManager.AddTicket(prizeQuantity);
+                break;
+        }
+    }
+
+    private void RewardQuestPrize(SpecialQuest specialQuest)
+    {
+        long coinPrizeQuantity = specialQuest.coinPrizeQuantity;
+        long ticketPrizeQuantity = specialQuest.ticketPrizeQuantity;
+
+        GameplayManager.AddCoin(coinPrizeQuantity);
+        GameplayManager.AddTicket(ticketPrizeQuantity);
     }
 
     private void EmitUpdatingQuestEvent()

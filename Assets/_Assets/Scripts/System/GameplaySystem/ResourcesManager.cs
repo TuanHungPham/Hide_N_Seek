@@ -23,12 +23,13 @@ public class ResourcesManager : MonoBehaviour
     private void Awake()
     {
         InitializeCoinDictionary();
-        InitializeCoin();
+        InitializeResources();
     }
 
-    private void InitializeCoin()
+    private void InitializeResources()
     {
         _totalCoin = IngameDataManager.Instance.GetResourceData(eResourceDataType.COIN);
+        _totalTicket = IngameDataManager.Instance.GetResourceData(eResourceDataType.ADS_TICKET);
     }
 
     private void InitializeCoinDictionary()
