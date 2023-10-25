@@ -133,6 +133,11 @@ public class CostumeDataManager : MonoBehaviour
         return _costumeShopList;
     }
 
+    public ItemShop GetCurrentSelectedCostumeItemShop()
+    {
+        return _costumeShopList.Find(x => x.GetItemID() == _currentUsingCostume.GetCostumeID());
+    }
+
     public Costume GetCurrentUsingItem()
     {
         return _currentUsingCostume;

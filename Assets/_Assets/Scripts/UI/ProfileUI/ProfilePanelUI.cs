@@ -1,6 +1,7 @@
 using TigerForge;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProfilePanelUI : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class ProfilePanelUI : MonoBehaviour
     [SerializeField] private TMP_Text _foundPlayersText;
     [SerializeField] private TMP_Text _rescuedPlayersText;
     [SerializeField] private TMP_InputField _nameInput;
+
+    [Header("IMAGE")] [SerializeField] private Image _profileAvatar;
     private InGameManager InGameManager => InGameManager.Instance;
 
     private void OnEnable()
@@ -21,12 +24,20 @@ public class ProfilePanelUI : MonoBehaviour
         _foundPlayersText.text = InGameManager.GetAchievementPointData(eAchievementDataType.FOUND_PLAYERS).ToString();
         _rescuedPlayersText.text = InGameManager.GetAchievementPointData(eAchievementDataType.RESCUED_PLAYERS).ToString();
         _nameInput.text = InGameManager.GetUsername();
+
+        SetupProfileAvatar();
     }
 
     public void SetUsernameByNameInput(string nameInput)
     {
         InGameManager.SetUsername(nameInput);
         EmitChangingUsernameEvent();
+    }
+
+    private void SetupProfileAvatar()
+    {
+        ItemShop currentSelectedCostume = IngameDataManager.Instance.GetCurrentSelectedCostumeItemShop();
+        _profileAvatar.sprite = currentSelectedCostume.GetItemImage();
     }
 
     public void EmitChangingUsernameEvent()

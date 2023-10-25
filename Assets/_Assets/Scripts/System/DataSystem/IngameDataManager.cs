@@ -60,6 +60,11 @@ public class IngameDataManager : MonoBehaviour
         return _costumeDataManager.GetCurrentUsingItem();
     }
 
+    public ItemShop GetCurrentSelectedCostumeItemShop()
+    {
+        return _costumeDataManager.GetCurrentSelectedCostumeItemShop();
+    }
+
     public GameObject GetCurrentUsingPet()
     {
         return _petDataManager.GetCurrentPet();

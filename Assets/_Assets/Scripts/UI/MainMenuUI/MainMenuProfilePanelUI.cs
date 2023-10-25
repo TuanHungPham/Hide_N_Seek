@@ -17,15 +17,23 @@ public class MainMenuProfilePanelUI : MonoBehaviour
     private void ListenEvent()
     {
         EventManager.StartListening(EventID.CHANGING_USERNAME, SetupUsernameUI);
+        EventManager.StartListening(EventID.CHOOSING_ITEM_SHOP, SetupProfileAvatar);
     }
 
     private void SetupProfileUI()
     {
         SetupUsernameUI();
+        SetupProfileAvatar();
     }
 
     private void SetupUsernameUI()
     {
         _userNameText.text = InGameManager.Instance.GetUsername();
+    }
+
+    private void SetupProfileAvatar()
+    {
+        ItemShop currentSelectedCostume = IngameDataManager.Instance.GetCurrentSelectedCostumeItemShop();
+        _profileAvatar.sprite = currentSelectedCostume.GetItemImage();
     }
 }
