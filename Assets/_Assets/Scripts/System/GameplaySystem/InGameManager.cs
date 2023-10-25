@@ -60,6 +60,16 @@ public class InGameManager : MonoBehaviour
         _achievementManager.AddAchievementPoint(type);
     }
 
+    public void AddAchievementPointData(eAchievementDataType type)
+    {
+        _achievementManager.AddAchievementPointData(type);
+    }
+
+    public long GetAchievementPointData(eAchievementDataType type)
+    {
+        return _achievementManager.GetAchievementPointData(type);
+    }
+
     public float GetAchievementPoint(eAchievementType type)
     {
         return _achievementManager.GetAchievementPoint(type);

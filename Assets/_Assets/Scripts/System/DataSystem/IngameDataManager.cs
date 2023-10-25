@@ -7,6 +7,7 @@ public class IngameDataManager : MonoBehaviour
     [SerializeField] private PetDataManager _petDataManager;
     [SerializeField] private ResourceDataManager _resourceDataManager;
     [SerializeField] private QuestDataManager _questDataManager;
+    [SerializeField] private AchievementDataManager _achievementDataManager;
     public static IngameDataManager Instance { get; private set; }
 
     private void Awake()
@@ -38,6 +39,7 @@ public class IngameDataManager : MonoBehaviour
         _petDataManager = GetComponentInChildren<PetDataManager>();
         _resourceDataManager = GetComponentInChildren<ResourceDataManager>();
         _questDataManager = GetComponentInChildren<QuestDataManager>();
+        _achievementDataManager = GetComponentInChildren<AchievementDataManager>();
     }
 
     public List<ItemShop> GetItemShopDataList(eShopDataType type)
@@ -61,6 +63,11 @@ public class IngameDataManager : MonoBehaviour
     public GameObject GetCurrentUsingPet()
     {
         return _petDataManager.GetCurrentPet();
+    }
+
+    public Dictionary<eAchievementDataType, long> GetAchievementDataDic()
+    {
+        return _achievementDataManager.GetAchievementDataDic();
     }
 
     public void AddResourceData(eResourceDataType type, long quantity)

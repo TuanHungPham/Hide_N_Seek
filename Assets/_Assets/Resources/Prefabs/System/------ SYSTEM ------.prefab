@@ -321,6 +321,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _todayQuestList: []
+  _todaySpecialQuest:
+    questID: 0
+    ticketPrizeIcon: {fileID: 0}
+    coinPrizeIcon: {fileID: 0}
+    skinPrizeIcon: {fileID: 0}
+    skinPrizeMaterial: {fileID: 0}
+    ticketPrizeQuantity: 0
+    coinPrizeQuantity: 0
+    currentProgress: 0
+    targetProgress: 0
+    isCompleted: 0
 --- !u!1 &1428526722
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +383,7 @@ MonoBehaviour:
   _petManager: {fileID: 8381903817379312821}
   _costumeManager: {fileID: 720910140258441702}
   _questManager: {fileID: 1350874003}
-  _achievementManager: {fileID: 0}
+  _achievementManager: {fileID: 516010796}
 --- !u!1 &1763186182
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _totalCoin: 0
+  _totalTicket: 0
 --- !u!1 &1898377305
 GameObject:
   m_ObjectHideFlags: 0

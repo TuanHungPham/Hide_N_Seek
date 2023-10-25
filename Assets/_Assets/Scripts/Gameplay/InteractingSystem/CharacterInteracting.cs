@@ -5,6 +5,7 @@ public class CharacterInteracting : MonoBehaviour
 {
     [SerializeField] private Controller _controller;
     [SerializeField] private LayerMask _layerMask;
+    private InGameManager InGameManager => InGameManager.Instance;
 
     public void CheckObjColliderState(GameObject target)
     {
@@ -32,6 +33,12 @@ public class CharacterInteracting : MonoBehaviour
 
     private void RescueTarget(Controller targetController)
     {
+        if (_controller.GetPlayerType() == ePlayerType.MAIN_CHARACTER)
+        {
+            UpdateInGameAchievement(eAchievementType.RESCUING_TIME);
+            UpdateAchievementPointData(eAchievementDataType.RESCUED_PLAYERS);
+        }
+
         targetController.SetCaughtState(false);
         EmitRescuingEvent();
     }
@@ -46,5 +53,15 @@ public class CharacterInteracting : MonoBehaviour
     private void EmitRescuingEvent()
     {
         EventManager.EmitEvent(EventID.RESCUING_HIDER);
+    }
+
+    private void UpdateInGameAchievement(eAchievementType type)
+    {
+        InGameManager.AddAchievementPoint(type);
+    }
+
+    private void UpdateAchievementPointData(eAchievementDataType type)
+    {
+        InGameManager.AddAchievementPointData(type);
     }
 }

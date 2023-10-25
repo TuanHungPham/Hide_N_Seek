@@ -15,11 +15,13 @@ public enum eAchievementType
 
 public class AchievementManager : MonoBehaviour
 {
-    [SerializeField] private List<float> _achivementPointList = new List<float>();
     private Dictionary<eAchievementType, float> _ingameAchievementDic = new Dictionary<eAchievementType, float>();
+    private Dictionary<eAchievementDataType, long> _achievementDic = new Dictionary<eAchievementDataType, long>();
+    private IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
     private void Start()
     {
+        InitializeAchievementDic();
         InitializeIngameAchievementDic();
     }
 
@@ -35,6 +37,17 @@ public class AchievementManager : MonoBehaviour
         }
     }
 
+    private void InitializeAchievementDic()
+    {
+        _achievementDic = IngameDataManager.GetAchievementDataDic();
+    }
+
+    public void AddAchievementPointData(eAchievementDataType type)
+    {
+        Debug.Log($"(ACHIEVEMENT) Adding {type} achievement Data Point");
+        _achievementDic[type]++;
+    }
+
     public void AddAchievementPoint(eAchievementType type)
     {
         Debug.Log($"(ACHIEVEMENT) Adding {type} achievement Point");
@@ -44,5 +57,10 @@ public class AchievementManager : MonoBehaviour
     public float GetAchievementPoint(eAchievementType type)
     {
         return _ingameAchievementDic[type];
+    }
+
+    public long GetAchievementPointData(eAchievementDataType type)
+    {
+        return _achievementDic[type];
     }
 }

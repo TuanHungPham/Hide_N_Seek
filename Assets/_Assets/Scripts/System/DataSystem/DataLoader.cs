@@ -16,6 +16,7 @@ public class DataLoader : MonoBehaviour
     [SerializeField] private PetDataManager _petDataManager;
     [SerializeField] private ResourceDataManager _resourceDataManager;
     [SerializeField] private QuestDataManager _questDataManager;
+    [SerializeField] private AchievementDataManager _achievementDataManager;
 
     private EasyFileSave myFile;
 
@@ -30,6 +31,7 @@ public class DataLoader : MonoBehaviour
         _petDataManager = GetComponentInChildren<PetDataManager>();
         _resourceDataManager = GetComponentInChildren<ResourceDataManager>();
         _questDataManager = GetComponentInChildren<QuestDataManager>();
+        _achievementDataManager = GetComponentInChildren<AchievementDataManager>();
 
         myFile = new EasyFileSave();
     }
@@ -42,6 +44,7 @@ public class DataLoader : MonoBehaviour
     private void SaveData()
     {
         _resourceDataManager.SaveData();
+        _achievementDataManager.SaveData();
         SaveCostumeData();
         SavePetData();
         SaveQuestData();
