@@ -10,6 +10,7 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private CostumeManager _costumeManager;
     [SerializeField] private QuestManager _questManager;
     [SerializeField] private AchievementManager _achievementManager;
+    [SerializeField] private UserManager _userManager;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class InGameManager : MonoBehaviour
         _costumeManager = GetComponentInChildren<CostumeManager>();
         _questManager = GetComponentInChildren<QuestManager>();
         _achievementManager = GetComponentInChildren<AchievementManager>();
+        _userManager = GetComponentInChildren<UserManager>();
     }
 
     public void UpdateQuestProgress(eQuestType questType, eAchievementType achievementType)
@@ -65,6 +67,11 @@ public class InGameManager : MonoBehaviour
         _achievementManager.AddAchievementPointData(type);
     }
 
+    public void SetUsername(string name)
+    {
+        _userManager.SetUsername(name);
+    }
+
     public long GetAchievementPointData(eAchievementDataType type)
     {
         return _achievementManager.GetAchievementPointData(type);
@@ -73,5 +80,10 @@ public class InGameManager : MonoBehaviour
     public float GetAchievementPoint(eAchievementType type)
     {
         return _achievementManager.GetAchievementPoint(type);
+    }
+
+    public string GetUsername()
+    {
+        return _userManager.GetUsername();
     }
 }

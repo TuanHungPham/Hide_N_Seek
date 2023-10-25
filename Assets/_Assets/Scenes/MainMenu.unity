@@ -4232,6 +4232,7 @@ GameObject:
   - component: {fileID: 419898703222620969}
   - component: {fileID: 419898703222620971}
   - component: {fileID: 419898703222620968}
+  - component: {fileID: 419898703222620975}
   m_Layer: 5
   m_Name: ProfilePanel
   m_TagString: Untagged
@@ -4239,6 +4240,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &419898703222620975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419898703222620974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1636976ecdc7d9143896f1f8a06734ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _userNameText: {fileID: 419898702853001764}
+  _profileAvatar: {fileID: 419898702414656478}
 --- !u!224 &419898703332135637
 RectTransform:
   m_ObjectHideFlags: 0
