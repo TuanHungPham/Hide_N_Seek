@@ -8,6 +8,7 @@ public enum eDataType
     PET_DATA,
     QUEST_DATA,
     SPECIAL_QUEST_DATA,
+    RESOURCE_DATA,
 }
 
 public class DataLoader : MonoBehaviour
@@ -43,17 +44,18 @@ public class DataLoader : MonoBehaviour
 
     private void SaveData()
     {
-        _resourceDataManager.SaveData();
+        // _resourceDataManager.SaveData();
         _achievementDataManager.SaveData();
         SaveCostumeData();
         SavePetData();
         SaveQuestData();
         SaveSpecialQuestData();
+        SaveResourceData();
 
         myFile.Append();
     }
 
-    private void AddToSaveCache(eDataType type, List<string> jsonStringList)
+    private void AddToSaveCache(eDataType type, object jsonStringList)
     {
         myFile.Add(type, jsonStringList);
     }
@@ -66,6 +68,7 @@ public class DataLoader : MonoBehaviour
         LoadPetData();
         LoadQuestData();
         LoadSpecialQuestData();
+        LoadResourceData();
 
         myFile.Dispose();
     }
@@ -115,6 +118,18 @@ public class DataLoader : MonoBehaviour
         jsonStringList.Add(jsonString);
 
         AddToSaveCache(eDataType.SPECIAL_QUEST_DATA, jsonStringList);
+    }
+
+    private void SaveResourceData()
+    {
+        Dictionary<eResourceDataType, string> jsonStringDic = new Dictionary<eResourceDataType, string>();
+        foreach (KeyValuePair<eResourceDataType, ResourceBaseData> baseData in _resourceDataManager.ResourcesBaseDataDic)
+        {
+            string jsonString = baseData.Value.ToJsonString();
+            jsonStringDic.Add(baseData.Key, jsonString);
+        }
+
+        AddToSaveCache(eDataType.RESOURCE_DATA, jsonStringDic);
     }
 
     private void LoadCostumeData()
@@ -183,6 +198,23 @@ public class DataLoader : MonoBehaviour
 
         string listName = "LOADING SPECIAL QUEST DATA";
         LogSystem.LogList(jsonStringList, listName);
+    }
+
+    private void LoadResourceData()
+    {
+        Dictionary<eResourceDataType, string> jsonStringDic = (Dictionary<eResourceDataType, string>)myFile.GetData(eDataType.RESOURCE_DATA);
+        if (jsonStringDic == null) return;
+
+        foreach (var json in jsonStringDic)
+        {
+            ResourceBaseData resourceBaseData = new ResourceBaseData();
+            resourceBaseData.ParseToData(json.Value);
+
+            _resourceDataManager.AddBaseData(json.Key, resourceBaseData);
+        }
+
+        string dicName = "LOADING RESOURCE DATA";
+        LogSystem.LogDictionary(jsonStringDic, dicName);
     }
 
     private List<string> GetJsonStringList(eDataType type)
