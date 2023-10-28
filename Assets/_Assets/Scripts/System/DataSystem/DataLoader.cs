@@ -9,6 +9,7 @@ public enum eDataType
     QUEST_DATA,
     SPECIAL_QUEST_DATA,
     RESOURCE_DATA,
+    ACHIEVEMENT_DATA,
 }
 
 public class DataLoader : MonoBehaviour
@@ -44,13 +45,13 @@ public class DataLoader : MonoBehaviour
 
     private void SaveData()
     {
-        // _resourceDataManager.SaveData();
-        _achievementDataManager.SaveData();
+        // _achievementDataManager.SaveData();
         SaveCostumeData();
         SavePetData();
         SaveQuestData();
         SaveSpecialQuestData();
         SaveResourceData();
+        SaveAchievementData();
 
         myFile.Append();
     }
@@ -69,6 +70,7 @@ public class DataLoader : MonoBehaviour
         LoadQuestData();
         LoadSpecialQuestData();
         LoadResourceData();
+        LoadAchievementData();
 
         myFile.Dispose();
     }
@@ -130,6 +132,18 @@ public class DataLoader : MonoBehaviour
         }
 
         AddToSaveCache(eDataType.RESOURCE_DATA, jsonStringDic);
+    }
+
+    private void SaveAchievementData()
+    {
+        Dictionary<eAchievementType, string> jsonStringDic = new Dictionary<eAchievementType, string>();
+        foreach (KeyValuePair<eAchievementType, AchievementBaseData> baseData in _achievementDataManager.AchievementBaseDataDic)
+        {
+            string jsonString = baseData.Value.ToJsonString();
+            jsonStringDic.Add(baseData.Key, jsonString);
+        }
+
+        AddToSaveCache(eDataType.ACHIEVEMENT_DATA, jsonStringDic);
     }
 
     private void LoadCostumeData()
@@ -214,6 +228,23 @@ public class DataLoader : MonoBehaviour
         }
 
         string dicName = "LOADING RESOURCE DATA";
+        LogSystem.LogDictionary(jsonStringDic, dicName);
+    }
+
+    private void LoadAchievementData()
+    {
+        Dictionary<eAchievementType, string> jsonStringDic = (Dictionary<eAchievementType, string>)myFile.GetData(eDataType.ACHIEVEMENT_DATA);
+        if (jsonStringDic == null) return;
+
+        foreach (var json in jsonStringDic)
+        {
+            AchievementBaseData achievementBaseData = new AchievementBaseData();
+            achievementBaseData.ParseToData(json.Value);
+
+            _achievementDataManager.AddBaseData(json.Key, achievementBaseData);
+        }
+
+        string dicName = "LOADING ACHIEVEMENT DATA";
         LogSystem.LogDictionary(jsonStringDic, dicName);
     }
 

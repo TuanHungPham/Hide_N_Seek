@@ -66,7 +66,6 @@ public class GameFlowManager : MonoBehaviour
 
         AddAchievementPoint(eAchievementType.WINNING_TIME);
         AddAchievementPoint(eAchievementType.COMPLETE_LEVEL_TIME);
-        AddAchievementPointData(eAchievementDataType.LEVEL);
 
         EndLevel();
     }
@@ -74,11 +73,6 @@ public class GameFlowManager : MonoBehaviour
     private void AddAchievementPoint(eAchievementType type)
     {
         InGameManager.AddAchievementPoint(type);
-    }
-
-    private void AddAchievementPointData(eAchievementDataType type)
-    {
-        InGameManager.AddAchievementPointData(type);
     }
 
     private void SetLose()

@@ -20,9 +20,9 @@ public class ProfilePanelUI : MonoBehaviour
 
     private void SetupUI()
     {
-        _levelText.text = InGameManager.GetAchievementPointData(eAchievementDataType.LEVEL).ToString();
-        _foundPlayersText.text = InGameManager.GetAchievementPointData(eAchievementDataType.FOUND_PLAYERS).ToString();
-        _rescuedPlayersText.text = InGameManager.GetAchievementPointData(eAchievementDataType.RESCUED_PLAYERS).ToString();
+        _levelText.text = InGameManager.GetAchievementPoint(eAchievementType.WINNING_TIME).ToString();
+        _foundPlayersText.text = InGameManager.GetAchievementPoint(eAchievementType.CATCHING_TIME).ToString();
+        _rescuedPlayersText.text = InGameManager.GetAchievementPoint(eAchievementType.RESCUING_TIME).ToString();
         _nameInput.text = InGameManager.GetUsername();
 
         SetupProfileAvatar();

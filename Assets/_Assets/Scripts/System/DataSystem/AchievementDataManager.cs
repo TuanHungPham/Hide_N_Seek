@@ -1,35 +1,56 @@
+using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
-public enum eAchievementDataType
+public class AchievementBaseData : BaseData
 {
-    NONE,
-    LEVEL,
-    FOUND_PLAYERS,
-    RESCUED_PLAYERS,
+    public long achievementData;
 
-    MAX_COUNT_OF_RESOURCE_TYPE,
+    public void AddData(long achievementData)
+    {
+        this.achievementData = achievementData;
+    }
+
+    public override void ParseToData(string json)
+    {
+        AchievementBaseData achievementBaseData = JsonConvert.DeserializeObject<AchievementBaseData>(json);
+        AddData(achievementBaseData.achievementData);
+    }
 }
 
 public class AchievementDataManager : MonoBehaviour
 {
-    private Dictionary<eAchievementDataType, long> _achievementDataDic = new Dictionary<eAchievementDataType, long>();
+    private Dictionary<eAchievementType, long> _achievementDataDic = new Dictionary<eAchievementType, long>();
+    private Dictionary<eAchievementType, AchievementBaseData> _achievementBaseDataDic = new Dictionary<eAchievementType, AchievementBaseData>();
 
-    private void Awake()
+    public Dictionary<eAchievementType, AchievementBaseData> AchievementBaseDataDic => _achievementBaseDataDic;
+
+    private void Start()
     {
         LoadData();
     }
 
     private void LoadData()
     {
-        int maxCount = (int)eAchievementDataType.MAX_COUNT_OF_RESOURCE_TYPE;
+        int maxCount = (int)eAchievementType.MAX_COUNT;
 
         for (int i = 1; i < maxCount; i++)
         {
-            eAchievementDataType dataType = (eAchievementDataType)i;
+            eAchievementType dataType = (eAchievementType)i;
 
-            string dataString = PlayerPrefs.GetString(dataType.ToString(), "0");
-            long data = long.Parse(dataString);
+            long data = 0;
+            if (!AchievementBaseDataDic.ContainsKey(dataType))
+            {
+                AchievementBaseData achievementBaseData = new AchievementBaseData();
+                achievementBaseData.AddData(data);
+
+                AchievementBaseDataDic.Add(dataType, achievementBaseData);
+            }
+            else
+            {
+                data = AchievementBaseDataDic[dataType].achievementData;
+            }
 
             _achievementDataDic.Add(dataType, data);
         }
@@ -37,35 +58,64 @@ public class AchievementDataManager : MonoBehaviour
         LogSystem.LogDictionary(_achievementDataDic, "ACHIEVEMENT DATA DICTIONARY");
     }
 
-    public void SetData(eAchievementDataType type, long quantity)
+    public void SetData(eAchievementType type, long quantity)
     {
         if (!_achievementDataDic.ContainsKey(type)) return;
 
         _achievementDataDic[type] = quantity;
+        AddBaseData(type, quantity);
 
         LogSystem.LogDictionary(_achievementDataDic, "ACHIEVEMENT DATA DICTIONARY");
     }
 
-    public void AddData(eAchievementDataType type, long quantity)
+    public void AddData(eAchievementType type)
     {
         if (!_achievementDataDic.ContainsKey(type)) return;
 
-        _achievementDataDic[type] += quantity;
+        _achievementDataDic[type]++;
+        AddBaseData(type, _achievementDataDic[type]);
     }
 
-    public long GetAchievementData(eAchievementDataType type)
+    public void AddBaseData(eAchievementType type, long quantity)
+    {
+        if (!AchievementBaseDataDic.ContainsKey(type))
+        {
+            AchievementBaseData achievementBaseData = new AchievementBaseData();
+            achievementBaseData.AddData(quantity);
+
+            AchievementBaseDataDic.Add(type, achievementBaseData);
+        }
+        else
+        {
+            AchievementBaseDataDic[type].AddData(quantity);
+        }
+    }
+
+    public void AddBaseData(eAchievementType type, AchievementBaseData achievementBaseData)
+    {
+        if (!AchievementBaseDataDic.ContainsKey(type))
+        {
+            AchievementBaseDataDic.Add(type, achievementBaseData);
+        }
+        else
+        {
+            AchievementBaseDataDic[type].AddData(achievementBaseData.achievementData);
+        }
+    }
+
+    public long GetAchievementData(eAchievementType type)
     {
         return _achievementDataDic[type];
     }
 
-    public Dictionary<eAchievementDataType, long> GetAchievementDataDic()
+    public Dictionary<eAchievementType, long> GetAchievementDataDic()
     {
         return _achievementDataDic;
     }
 
     public void SaveData()
     {
-        foreach (KeyValuePair<eAchievementDataType, long> data in _achievementDataDic)
+        foreach (KeyValuePair<eAchievementType, long> data in _achievementDataDic)
         {
             PlayerPrefs.SetString(data.Key.ToString(), data.Value.ToString());
         }

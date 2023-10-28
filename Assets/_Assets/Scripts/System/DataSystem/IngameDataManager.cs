@@ -70,7 +70,7 @@ public class IngameDataManager : MonoBehaviour
         return _petDataManager.GetCurrentPet();
     }
 
-    public Dictionary<eAchievementDataType, long> GetAchievementDataDic()
+    public Dictionary<eAchievementType, long> GetAchievementDataDic()
     {
         return _achievementDataManager.GetAchievementDataDic();
     }
@@ -78,6 +78,11 @@ public class IngameDataManager : MonoBehaviour
     public void AddResourceData(eResourceDataType type, long quantity)
     {
         _resourceDataManager.AddData(type, quantity);
+    }
+
+    public void AddAchievementData(eAchievementType type)
+    {
+        _achievementDataManager.AddData(type);
     }
 
     public void SetResourceData(eResourceDataType type, long quantity)

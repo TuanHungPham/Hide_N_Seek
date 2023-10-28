@@ -103,6 +103,5 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
         if (_playerType == ePlayerType.NPC) return;
 
         InGameManager.Instance.AddAchievementPoint(eAchievementType.CATCHING_TIME);
-        InGameManager.Instance.AddAchievementPointData(eAchievementDataType.FOUND_PLAYERS);
     }
 }

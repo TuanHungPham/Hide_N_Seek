@@ -36,7 +36,6 @@ public class CharacterInteracting : MonoBehaviour
         if (_controller.GetPlayerType() == ePlayerType.MAIN_CHARACTER)
         {
             UpdateInGameAchievement(eAchievementType.RESCUING_TIME);
-            UpdateAchievementPointData(eAchievementDataType.RESCUED_PLAYERS);
         }
 
         targetController.SetCaughtState(false);
@@ -58,10 +57,5 @@ public class CharacterInteracting : MonoBehaviour
     private void UpdateInGameAchievement(eAchievementType type)
     {
         InGameManager.AddAchievementPoint(type);
-    }
-
-    private void UpdateAchievementPointData(eAchievementDataType type)
-    {
-        InGameManager.AddAchievementPointData(type);
     }
 }
