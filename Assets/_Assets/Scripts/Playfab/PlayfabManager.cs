@@ -34,6 +34,11 @@ public class PlayfabManager : MonoBehaviour
         _playFabAuthentication.SignUpWithEmail(email, password, displayName);
     }
 
+    public void LoginWithFacebook(string accessToken)
+    {
+        _playFabAuthentication.LoginWithFacebook(accessToken);
+    }
+
     public bool IsClientLoggedIn()
     {
         return PlayFabClientAPI.IsClientLoggedIn();
