@@ -29,7 +29,7 @@ public class PlayfabManager : MonoBehaviour
         _playFabAuthentication.LoginWithEmail(email, password);
     }
 
-    public void SignUpWithEmail(string email, string password, string displayName = "")
+    public void SignUpWithEmail(string email, string password, string displayName)
     {
         _playFabAuthentication.SignUpWithEmail(email, password, displayName);
     }

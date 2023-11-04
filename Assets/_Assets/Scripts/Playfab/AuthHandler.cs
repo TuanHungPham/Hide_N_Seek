@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -14,7 +15,19 @@ public class AuthHandler : MonoBehaviour
     [SerializeField] private TMP_InputField signUp_repasswordInput;
     [SerializeField] private TMP_InputField signUp_displayNameInput;
 
+    [Space(20)] [Header("ERROR")] [SerializeField]
+    private ErrorPanel _errorPanel;
+
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
+
+    public static AuthHandler Instance => instance;
+
+    private static AuthHandler instance;
+
+    private void OnEnable()
+    {
+        instance = this;
+    }
 
     public void Login()
     {
@@ -34,5 +47,15 @@ public class AuthHandler : MonoBehaviour
         if (!password.Equals(re_password)) return;
 
         PlayfabManager.SignUpWithEmail(email, password, displayName);
+    }
+
+    public void ShowError(string error)
+    {
+        _errorPanel.ShowErrorText(error);
+    }
+
+    private void OnDisable()
+    {
+        instance = null;
     }
 }
