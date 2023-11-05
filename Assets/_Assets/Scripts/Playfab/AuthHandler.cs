@@ -19,6 +19,7 @@ public class AuthHandler : MonoBehaviour
     private ErrorPanel _errorPanel;
 
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
+    private FacebookManager FacebookManager => FacebookManager.Instance;
 
     public static AuthHandler Instance => instance;
 
@@ -47,6 +48,11 @@ public class AuthHandler : MonoBehaviour
         if (!password.Equals(re_password)) return;
 
         PlayfabManager.SignUpWithEmail(email, password, displayName);
+    }
+
+    public void LogInFacebook()
+    {
+        FacebookManager.LoginFacebook();
     }
 
     public void ShowError(string error)

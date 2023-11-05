@@ -1,3 +1,4 @@
+using System;
 using Facebook.Unity;
 using UnityEngine;
 
@@ -11,7 +12,19 @@ public class FacebookManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+        LoadComponents();
         InitalizeFacebook();
+    }
+
+    private void Reset()
+    {
+        LoadComponents();
+    }
+
+    private void LoadComponents()
+    {
+        _facebookAuth = GetComponentInChildren<FacebookAuth>();
     }
 
     private void InitalizeFacebook()
