@@ -8,6 +8,9 @@ public class MainMenuProfilePanelUI : MonoBehaviour
     [SerializeField] private TMP_Text _userNameText;
     [SerializeField] private Image _profileAvatar;
 
+    private InGameManager InGameManager => InGameManager.Instance;
+    private IngameDataManager IngameDataManager => IngameDataManager.Instance;
+
     private void Start()
     {
         ListenEvent();
@@ -17,6 +20,7 @@ public class MainMenuProfilePanelUI : MonoBehaviour
     private void ListenEvent()
     {
         EventManager.StartListening(EventID.CHANGING_USERNAME, SetupUsernameUI);
+        EventManager.StartListening(EventID.SETTING_UP_PROFILE, SetupUsernameUI);
         EventManager.StartListening(EventID.CHOOSING_ITEM_SHOP, SetupProfileAvatar);
     }
 
@@ -28,12 +32,12 @@ public class MainMenuProfilePanelUI : MonoBehaviour
 
     private void SetupUsernameUI()
     {
-        _userNameText.text = InGameManager.Instance.GetUsername();
+        _userNameText.text = InGameManager.GetUsername();
     }
 
     private void SetupProfileAvatar()
     {
-        ItemShop currentSelectedCostume = IngameDataManager.Instance.GetCurrentSelectedCostumeItemShop();
+        ItemShop currentSelectedCostume = IngameDataManager.GetCurrentSelectedCostumeItemShop();
         _profileAvatar.sprite = currentSelectedCostume.GetItemImage();
     }
 }

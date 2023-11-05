@@ -58,7 +58,7 @@ public class ErrorPanel : MonoBehaviour
             newAlpha -= aplhaFadeAmount;
             SetErrorColorAlpha(newAlpha);
 
-            Debug.Log($"Fading --- New A: {newAlpha}");
+            // Debug.Log($"Fading --- New A: {newAlpha}");
 
             yield return new WaitForSeconds(_fadeAmountTime);
         }

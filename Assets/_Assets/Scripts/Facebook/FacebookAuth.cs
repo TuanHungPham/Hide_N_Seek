@@ -5,6 +5,7 @@ using UnityEngine;
 public class FacebookAuth : MonoBehaviour
 {
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
+    private InGameManager InGameManager => InGameManager.Instance;
 
     public void LoginFacebook()
     {
@@ -27,11 +28,25 @@ public class FacebookAuth : MonoBehaviour
         if (FB.IsLoggedIn)
         {
             string accessToken = result.AccessToken.TokenString;
+            GetUserInformation();
             PlayfabManager.Instance.LoginWithFacebook(accessToken);
         }
         else
         {
             Debug.Log("(Facebook) User cancelled login");
         }
+    }
+
+    private void GetUserInformation()
+    {
+        string query = "/me?fields=id,name";
+        FB.API(query, HttpMethod.GET, OnResultCallback);
+    }
+
+    private void OnResultCallback(IGraphResult result)
+    {
+        string username = result.ResultDictionary["name"].ToString();
+
+        InGameManager.SetUsername(username);
     }
 }

@@ -25,4 +25,5 @@ public enum EventID
     LOGIN_FAIL,
     SIGNUP_SUCCESS,
     SIGNUP_FAIL,
+    SETTING_UP_PROFILE,
 }
