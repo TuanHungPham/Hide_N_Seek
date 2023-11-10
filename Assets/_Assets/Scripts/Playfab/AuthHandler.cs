@@ -4,6 +4,9 @@ using UnityEngine;
 public class AuthHandler : MonoBehaviour
 {
     [SerializeField] private NotiPanel _notiPanel;
+    [SerializeField] private GameObject _authPanel;
+    [SerializeField] private GameObject _loginPanel;
+    [SerializeField] private GameObject _signUpPanel;
 
     [Space(20)] [Header("LOGIN")] [SerializeField]
     private TMP_InputField login_emailInput;
@@ -27,7 +30,20 @@ public class AuthHandler : MonoBehaviour
     private void OnEnable()
     {
         instance = this;
+        ResetUI();
+    }
+
+    private void ResetUI()
+    {
+        ResetPanelUI();
         ResetInputUI();
+    }
+
+    private void ResetPanelUI()
+    {
+        _authPanel.gameObject.SetActive(true);
+        _loginPanel.gameObject.SetActive(false);
+        _signUpPanel.gameObject.SetActive(false);
     }
 
     private void ResetInputUI()
