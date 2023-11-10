@@ -33,7 +33,7 @@ public class PlayfabAuthentication : MonoBehaviour
     private void OnAuthError(PlayFabError error)
     {
         Debug.LogError($"--- (PLAYFAB) Login Error: {error.ErrorMessage}");
-        AuthHandler.ShowNotification(error.ErrorMessage,eNotiType.ERROR);
+        AuthHandler.ShowNotification(error.ErrorMessage, eNotiType.ERROR);
     }
 
     private void OnAuthCallback(LoginResult result)
@@ -42,7 +42,7 @@ public class PlayfabAuthentication : MonoBehaviour
         if (!IsLoggedIn()) return;
 
         string successNoti = "Login Successfull!";
-        AuthHandler.ShowNotification(successNoti,eNotiType.SUCCESS);
+        AuthHandler.ShowNotification(successNoti, eNotiType.SUCCESS);
         SetupUserInfo();
         EmitLoginSuccessEvent();
     }
@@ -64,7 +64,7 @@ public class PlayfabAuthentication : MonoBehaviour
     private void OnSignUpError(PlayFabError error)
     {
         Debug.LogError($"--- (PLAYFAB) Sign Up Error: {error.ErrorMessage}");
-        AuthHandler.ShowNotification(error.ErrorMessage,eNotiType.ERROR);
+        AuthHandler.ShowNotification(error.ErrorMessage, eNotiType.ERROR);
     }
 
     private void OnRegisterResult(RegisterPlayFabUserResult result)
@@ -100,7 +100,7 @@ public class PlayfabAuthentication : MonoBehaviour
         EmitSetupUserProfileEvent();
     }
 
-    private void UpdateUserInfo(string displayName)
+    public void UpdateUserInfo(string displayName)
     {
         UpdateUserTitleDisplayNameRequest request = new UpdateUserTitleDisplayNameRequest()
         {
@@ -112,7 +112,7 @@ public class PlayfabAuthentication : MonoBehaviour
 
     private void UpdateUserInfoCallback(UpdateUserTitleDisplayNameResult result)
     {
-        Debug.LogError($"--- (PLAYFAB) Update User Info: {result.DisplayName}");
+        Debug.Log($"--- (PLAYFAB) Update User Info: {result.DisplayName}");
     }
 
     private void OnErrorCallback(PlayFabError error)

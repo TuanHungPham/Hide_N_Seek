@@ -1,4 +1,3 @@
-using PlayFab;
 using UnityEngine;
 
 public class PlayfabManager : MonoBehaviour
@@ -37,6 +36,12 @@ public class PlayfabManager : MonoBehaviour
     public void LoginWithFacebook(string accessToken)
     {
         _playFabAuthentication.LoginWithFacebook(accessToken);
+    }
+
+    public void UpdateUsername(string newUsername)
+    {
+        if (!IsClientLoggedIn()) return;
+        _playFabAuthentication.UpdateUserInfo(newUsername);
     }
 
     public bool IsClientLoggedIn()

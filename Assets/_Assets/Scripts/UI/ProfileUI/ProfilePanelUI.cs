@@ -1,3 +1,4 @@
+using System;
 using TigerForge;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 public class ProfilePanelUI : MonoBehaviour
 {
+    [SerializeField] private bool _isNameModifed;
+
     [Header("TEXT")] [SerializeField] private TMP_Text _levelText;
     [SerializeField] private TMP_Text _foundPlayersText;
     [SerializeField] private TMP_Text _rescuedPlayersText;
@@ -16,6 +19,7 @@ public class ProfilePanelUI : MonoBehaviour
     private void OnEnable()
     {
         SetupUI();
+        _isNameModifed = false;
     }
 
     private void SetupUI()
@@ -30,8 +34,11 @@ public class ProfilePanelUI : MonoBehaviour
 
     public void SetUsernameByNameInput(string nameInput)
     {
+        string oldUsername = InGameManager.GetUsername();
+
+        if (oldUsername.Equals(nameInput) || string.IsNullOrEmpty(nameInput)) return;
         InGameManager.SetUsername(nameInput);
-        EmitChangingUsernameEvent();
+        _isNameModifed = true;
     }
 
     private void SetupProfileAvatar()
@@ -42,6 +49,15 @@ public class ProfilePanelUI : MonoBehaviour
 
     public void EmitChangingUsernameEvent()
     {
+        if (!_isNameModifed) return;
+
+        Debug.Log("Changing username...");
+        PlayfabManager.Instance.UpdateUsername(_nameInput.text);
         EventManager.EmitEvent(EventID.CHANGING_USERNAME);
+    }
+
+    private void OnDisable()
+    {
+        EmitChangingUsernameEvent();
     }
 }
