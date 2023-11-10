@@ -1,10 +1,12 @@
-using System;
 using TMPro;
 using UnityEngine;
 
 public class AuthHandler : MonoBehaviour
 {
-    [Header("LOGIN")] [SerializeField] private TMP_InputField login_emailInput;
+    [SerializeField] private NotiPanel _notiPanel;
+
+    [Space(20)] [Header("LOGIN")] [SerializeField]
+    private TMP_InputField login_emailInput;
 
     [SerializeField] private TMP_InputField login_passwordInput;
 
@@ -14,9 +16,6 @@ public class AuthHandler : MonoBehaviour
     [SerializeField] private TMP_InputField signUp_passwordInput;
     [SerializeField] private TMP_InputField signUp_repasswordInput;
     [SerializeField] private TMP_InputField signUp_displayNameInput;
-
-    [Space(20)] [Header("ERROR")] [SerializeField]
-    private ErrorPanel _errorPanel;
 
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
     private FacebookManager FacebookManager => FacebookManager.Instance;
@@ -28,6 +27,17 @@ public class AuthHandler : MonoBehaviour
     private void OnEnable()
     {
         instance = this;
+        ResetInputUI();
+    }
+
+    private void ResetInputUI()
+    {
+        login_emailInput.text = "";
+        login_passwordInput.text = "";
+        signUp_emailInput.text = "";
+        signUp_passwordInput.text = "";
+        signUp_repasswordInput.text = "";
+        signUp_displayNameInput.text = "";
     }
 
     public void Login()
@@ -50,14 +60,14 @@ public class AuthHandler : MonoBehaviour
         PlayfabManager.SignUpWithEmail(email, password, displayName);
     }
 
+    public void ShowNotification(string noti, eNotiType notiType)
+    {
+        _notiPanel.ShowNotification(noti, notiType);
+    }
+
     public void LogInFacebook()
     {
         FacebookManager.LoginFacebook();
-    }
-
-    public void ShowError(string error)
-    {
-        _errorPanel.ShowErrorText(error);
     }
 
     private void OnDisable()

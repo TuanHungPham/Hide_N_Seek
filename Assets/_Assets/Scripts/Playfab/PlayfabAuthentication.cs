@@ -1,6 +1,5 @@
 using PlayFab;
 using PlayFab.ClientModels;
-using PlayFab.ProfilesModels;
 using TigerForge;
 using UnityEngine;
 
@@ -20,21 +19,6 @@ public class PlayfabAuthentication : MonoBehaviour
         PlayFabClientAPI.LoginWithEmailAddress(request, OnAuthCallback, OnAuthError);
     }
 
-    public void LoginWithID(PlayFabAuthenticationContext context)
-    {
-        LoginWithPlayFabRequest request = new LoginWithPlayFabRequest()
-        {
-            AuthenticationContext = context
-        };
-        // LoginWithCustomIDRequest request = new LoginWithCustomIDRequest()
-        // {
-        //
-        //     AuthenticationContext = 
-        // };
-
-        PlayFabClientAPI.LoginWithPlayFab(request, OnAuthCallback, OnAuthError);
-    }
-
     public void LoginWithFacebook(string accessToken)
     {
         LoginWithFacebookRequest request = new LoginWithFacebookRequest()
@@ -49,13 +33,16 @@ public class PlayfabAuthentication : MonoBehaviour
     private void OnAuthError(PlayFabError error)
     {
         Debug.LogError($"--- (PLAYFAB) Login Error: {error.ErrorMessage}");
-        AuthHandler.ShowError(error.ErrorMessage);
-        EmitLoginFailEvent();
+        AuthHandler.ShowNotification(error.ErrorMessage,eNotiType.ERROR);
     }
 
     private void OnAuthCallback(LoginResult result)
     {
         Debug.Log($"--- (PLAYFAB) Login Result: {result.PlayFabId}");
+        if (!IsLoggedIn()) return;
+
+        string successNoti = "Login Successfull!";
+        AuthHandler.ShowNotification(successNoti,eNotiType.SUCCESS);
         SetupUserInfo();
         EmitLoginSuccessEvent();
     }
@@ -77,13 +64,16 @@ public class PlayfabAuthentication : MonoBehaviour
     private void OnSignUpError(PlayFabError error)
     {
         Debug.LogError($"--- (PLAYFAB) Sign Up Error: {error.ErrorMessage}");
-        AuthHandler.ShowError(error.ErrorMessage);
+        AuthHandler.ShowNotification(error.ErrorMessage,eNotiType.ERROR);
     }
 
     private void OnRegisterResult(RegisterPlayFabUserResult result)
     {
-        Debug.Log($"--- (PLAYFAB) Sign Up Result: {result.PlayFabId} --- {result.AuthenticationContext.EntityId}");
-        LoginWithID(result.AuthenticationContext);
+        string titleID = result.AuthenticationContext.EntityId;
+        Debug.Log($"--- (PLAYFAB) Sign Up Result: {result.PlayFabId} --- {titleID}");
+
+        string successNoti = "Sign In Successfull!";
+        AuthHandler.ShowNotification(successNoti, eNotiType.SUCCESS);
     }
 
     private void SetupUserInfo()
@@ -143,5 +133,10 @@ public class PlayfabAuthentication : MonoBehaviour
     private void EmitLoginFailEvent()
     {
         EventManager.EmitEvent(EventID.LOGIN_FAIL);
+    }
+
+    public bool IsLoggedIn()
+    {
+        return PlayFabClientAPI.IsClientLoggedIn();
     }
 }

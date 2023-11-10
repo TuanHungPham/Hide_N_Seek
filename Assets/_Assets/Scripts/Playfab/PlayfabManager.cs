@@ -41,6 +41,6 @@ public class PlayfabManager : MonoBehaviour
 
     public bool IsClientLoggedIn()
     {
-        return PlayFabClientAPI.IsClientLoggedIn();
+        return _playFabAuthentication.IsLoggedIn();
     }
 }
