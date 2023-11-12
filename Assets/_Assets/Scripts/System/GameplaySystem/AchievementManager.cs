@@ -16,6 +16,7 @@ public class AchievementManager : MonoBehaviour
 {
     private Dictionary<eAchievementType, long> _ingameAchievementDic = new Dictionary<eAchievementType, long>();
     private IngameDataManager IngameDataManager => IngameDataManager.Instance;
+    private PlayfabManager PlayfabManager => PlayfabManager.Instance;
 
     private void Start()
     {
@@ -35,6 +36,8 @@ public class AchievementManager : MonoBehaviour
 
             _ingameAchievementDic.Add(achievementType, achievementPoint);
         }
+
+        PlayfabManager.UpdatePlayerStatistic();
     }
 
     public void AddAchievementPointData(eAchievementType type)
