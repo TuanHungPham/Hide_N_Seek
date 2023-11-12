@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 18
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 3414841365960109902}
   - component: {fileID: 3414841365960109896}
   - component: {fileID: 3414841365960109899}
+  - component: {fileID: -2714756301181413973}
   m_Layer: 0
   m_Name: LeaderboardRank
   m_TagString: Untagged
@@ -287,6 +288,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &-2714756301181413973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3414841365960109903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7158bbb2c7e072441aa9f63ba3538ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rankText: {fileID: 3414841366515037040}
+  _nameText: {fileID: 3414841365187728293}
+  _pointText: {fileID: 3414841366884490518}
 --- !u!1 &3414841366411391820
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +473,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 18
   m_fontSizeBase: 87.4
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -592,7 +608,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.25
+  m_fontSize: 18
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class LeaderboardButtonHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject _winBtnActive;
+    [Header("Button")] [SerializeField] private GameObject _winBtnActive;
     [SerializeField] private GameObject _winBtnUnActive;
 
     [SerializeField] private GameObject _resBtnActive;
@@ -11,10 +12,14 @@ public class LeaderboardButtonHandler : MonoBehaviour
     [SerializeField] private GameObject _caughtBtnActive;
     [SerializeField] private GameObject _caughtBtnUnActive;
 
+    [Space(20)] [Header("Leaderboard Panel")] [SerializeField]
+    private LeaderboardPanel _leaderboardPanel;
+
     public void OnClickWinBtn()
     {
         DisableAllBtn();
 
+        SetLeaderboardType(eLeaderboardType.WIN);
         ActiveWinBtnState(true);
     }
 
@@ -22,6 +27,7 @@ public class LeaderboardButtonHandler : MonoBehaviour
     {
         DisableAllBtn();
 
+        SetLeaderboardType(eLeaderboardType.RESCUE);
         ActiveResBtnState(true);
     }
 
@@ -29,6 +35,7 @@ public class LeaderboardButtonHandler : MonoBehaviour
     {
         DisableAllBtn();
 
+        SetLeaderboardType(eLeaderboardType.CATCH);
         ActiveCaughtBtnState(true);
     }
 
@@ -37,6 +44,11 @@ public class LeaderboardButtonHandler : MonoBehaviour
         ActiveWinBtnState(false);
         ActiveResBtnState(false);
         ActiveCaughtBtnState(false);
+    }
+
+    private void SetLeaderboardType(eLeaderboardType type)
+    {
+        _leaderboardPanel.SetLeaderboardType(type);
     }
 
     private void ActiveWinBtnState(bool set)
