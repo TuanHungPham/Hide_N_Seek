@@ -652,6 +652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f61bb1da55504d4f9075b13e7186070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxNumberOfUserOnLeaderboard: 10
+  _statisticUpdateList: []
 --- !u!1 &1915894694
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playFabAuthentication: {fileID: 1550581507}
+  _playfabLeaderboard: {fileID: 1723961493}
 --- !u!1 &2130845438
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1583848883c28469a3ba4d9abdaec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unityRewardAds: {fileID: 0}
+  _unityRewardAds: {fileID: 233600391}
   _androidGameId: 5461235
   _iOSGameId: 5461234
   _testMode: 1

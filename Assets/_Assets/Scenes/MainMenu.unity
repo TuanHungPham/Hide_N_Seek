@@ -294,7 +294,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.15686275}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -309,7 +309,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 282357962}
+  m_TargetGraphic: {fileID: 253283670}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1111,7 +1111,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.15686275}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1125,8 +1125,8 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 991019054}
+  m_Interactable: 0
+  m_TargetGraphic: {fileID: 1471786425}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3666,6 +3666,7 @@ GameObject:
   - component: {fileID: 419898702814594595}
   - component: {fileID: 419898702814594592}
   - component: {fileID: 419898702814594593}
+  - component: {fileID: 419898702814594599}
   m_Layer: 5
   m_Name: MainMenuUI
   m_TagString: Untagged
@@ -3673,6 +3674,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &419898702814594599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419898702814594598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66cecb5eb7e4d240a531845b39360bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _accountBtn: {fileID: 253283669}
+  _leaderboardBtn: {fileID: 1471786424}
 --- !u!114 &419898702853001764
 MonoBehaviour:
   m_ObjectHideFlags: 0

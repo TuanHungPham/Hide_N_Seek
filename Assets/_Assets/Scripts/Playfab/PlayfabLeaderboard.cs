@@ -1,15 +1,30 @@
+using System;
 using System.Collections.Generic;
-using fbg;
 using PlayFab;
 using PlayFab.ClientModels;
+using TigerForge;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 public class PlayfabLeaderboard : MonoBehaviour
 {
-    [SerializeField] List<StatisticUpdate> statisticUpdateList = new List<StatisticUpdate>();
-    private PlayfabManager PlayfabManager => PlayfabManager.Instance;
+    private const string WIN_STATISTIC = "Win";
+    private const string CATCH_STATISTIC = "Catch";
+    private const string RESCUE_STATISTIC = "Rescue";
+    [SerializeField] private int _maxNumberOfUserOnLeaderboard;
+    [SerializeField] private List<StatisticUpdate> _statisticUpdateList = new List<StatisticUpdate>();
+    private Dictionary<eLeaderboardType, List<PlayerLeaderboardEntry>> _leaderboardDictionary = new Dictionary<eLeaderboardType, List<PlayerLeaderboardEntry>>();
+
     private InGameManager InGameManager => InGameManager.Instance;
+
+    private void Start()
+    {
+        ListenEvent();
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.LOGIN_SUCCESS, GetAllLeaderboardFromServer);
+    }
 
     public void UpdatePlayerStatistic()
     {
@@ -17,7 +32,7 @@ public class PlayfabLeaderboard : MonoBehaviour
 
         UpdatePlayerStatisticsRequest request = new UpdatePlayerStatisticsRequest()
         {
-            Statistics = statisticUpdateList
+            Statistics = _statisticUpdateList
         };
 
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnUpdateStatisticCallback, OnErrorCallback);
@@ -39,28 +54,76 @@ public class PlayfabLeaderboard : MonoBehaviour
         int catchingTime = Mathf.CeilToInt(InGameManager.GetAchievementPoint(eAchievementType.CATCHING_TIME));
         int rescuingTime = Mathf.CeilToInt(InGameManager.GetAchievementPoint(eAchievementType.RESCUING_TIME));
 
-        statisticUpdateList.Clear();
+        _statisticUpdateList.Clear();
 
         StatisticUpdate winningStatistic = new StatisticUpdate()
         {
-            StatisticName = "Win",
+            StatisticName = WIN_STATISTIC,
             Value = winningTime
         };
 
         StatisticUpdate catchingStatistic = new StatisticUpdate()
         {
-            StatisticName = "Catch",
+            StatisticName = CATCH_STATISTIC,
             Value = catchingTime
         };
 
         StatisticUpdate rescuingStatistic = new StatisticUpdate()
         {
-            StatisticName = "Rescue",
+            StatisticName = RESCUE_STATISTIC,
             Value = rescuingTime
         };
 
-        statisticUpdateList.Add(winningStatistic);
-        statisticUpdateList.Add(catchingStatistic);
-        statisticUpdateList.Add(rescuingStatistic);
+        _statisticUpdateList.Add(winningStatistic);
+        _statisticUpdateList.Add(catchingStatistic);
+        _statisticUpdateList.Add(rescuingStatistic);
+    }
+
+    public void GetAllLeaderboardFromServer()
+    {
+        GetLeaderboardFromServer(WIN_STATISTIC);
+        GetLeaderboardFromServer(CATCH_STATISTIC);
+        GetLeaderboardFromServer(RESCUE_STATISTIC);
+    }
+
+    private void GetLeaderboardFromServer(string leaderboardName)
+    {
+        GetLeaderboardRequest request = new GetLeaderboardRequest()
+        {
+            StatisticName = leaderboardName,
+            StartPosition = 0,
+            MaxResultsCount = _maxNumberOfUserOnLeaderboard
+        };
+
+        PlayFabClientAPI.GetLeaderboard(request,
+            result => OnGettingLeaderboardResult(result, leaderboardName),
+            OnErrorCallback);
+    }
+
+    private void OnGettingLeaderboardResult(GetLeaderboardResult result, string leaderboardName)
+    {
+        Debug.Log($"(PLAYFAB) Getting {leaderboardName} Leaderboard result: {result.Leaderboard}");
+        switch (leaderboardName)
+        {
+            case WIN_STATISTIC:
+                _leaderboardDictionary.Add(eLeaderboardType.WIN, result.Leaderboard);
+                break;
+            case CATCH_STATISTIC:
+                _leaderboardDictionary.Add(eLeaderboardType.CATCH, result.Leaderboard);
+                break;
+            case RESCUE_STATISTIC:
+                _leaderboardDictionary.Add(eLeaderboardType.RESCUE, result.Leaderboard);
+                break;
+        }
+    }
+
+    public int GetNumberOfUserOnLeaderboard()
+    {
+        return _maxNumberOfUserOnLeaderboard;
+    }
+
+    public List<PlayerLeaderboardEntry> GetLeaderboard(eLeaderboardType type)
+    {
+        return _leaderboardDictionary[type];
     }
 }

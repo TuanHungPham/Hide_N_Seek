@@ -9,7 +9,7 @@ public class RankPanel : MonoBehaviour
 
     public void SetUI(string name, float point, string rank = "")
     {
-        if (_rankText != null)
+        if (_rankText != null && !string.IsNullOrEmpty(rank))
         {
             _rankText.text = rank;
         }

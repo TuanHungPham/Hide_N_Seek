@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using PlayFab.ClientModels;
 using UnityEngine;
 
 public class PlayfabManager : MonoBehaviour
@@ -10,6 +12,7 @@ public class PlayfabManager : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this);
         instance = this;
         LoadComponents();
     }
@@ -51,6 +54,23 @@ public class PlayfabManager : MonoBehaviour
         if (!IsClientLoggedIn()) return;
 
         _playfabLeaderboard.UpdatePlayerStatistic();
+    }
+
+    public void GetAllLeaderboardFromServer()
+    {
+        if (!IsClientLoggedIn()) return;
+
+        _playfabLeaderboard.GetAllLeaderboardFromServer();
+    }
+
+    public List<PlayerLeaderboardEntry> GetLearderboard(eLeaderboardType type)
+    {
+        return _playfabLeaderboard.GetLeaderboard(type);
+    }
+
+    public int GetNumberOfUserOnLeaderboard()
+    {
+        return _playfabLeaderboard.GetNumberOfUserOnLeaderboard();
     }
 
     public bool IsClientLoggedIn()

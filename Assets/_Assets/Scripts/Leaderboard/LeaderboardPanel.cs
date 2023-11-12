@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using PlayFab.ClientModels;
 using UnityEngine;
 
 public enum eLeaderboardType
@@ -10,8 +12,6 @@ public enum eLeaderboardType
 
 public class LeaderboardPanel : MonoBehaviour
 {
-    [SerializeField] private int _numberOfUser;
-
     [SerializeField] private eLeaderboardType _leaderboardType;
 
     [SerializeField] private GameObject _firstRank;
@@ -21,14 +21,22 @@ public class LeaderboardPanel : MonoBehaviour
 
     [SerializeField] private List<RankPanel> _rankPanelList = new List<RankPanel>();
 
-    private void Start()
+    private PlayfabManager PlayfabManager => PlayfabManager.Instance;
+
+    private void Awake()
     {
         InitializeRankPanel();
     }
 
+    private void OnEnable()
+    {
+        RefreshLeaderboardPanel();
+    }
+
     private void InitializeRankPanel()
     {
-        for (int i = 1; i <= _numberOfUser; i++)
+        Debug.Log($"{PlayfabManager.GetNumberOfUserOnLeaderboard()}");
+        for (int i = 1; i <= PlayfabManager.GetNumberOfUserOnLeaderboard(); i++)
         {
             CreateRankPanel(i);
         }
@@ -60,6 +68,18 @@ public class LeaderboardPanel : MonoBehaviour
         SetupRankPanelUI(rankPanel, rank);
     }
 
+    private void RefreshLeaderboardPanel()
+    {
+        List<PlayerLeaderboardEntry> leaderboard = PlayfabManager.GetLearderboard(_leaderboardType);
+
+        for (int i = 0; i < leaderboard.Count; i++)
+        {
+            string name = leaderboard[i].DisplayName;
+            int point = leaderboard[i].StatValue;
+            _rankPanelList[i].SetUI(name, point);
+        }
+    }
+
     private void SetupRankPanelUI(RankPanel rankPanel, int rank)
     {
         rankPanel.SetUI("", 0, rank.ToString());
@@ -68,5 +88,6 @@ public class LeaderboardPanel : MonoBehaviour
     public void SetLeaderboardType(eLeaderboardType type)
     {
         _leaderboardType = type;
+        RefreshLeaderboardPanel();
     }
 }
