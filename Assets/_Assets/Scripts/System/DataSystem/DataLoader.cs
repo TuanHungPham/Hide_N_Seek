@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
@@ -23,6 +24,11 @@ public class DataLoader : MonoBehaviour
     private EasyFileSave myFile;
 
     private void Awake()
+    {
+        LoadComponents();
+    }
+
+    private void Reset()
     {
         LoadComponents();
     }
