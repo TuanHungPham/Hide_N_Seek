@@ -259,8 +259,16 @@ public class DataLoader : MonoBehaviour
         return (List<string>)myFile.GetData(type);
     }
 
-    private void OnApplicationQuit()
+    private void OnApplicationPause(bool pauseStatus)
     {
-        SaveData();
+        if (pauseStatus)
+        {
+            SaveData();
+        }
     }
+
+    // private void OnApplicationQuit()
+    // {
+    //     SaveData();
+    // }
 }
