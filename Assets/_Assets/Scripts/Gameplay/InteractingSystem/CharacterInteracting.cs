@@ -6,6 +6,7 @@ public class CharacterInteracting : MonoBehaviour
     [SerializeField] private Controller _controller;
     [SerializeField] private LayerMask _layerMask;
     private InGameManager InGameManager => InGameManager.Instance;
+    private GameplayManager GameplayManager => GameplayManager.Instance;
 
     public void CheckObjColliderState(GameObject target)
     {
@@ -36,6 +37,7 @@ public class CharacterInteracting : MonoBehaviour
         if (_controller.GetPlayerType() == ePlayerType.MAIN_CHARACTER)
         {
             UpdateInGameAchievement(eAchievementType.RESCUING_TIME);
+            AddBonusCoin();
         }
 
         targetController.SetCaughtState(false);
@@ -57,5 +59,10 @@ public class CharacterInteracting : MonoBehaviour
     private void UpdateInGameAchievement(eAchievementType type)
     {
         InGameManager.AddAchievementPoint(type);
+    }
+
+    private void AddBonusCoin()
+    {
+        GameplayManager.AddCoin(eAddingCoinType.INTERACTING_BONUS_COIN, 10);
     }
 }

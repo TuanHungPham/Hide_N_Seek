@@ -8,7 +8,7 @@ public enum eAddingCoinType
 {
     NONE,
     PICK_UP_COIN,
-    RESCUE_BONUS_COIN,
+    INTERACTING_BONUS_COIN,
 
     MAX_NUMBER_OF_COIN_TYPE,
 }

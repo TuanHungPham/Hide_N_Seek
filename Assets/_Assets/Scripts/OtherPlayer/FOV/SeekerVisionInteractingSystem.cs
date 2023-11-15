@@ -12,6 +12,8 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
     [SerializeField] private CircleVision _circleVision;
     [SerializeField] private FrontVision _frontVision;
 
+    private GameplayManager GameplayManager => GameplayManager.Instance;
+
     private float _visionCircleRadius => GameplaySystem.Instance.GetSeekerCircleVisionRadius();
 
     #endregion
@@ -103,5 +105,11 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
         if (_playerType == ePlayerType.NPC) return;
 
         InGameManager.Instance.AddAchievementPoint(eAchievementType.CATCHING_TIME);
+        AddBonusCoin();
+    }
+
+    private void AddBonusCoin()
+    {
+        GameplayManager.AddCoin(eAddingCoinType.INTERACTING_BONUS_COIN, 10);
     }
 }
