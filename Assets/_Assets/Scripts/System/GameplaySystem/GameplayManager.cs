@@ -59,4 +59,9 @@ public class GameplayManager : MonoBehaviour
     {
         return _resourcesManager.GetTotalTicket();
     }
+
+    public long GetCoin(eAddingCoinType type)
+    {
+        return _resourcesManager.GetCoin(type);
+    }
 }

@@ -95,6 +95,11 @@ public class ResourcesManager : MonoBehaviour
         EmitConsumingResourcesEvent();
     }
 
+    public long GetCoin(eAddingCoinType type)
+    {
+        return _coinTypeDic[type];
+    }
+
     private void SetTotalTicket()
     {
         IngameDataManager.SetResourceData(eResourceDataType.ADS_TICKET, _totalTicket);
