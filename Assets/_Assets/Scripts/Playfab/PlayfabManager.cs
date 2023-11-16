@@ -9,6 +9,7 @@ public class PlayfabManager : MonoBehaviour
 
     [SerializeField] private PlayfabAuthentication _playFabAuthentication;
     [SerializeField] private PlayfabLeaderboard _playfabLeaderboard;
+    [SerializeField] private PlayfabDataLoader _playfabDataLoader;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class PlayfabManager : MonoBehaviour
     {
         _playFabAuthentication = GetComponentInChildren<PlayfabAuthentication>();
         _playfabLeaderboard = GetComponentInChildren<PlayfabLeaderboard>();
+        _playfabDataLoader = GetComponentInChildren<PlayfabDataLoader>();
     }
 
     public void LoginWithEmail(string email, string password)
@@ -76,5 +78,25 @@ public class PlayfabManager : MonoBehaviour
     public bool IsClientLoggedIn()
     {
         return _playFabAuthentication.IsLoggedIn();
+    }
+
+    public void AddDataToSaveCache(eDataType type, string data)
+    {
+        _playfabDataLoader.AddDataToSaveCache(type, data);
+    }
+
+    public void SaveDataToServer()
+    {
+        _playfabDataLoader.SaveDataToServer();
+    }
+
+    public void LoadDataFromServer()
+    {
+        _playfabDataLoader.LoadDataFromServer();
+    }
+
+    public string GetUserData(eDataType type)
+    {
+        return _playfabDataLoader.GetUserData(type);
     }
 }

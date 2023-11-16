@@ -7,6 +7,7 @@ public class PlayfabAuthentication : MonoBehaviour
 {
     private AuthHandler AuthHandler => AuthHandler.Instance;
     private InGameManager InGameManager => InGameManager.Instance;
+    private PlayfabManager PlayfabManager => PlayfabManager.Instance;
 
     public void LoginWithEmail(string email, string password)
     {
@@ -44,6 +45,7 @@ public class PlayfabAuthentication : MonoBehaviour
         string successNoti = "Login Successfull!";
         AuthHandler.ShowNotification(successNoti, eNotiType.SUCCESS);
         SetupUserInfo();
+        PlayfabManager.LoadDataFromServer();
         EmitLoginSuccessEvent();
     }
 

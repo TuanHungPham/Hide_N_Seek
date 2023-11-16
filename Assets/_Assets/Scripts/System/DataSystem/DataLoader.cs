@@ -12,6 +12,8 @@ public enum eDataType
     SPECIAL_QUEST_DATA,
     RESOURCE_DATA,
     ACHIEVEMENT_DATA,
+
+    MAX_COUNT,
 }
 
 public class DataLoader : MonoBehaviour
@@ -60,6 +62,14 @@ public class DataLoader : MonoBehaviour
         SaveResourceData();
         SaveAchievementData();
 
+        if (PlayfabManager.IsClientLoggedIn())
+        {
+            Debug.Log($"(DATA) Saving on Playfab Server");
+            PlayfabManager.SaveDataToServer();
+            return;
+        }
+
+        Debug.Log($"(DATA) Saving on local storage");
         myFile.Append();
     }
 
@@ -78,14 +88,20 @@ public class DataLoader : MonoBehaviour
     {
         if (!myFile.Load()) return;
 
+        LoadData();
+
+        Debug.Log($"(DATA) Loading on local storage");
+        myFile.Dispose();
+    }
+
+    public void LoadData()
+    {
         LoadCostumeData();
         LoadPetData();
         LoadQuestData();
         LoadSpecialQuestData();
         LoadResourceData();
         LoadAchievementData();
-
-        myFile.Dispose();
     }
 
     private string SerializeDataToJson(object data)
@@ -178,7 +194,16 @@ public class DataLoader : MonoBehaviour
 
     private T DeserializeJsonToData<T>(eDataType dataType)
     {
-        string jsonData = myFile.GetString(dataType);
+        string jsonData;
+        if (PlayfabManager.IsClientLoggedIn())
+        {
+            jsonData = PlayfabManager.GetUserData(dataType);
+        }
+        else
+        {
+            jsonData = myFile.GetString(dataType);
+        }
+
         var data = JsonConvert.DeserializeObject<T>(jsonData);
         return data;
     }

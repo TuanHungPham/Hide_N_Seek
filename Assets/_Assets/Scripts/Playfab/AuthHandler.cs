@@ -48,8 +48,8 @@ public class AuthHandler : MonoBehaviour
 
     private void ResetInputUI()
     {
-        login_emailInput.text = "";
-        login_passwordInput.text = "";
+        login_emailInput.text = PlayerPrefs.GetString("USERNAME", "");
+        login_passwordInput.text = PlayerPrefs.GetString("PASSWORD", "");
         signUp_emailInput.text = "";
         signUp_passwordInput.text = "";
         signUp_repasswordInput.text = "";
@@ -60,6 +60,9 @@ public class AuthHandler : MonoBehaviour
     {
         string email = login_emailInput.text;
         string password = login_passwordInput.text;
+
+        PlayerPrefs.SetString("USERNAME", email);
+        PlayerPrefs.SetString("PASSWORD", password);
 
         PlayfabManager.LoginWithEmail(email, password);
     }
