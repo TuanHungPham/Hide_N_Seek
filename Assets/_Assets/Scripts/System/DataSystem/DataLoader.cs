@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using TigerForge;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class DataLoader : MonoBehaviour
     [SerializeField] private QuestDataManager _questDataManager;
     [SerializeField] private AchievementDataManager _achievementDataManager;
 
+    private PlayfabManager PlayfabManager => PlayfabManager.Instance;
     private EasyFileSave myFile;
 
     private void Awake()
@@ -46,12 +48,11 @@ public class DataLoader : MonoBehaviour
 
     private void Start()
     {
-        LoadData();
+        Load();
     }
 
-    private void SaveData()
+    private void Save()
     {
-        // _achievementDataManager.SaveData();
         SaveCostumeData();
         SavePetData();
         SaveQuestData();
@@ -62,12 +63,18 @@ public class DataLoader : MonoBehaviour
         myFile.Append();
     }
 
-    private void AddToSaveCache(eDataType type, object jsonStringList)
+    private void AddDataToSaveCache(eDataType type, string data)
     {
-        myFile.Add(type, jsonStringList);
+        if (PlayfabManager.IsClientLoggedIn())
+        {
+            PlayfabManager.AddDataToSaveCache(type, data);
+            return;
+        }
+
+        myFile.Add(type, data);
     }
 
-    private void LoadData()
+    private void Load()
     {
         if (!myFile.Load()) return;
 
@@ -81,6 +88,11 @@ public class DataLoader : MonoBehaviour
         myFile.Dispose();
     }
 
+    private string SerializeDataToJson(object data)
+    {
+        return JsonConvert.SerializeObject(data);
+    }
+
     private void SaveCostumeData()
     {
         List<string> jsonStringList = new List<string>();
@@ -90,7 +102,9 @@ public class DataLoader : MonoBehaviour
             jsonStringList.Add(jsonString);
         }
 
-        AddToSaveCache(eDataType.COSTUME_DATA, jsonStringList);
+        string jsonData = SerializeDataToJson(jsonStringList);
+
+        AddDataToSaveCache(eDataType.COSTUME_DATA, jsonData);
     }
 
     private void SavePetData()
@@ -102,7 +116,9 @@ public class DataLoader : MonoBehaviour
             jsonStringList.Add(jsonString);
         }
 
-        AddToSaveCache(eDataType.PET_DATA, jsonStringList);
+        string jsonData = SerializeDataToJson(jsonStringList);
+
+        AddDataToSaveCache(eDataType.PET_DATA, jsonData);
     }
 
     private void SaveQuestData()
@@ -114,7 +130,9 @@ public class DataLoader : MonoBehaviour
             jsonStringList.Add(jsonString);
         }
 
-        AddToSaveCache(eDataType.QUEST_DATA, jsonStringList);
+        string jsonData = SerializeDataToJson(jsonStringList);
+
+        AddDataToSaveCache(eDataType.QUEST_DATA, jsonData);
     }
 
     private void SaveSpecialQuestData()
@@ -125,7 +143,9 @@ public class DataLoader : MonoBehaviour
         string jsonString = baseData.ToJsonString();
         jsonStringList.Add(jsonString);
 
-        AddToSaveCache(eDataType.SPECIAL_QUEST_DATA, jsonStringList);
+        string jsonData = SerializeDataToJson(jsonStringList);
+
+        AddDataToSaveCache(eDataType.SPECIAL_QUEST_DATA, jsonData);
     }
 
     private void SaveResourceData()
@@ -137,7 +157,9 @@ public class DataLoader : MonoBehaviour
             jsonStringDic.Add(baseData.Key, jsonString);
         }
 
-        AddToSaveCache(eDataType.RESOURCE_DATA, jsonStringDic);
+        string jsonData = SerializeDataToJson(jsonStringDic);
+
+        AddDataToSaveCache(eDataType.RESOURCE_DATA, jsonData);
     }
 
     private void SaveAchievementData()
@@ -149,12 +171,21 @@ public class DataLoader : MonoBehaviour
             jsonStringDic.Add(baseData.Key, jsonString);
         }
 
-        AddToSaveCache(eDataType.ACHIEVEMENT_DATA, jsonStringDic);
+        string jsonData = SerializeDataToJson(jsonStringDic);
+
+        AddDataToSaveCache(eDataType.ACHIEVEMENT_DATA, jsonData);
+    }
+
+    private T DeserializeJsonToData<T>(eDataType dataType)
+    {
+        string jsonData = myFile.GetString(dataType);
+        var data = JsonConvert.DeserializeObject<T>(jsonData);
+        return data;
     }
 
     private void LoadCostumeData()
     {
-        List<string> jsonStringList = GetJsonStringList(eDataType.COSTUME_DATA);
+        List<string> jsonStringList = DeserializeJsonToData<List<string>>(eDataType.COSTUME_DATA);
         if (jsonStringList == null) return;
 
         foreach (var json in jsonStringList)
@@ -171,7 +202,8 @@ public class DataLoader : MonoBehaviour
 
     private void LoadPetData()
     {
-        List<string> jsonStringList = GetJsonStringList(eDataType.PET_DATA);
+        List<string> jsonStringList = DeserializeJsonToData<List<string>>(eDataType.PET_DATA);
+
         if (jsonStringList == null) return;
 
         foreach (var json in jsonStringList)
@@ -188,7 +220,8 @@ public class DataLoader : MonoBehaviour
 
     private void LoadQuestData()
     {
-        List<string> jsonStringList = GetJsonStringList(eDataType.QUEST_DATA);
+        List<string> jsonStringList = DeserializeJsonToData<List<string>>(eDataType.QUEST_DATA);
+
         if (jsonStringList == null) return;
 
         foreach (var json in jsonStringList)
@@ -205,7 +238,8 @@ public class DataLoader : MonoBehaviour
 
     private void LoadSpecialQuestData()
     {
-        List<string> jsonStringList = GetJsonStringList(eDataType.SPECIAL_QUEST_DATA);
+        List<string> jsonStringList = DeserializeJsonToData<List<string>>(eDataType.SPECIAL_QUEST_DATA);
+
         if (jsonStringList == null) return;
 
         foreach (var json in jsonStringList)
@@ -222,7 +256,8 @@ public class DataLoader : MonoBehaviour
 
     private void LoadResourceData()
     {
-        Dictionary<eResourceDataType, string> jsonStringDic = (Dictionary<eResourceDataType, string>)myFile.GetData(eDataType.RESOURCE_DATA);
+        Dictionary<eResourceDataType, string> jsonStringDic = DeserializeJsonToData<Dictionary<eResourceDataType, string>>(eDataType.RESOURCE_DATA);
+
         if (jsonStringDic == null) return;
 
         foreach (var json in jsonStringDic)
@@ -239,7 +274,8 @@ public class DataLoader : MonoBehaviour
 
     private void LoadAchievementData()
     {
-        Dictionary<eAchievementType, string> jsonStringDic = (Dictionary<eAchievementType, string>)myFile.GetData(eDataType.ACHIEVEMENT_DATA);
+        Dictionary<eAchievementType, string> jsonStringDic = DeserializeJsonToData<Dictionary<eAchievementType, string>>(eDataType.ACHIEVEMENT_DATA);
+
         if (jsonStringDic == null) return;
 
         foreach (var json in jsonStringDic)
@@ -254,21 +290,16 @@ public class DataLoader : MonoBehaviour
         LogSystem.LogDictionary(jsonStringDic, dicName);
     }
 
-    private List<string> GetJsonStringList(eDataType type)
-    {
-        return (List<string>)myFile.GetData(type);
-    }
-
     private void OnApplicationPause(bool pauseStatus)
     {
         if (pauseStatus)
         {
-            SaveData();
+            Save();
         }
     }
 
-    // private void OnApplicationQuit()
-    // {
-    //     SaveData();
-    // }
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
 }
