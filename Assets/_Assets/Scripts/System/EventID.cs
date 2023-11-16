@@ -26,4 +26,5 @@ public enum EventID
     SIGNUP_SUCCESS,
     SIGNUP_FAIL,
     SETTING_UP_PROFILE,
+    LOADING_SERVER_DATA,
 }

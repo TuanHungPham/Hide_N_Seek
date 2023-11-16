@@ -35,7 +35,6 @@ public class LeaderboardPanel : MonoBehaviour
 
     private void InitializeRankPanel()
     {
-        Debug.Log($"{PlayfabManager.GetNumberOfUserOnLeaderboard()}");
         for (int i = 1; i <= PlayfabManager.GetNumberOfUserOnLeaderboard(); i++)
         {
             CreateRankPanel(i);

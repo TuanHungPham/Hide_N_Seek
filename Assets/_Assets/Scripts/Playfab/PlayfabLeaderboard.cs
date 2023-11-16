@@ -106,15 +106,26 @@ public class PlayfabLeaderboard : MonoBehaviour
         switch (leaderboardName)
         {
             case WIN_STATISTIC:
-                _leaderboardDictionary.Add(eLeaderboardType.WIN, result.Leaderboard);
+                AddLeaderboard(eLeaderboardType.WIN, result);
                 break;
             case CATCH_STATISTIC:
-                _leaderboardDictionary.Add(eLeaderboardType.CATCH, result.Leaderboard);
+                AddLeaderboard(eLeaderboardType.CATCH, result);
                 break;
             case RESCUE_STATISTIC:
-                _leaderboardDictionary.Add(eLeaderboardType.RESCUE, result.Leaderboard);
+                AddLeaderboard(eLeaderboardType.RESCUE, result);
                 break;
         }
+    }
+
+    private void AddLeaderboard(eLeaderboardType type, GetLeaderboardResult result)
+    {
+        if (_leaderboardDictionary.ContainsKey(type))
+        {
+            _leaderboardDictionary[type] = result.Leaderboard;
+            return;
+        }
+
+        _leaderboardDictionary.Add(type, result.Leaderboard);
     }
 
     public int GetNumberOfUserOnLeaderboard()

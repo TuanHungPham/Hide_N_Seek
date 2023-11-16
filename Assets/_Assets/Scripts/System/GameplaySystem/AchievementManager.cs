@@ -21,6 +21,7 @@ public class AchievementManager : MonoBehaviour
     private void Start()
     {
         InitializeIngameAchievementDic();
+        UpdatePlayerStatistic();
     }
 
     private void InitializeIngameAchievementDic()
@@ -36,7 +37,10 @@ public class AchievementManager : MonoBehaviour
 
             _ingameAchievementDic.Add(achievementType, achievementPoint);
         }
+    }
 
+    private void UpdatePlayerStatistic()
+    {
         PlayfabManager.UpdatePlayerStatistic();
     }
 

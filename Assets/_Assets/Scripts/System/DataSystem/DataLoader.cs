@@ -102,6 +102,17 @@ public class DataLoader : MonoBehaviour
         LoadSpecialQuestData();
         LoadResourceData();
         LoadAchievementData();
+
+        if (PlayfabManager.IsClientLoggedIn())
+        {
+            _petDataManager.LoadData();
+            _costumeDataManager.LoadData();
+            _achievementDataManager.LoadData();
+            _questDataManager.LoadData();
+            _resourceDataManager.LoadData();
+
+            EmitLoadingServerDataEvent();
+        }
     }
 
     private string SerializeDataToJson(object data)
@@ -313,6 +324,11 @@ public class DataLoader : MonoBehaviour
 
         string dicName = "LOADING ACHIEVEMENT DATA";
         LogSystem.LogDictionary(jsonStringDic, dicName);
+    }
+
+    private void EmitLoadingServerDataEvent()
+    {
+        EventManager.EmitEvent(EventID.LOADING_SERVER_DATA);
     }
 
     private void OnApplicationPause(bool pauseStatus)

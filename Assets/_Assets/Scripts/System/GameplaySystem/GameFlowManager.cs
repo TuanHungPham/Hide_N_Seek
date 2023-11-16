@@ -18,6 +18,7 @@ public class GameFlowManager : MonoBehaviour
     {
         EventManager.StartListening(EventID.END_GAME_TIME, CheckGameFlowOver);
         EventManager.StartListening(EventID.RETRYING_GAME, ResetGame);
+        EventManager.StartListening(EventID.LOADING_SERVER_DATA, ResetGame);
     }
 
     private void CheckGameFlowOver()

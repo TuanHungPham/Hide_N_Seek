@@ -45,7 +45,7 @@ public class ResourceDataManager : MonoBehaviour
         LoadData();
     }
 
-    private void LoadData()
+    public void LoadData()
     {
         foreach (var baseData in ResourcesBaseDataDic)
         {
