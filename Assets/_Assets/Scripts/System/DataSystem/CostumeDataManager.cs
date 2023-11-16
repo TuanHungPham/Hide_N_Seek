@@ -47,7 +47,7 @@ public class CostumeDataManager : MonoBehaviour
     private void Start()
     {
         ListenEvent();
-        LoadShopData();
+        LoadData();
     }
 
     private void ListenEvent()
@@ -74,7 +74,7 @@ public class CostumeDataManager : MonoBehaviour
         }
     }
 
-    public void LoadShopData()
+    public void LoadData()
     {
         if (CostumeBaseDataList.Count <= 0) return;
 

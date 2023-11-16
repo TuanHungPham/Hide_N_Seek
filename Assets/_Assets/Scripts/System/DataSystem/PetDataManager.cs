@@ -47,7 +47,7 @@ public class PetDataManager : MonoBehaviour
     private void Start()
     {
         ListenEvent();
-        LoadShopData();
+        LoadData();
     }
 
     private void ListenEvent()
@@ -74,7 +74,7 @@ public class PetDataManager : MonoBehaviour
         }
     }
 
-    public void LoadShopData()
+    public void LoadData()
     {
         if (PetBaseDataList.Count <= 0) return;
 

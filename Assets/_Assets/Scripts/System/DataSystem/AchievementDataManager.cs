@@ -31,7 +31,7 @@ public class AchievementDataManager : MonoBehaviour
         LoadData();
     }
 
-    private void LoadData()
+    public void LoadData()
     {
         int maxCount = (int)eAchievementType.MAX_COUNT;
 
@@ -52,7 +52,7 @@ public class AchievementDataManager : MonoBehaviour
                 data = AchievementBaseDataDic[dataType].achievementData;
             }
 
-            _achievementDataDic.Add(dataType, data);
+            _achievementDataDic.TryAdd(dataType, data);
         }
 
         LogSystem.LogDictionary(_achievementDataDic, "ACHIEVEMENT DATA DICTIONARY");

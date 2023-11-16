@@ -21,7 +21,6 @@ public class CostumeManager : MonoBehaviour
     {
         if (_mainCharacterController == null) return;
 
-        Debug.Log("Is In Here...");
         Costume currentUsingCostume = IngameDataManager.GetCurrentUsingCostume();
         if (currentUsingCostume == null) return;
 
