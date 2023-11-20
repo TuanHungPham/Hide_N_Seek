@@ -86,6 +86,8 @@ public class PlayfabDataLoader : MonoBehaviour
 
     public string GetUserData(eDataType type)
     {
+        if (!_playfabUserData.ContainsKey(type.ToString())) return null;
+
         return _playfabUserData[type.ToString()].Value;
     }
 }
