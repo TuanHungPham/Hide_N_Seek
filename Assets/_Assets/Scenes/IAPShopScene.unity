@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 270305444}
   - component: {fileID: 270305443}
   - component: {fileID: 270305442}
+  - component: {fileID: 270305445}
   m_Layer: 0
   m_Name: IAPShopSceneUI
   m_TagString: Untagged
@@ -559,6 +560,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &270305445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270305440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd69fd6eeac41ac48b00040b60e757c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _exchangeTicketQuantity: 1
+  _exchangeCoinQuantity: 100
 --- !u!224 &344971737 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1382734854205075773, guid: a38833553e9bfae4cbcb853e6c4d2b80, type: 3}
@@ -2705,8 +2720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904dd823ff6e2dd4f8c28739967da02e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exchangeTicketQuantity: 1
-  _exchangeCoinQuantity: 100
 --- !u!1 &1332579577
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,8 +2844,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1310858413}
-        m_TargetAssemblyTypeName: ProductPanel, Assembly-CSharp
+      - m_Target: {fileID: 270305445}
+        m_TargetAssemblyTypeName: ShopEventHandler, Assembly-CSharp
         m_MethodName: ExchangeResources
         m_Mode: 1
         m_Arguments:
@@ -3150,7 +3163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.00012207031}
+  m_AnchoredPosition: {x: 0, y: -738.9475}
   m_SizeDelta: {x: 975, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487692991
@@ -4283,6 +4296,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 270305445}
+        m_TargetAssemblyTypeName: ShopEventHandler, Assembly-CSharp
+        m_MethodName: EmitClosingShopEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1505158831}
         m_TargetAssemblyTypeName: MainMenuButtonHandler, Assembly-CSharp
         m_MethodName: ClosePopup
@@ -4416,7 +4441,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1276617445}
   m_HandleRect: {fileID: 1276617444}
   m_Direction: 2
-  m_Value: 0.5000001
+  m_Value: 1
   m_Size: 0.52140707
   m_NumberOfSteps: 0
   m_OnValueChanged:

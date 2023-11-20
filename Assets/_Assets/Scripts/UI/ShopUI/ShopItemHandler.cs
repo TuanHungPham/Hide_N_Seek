@@ -17,6 +17,7 @@ public class ShopItemHandler : MonoBehaviour
     [SerializeField] private eShopDataType _shopDataType;
     [SerializeField] private List<ShopItemUI> _shopItemUIList = new List<ShopItemUI>();
     [SerializeField] private List<ItemShop> _itemShopList = new List<ItemShop>();
+    IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
     private void Awake()
     {
@@ -40,7 +41,7 @@ public class ShopItemHandler : MonoBehaviour
     private void InitializeShopItemUI()
     {
         Debug.Log("Initializing Shop...");
-        _itemShopList = IngameDataManager.Instance.GetItemShopDataList(_shopDataType);
+        _itemShopList = IngameDataManager.GetItemShopDataList(_shopDataType);
 
         for (int i = 0; i < _itemShopList.Count; i++)
         {
@@ -98,9 +99,9 @@ public class ShopItemHandler : MonoBehaviour
         EmitChoosingItemShopEvent();
     }
 
-    private static bool CanBuyItem(ShopItemUI shopItemUI)
+    private bool CanBuyItem(ShopItemUI shopItemUI)
     {
-        long totalCoin = IngameDataManager.Instance.GetResourceData(eResourceDataType.COIN);
+        long totalCoin = IngameDataManager.GetResourceData(eResourceDataType.COIN);
         int itemPrice = shopItemUI.GetItemPrice();
         if (totalCoin < itemPrice) return true;
         return false;
