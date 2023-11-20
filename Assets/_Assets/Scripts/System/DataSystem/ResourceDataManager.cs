@@ -94,7 +94,13 @@ public class ResourceDataManager : MonoBehaviour
 
     public void AddBaseData(eResourceDataType type, ResourceBaseData resourceBaseData)
     {
-        ResourcesBaseDataDic.Add(type, resourceBaseData);
+        if (!ResourcesBaseDataDic.ContainsKey(type))
+        {
+            ResourcesBaseDataDic.Add(type, resourceBaseData);
+            return;
+        }
+
+        ResourcesBaseDataDic[type] = resourceBaseData;
     }
 
     public void AddBaseData(eResourceDataType type, long quantity)

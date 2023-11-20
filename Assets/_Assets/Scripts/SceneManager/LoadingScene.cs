@@ -4,6 +4,6 @@ public class LoadingScene : SSController
 {
     private void Awake()
     {
-        SSSceneManager.Instance.Screen("GameplayScene");
+        // SSSceneManager.Instance.Screen("GameplayScene");
     }
 }

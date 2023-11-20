@@ -9,7 +9,13 @@ public class GameplayScene : SSController
     private new void Awake()
     {
         instance = this;
+        OpenLoadingScene();
         SSSceneManager.Instance.PopUp("MainMenu");
+    }
+
+    public void OpenLoadingScene()
+    {
+        SSSceneManager.Instance.ShowLoading(0.5f, 1f);
     }
 
     public void CloseScene()
