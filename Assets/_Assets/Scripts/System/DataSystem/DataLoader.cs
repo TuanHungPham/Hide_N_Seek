@@ -215,6 +215,8 @@ public class DataLoader : MonoBehaviour
             jsonData = myFile.GetString(dataType);
         }
 
+        if (string.IsNullOrEmpty(jsonData)) return default;
+
         var data = JsonConvert.DeserializeObject<T>(jsonData);
         return data;
     }

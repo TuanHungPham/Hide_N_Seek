@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameplayScene : SSController
@@ -10,6 +11,10 @@ public class GameplayScene : SSController
     {
         instance = this;
         OpenLoadingScene();
+    }
+
+    private void Start()
+    {
         SSSceneManager.Instance.PopUp("MainMenu");
     }
 

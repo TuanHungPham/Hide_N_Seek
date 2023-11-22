@@ -92,6 +92,13 @@ public class QuestDataManager : MonoBehaviour
     private void ListenEvent()
     {
         EventManager.StartListening(EventID.QUEST_UPDATING, UpdateBaseData);
+        EventManager.StartListening(EventID.LOGIN_SUCCESS, ResetQuest);
+    }
+
+    private void ResetQuest()
+    {
+        QuestBaseDataList.Clear();
+        _todayQuestList.Clear();
     }
 
     private void LoadTemplate()
