@@ -9,7 +9,6 @@ public class BigPrizePanelUI : MonoBehaviour
 {
     [Header("Image")] [SerializeField] private Image _ticketPrizeImg;
     [SerializeField] private Image _coinPrizeImg;
-    [SerializeField] private Image _skinPrizeImg;
     [SerializeField] private Image _darkLayer;
     [SerializeField] private Image _checkImg;
 
@@ -17,7 +16,6 @@ public class BigPrizePanelUI : MonoBehaviour
     [SerializeField] private TMP_Text _coinPrizeQuantity;
 
     [Space(10)] [SerializeField] private SpecialQuest _specialQuest;
-    [SerializeField] private SpecialQuestTemplate _specialQuestTemplate;
 
     private InGameManager InGameManager => InGameManager.Instance;
 
@@ -43,7 +41,6 @@ public class BigPrizePanelUI : MonoBehaviour
 
         _ticketPrizeImg.sprite = _specialQuest.ticketPrizeIcon;
         _coinPrizeImg.sprite = _specialQuest.coinPrizeIcon;
-        _skinPrizeImg.sprite = _specialQuest.skinPrizeIcon;
         _ticketPrizeQuantity.text = _specialQuest.ticketPrizeQuantity.ToString();
         _coinPrizeQuantity.text = _specialQuest.coinPrizeQuantity.ToString();
 
