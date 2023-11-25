@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using UnityEngine.UI;
 using Color = UnityEngine.Color;
 
@@ -24,15 +25,21 @@ public class IAPProductUI : MonoBehaviour
 
     private IAPSystem IAPSystem => IAPSystem.Instance;
 
-    public void SetData(string productID, eProductType type, Sprite image, string quantity, string price = "")
+    public void SetData(string productID, eProductType type, Sprite image, string quantity)
     {
         _productID = productID;
         _productType = type;
         _productIcon.sprite = image;
-        _priceText.text = price;
         _productQuantity.text = quantity;
 
         SetBGColor();
+        SetPriceText();
+    }
+
+    private void SetPriceText()
+    {
+        Product product = IAPSystem.GetProduct(_productID);
+        _priceText.text = product.metadata.localizedPriceString;
     }
 
     private void SetBGColor()

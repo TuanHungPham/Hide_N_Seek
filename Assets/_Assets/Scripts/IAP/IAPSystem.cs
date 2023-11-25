@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
@@ -12,10 +13,11 @@ public class IAPSystem : MonoBehaviour, IDetailedStoreListener
     public static IAPSystem Instance => instance;
 
     [SerializeField] private IAPProductTemplate _iapProductTemplate;
+    private string environment = "production";
     private IStoreController controller;
     private IExtensionProvider extensions;
-
-    public string environment = "production";
+    private Dictionary<string, IAPProduct> _iapProductDic;
+    private GameplayManager GameplayManager => GameplayManager.Instance;
 
     private void Awake()
     {
@@ -46,10 +48,12 @@ public class IAPSystem : MonoBehaviour, IDetailedStoreListener
     private void InitializeIAPSystem()
     {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+        _iapProductDic = new Dictionary<string, IAPProduct>();
 
         foreach (var iapProduct in _iapProductTemplate.IAPProductTemplateList)
         {
             builder.AddProduct(iapProduct.productID, ProductType.Consumable);
+            _iapProductDic.Add(iapProduct.productID, iapProduct);
         }
 
         UnityPurchasing.Initialize(this, builder);
@@ -78,15 +82,43 @@ public class IAPSystem : MonoBehaviour, IDetailedStoreListener
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
+        var productID = e.purchasedProduct.definition.id;
+        IAPProduct iapProduct = _iapProductDic[productID];
+
+        GiveItemToUser(iapProduct);
+
         return PurchaseProcessingResult.Complete;
+    }
+
+    private void GiveItemToUser(IAPProduct iapProduct)
+    {
+        eProductType productType = iapProduct.productType;
+        long quantity = iapProduct.quantity;
+
+        switch (productType)
+        {
+            case eProductType.COIN:
+                GameplayManager.AddCoin(quantity);
+                break;
+            case eProductType.TICKET:
+                GameplayManager.AddTicket(quantity);
+                break;
+        }
     }
 
     public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
     {
+        Debug.Log($"(IAP) Purchase Failed: {i.metadata.localizedTitle} --- {p.ToString()}");
     }
 
     public void OnPurchaseFailed(Product i, PurchaseFailureDescription p)
     {
+        Debug.Log($"(IAP) Purchase Failed: {i.metadata.localizedTitle} --- {p.message}");
+    }
+
+    public Product GetProduct(string productID)
+    {
+        return controller.products.WithID(productID);
     }
 
     public IAPProductTemplate GetIAPProductTemplate()
