@@ -22,6 +22,8 @@ public class IAPProductUI : MonoBehaviour
     [Space(20)] [Header("BG Color")] [SerializeField]
     private List<Color> _colorList = new List<Color>();
 
+    private IAPSystem IAPSystem => IAPSystem.Instance;
+
     public void SetData(string productID, eProductType type, Sprite image, string quantity, string price = "")
     {
         _productID = productID;
@@ -37,5 +39,12 @@ public class IAPProductUI : MonoBehaviour
     {
         int index = (int)_productType;
         _background.color = _colorList[index];
+    }
+
+    public void OnClickProduct()
+    {
+        if (string.IsNullOrEmpty(_productID)) return;
+
+        IAPSystem.PurchaseProduct(_productID);
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ProductPanel : MonoBehaviour
 {
-    [SerializeField] private IAPProductTemplate _iapProductTemplate;
     [SerializeField] private List<IAPPanelUI> _iapPanelUiList = new List<IAPPanelUI>();
     private Dictionary<eProductType, IAPPanelUI> _iapPanelUiDic;
+    private IAPSystem IAPSystem => IAPSystem.Instance;
 
     private void Awake()
     {
@@ -36,7 +36,8 @@ public class ProductPanel : MonoBehaviour
 
     private void IntializeProductUI()
     {
-        List<IAPProduct> iapProductList = _iapProductTemplate.IAPProductTemplateList;
+        IAPProductTemplate iapProductTemplate = IAPSystem.GetIAPProductTemplate();
+        List<IAPProduct> iapProductList = iapProductTemplate.IAPProductTemplateList;
 
         foreach (var iapProduct in iapProductList)
         {
