@@ -12,6 +12,7 @@ public enum eProductType
 
 public class IAPProductUI : MonoBehaviour
 {
+    [SerializeField] private string _productID;
     [SerializeField] private eProductType _productType;
     [SerializeField] private Image _productIcon;
     [SerializeField] private Image _background;
@@ -21,8 +22,9 @@ public class IAPProductUI : MonoBehaviour
     [Space(20)] [Header("BG Color")] [SerializeField]
     private List<Color> _colorList = new List<Color>();
 
-    public void SetData(eProductType type, Sprite image, string price, string quantity)
+    public void SetData(string productID, eProductType type, Sprite image, string quantity, string price = "")
     {
+        _productID = productID;
         _productType = type;
         _productIcon.sprite = image;
         _priceText.text = price;
