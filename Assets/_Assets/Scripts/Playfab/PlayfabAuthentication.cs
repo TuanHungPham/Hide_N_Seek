@@ -124,12 +124,19 @@ public class PlayfabAuthentication : MonoBehaviour
             Email = email,
             TitleId = "2314D"
         };
-        PlayFabClientAPI.SendAccountRecoveryEmail(request, RecoverPasswordCallback, OnErrorCallback);
+        PlayFabClientAPI.SendAccountRecoveryEmail(request, RecoverPasswordCallback, OnRecoveryErrorCallback);
     }
 
     private void RecoverPasswordCallback(SendAccountRecoveryEmailResult result)
     {
         Debug.Log($"--- (PLAYFAB) Recover Password result: {result}");
+        string successNoti = "Sending recovery email successfull.";
+        AuthHandler.ShowNotification(successNoti, eNotiType.SUCCESS);
+    }
+
+    private void OnRecoveryErrorCallback(PlayFabError error)
+    {
+        AuthHandler.ShowNotification(error.ErrorMessage, eNotiType.ERROR);
     }
 
     private void OnErrorCallback(PlayFabError error)
