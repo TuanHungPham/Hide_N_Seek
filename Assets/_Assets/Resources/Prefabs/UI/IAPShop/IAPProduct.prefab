@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1382734854205075773}
   - component: {fileID: 1382734854205075775}
   - component: {fileID: 1382734854205075774}
+  - component: {fileID: 1382734854012938474}
   m_Layer: 0
   m_Name: IAPProduct
   m_TagString: Untagged
@@ -78,6 +79,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.02
+--- !u!114 &1382734854012938474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382734854205075772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcf9c88a18a2dc4b900cada59ea972a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _productType: 0
+  _productIcon: {fileID: 1382734855819158188}
+  _background: {fileID: 1382734854205075774}
+  _priceText: {fileID: 1382734854947634432}
+  _productQuantity: {fileID: 1382734855490708012}
+  _colorList:
+  - {r: 0.7411765, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.7294118, b: 0.16470589, a: 1}
 --- !u!1 &1382734854947634438
 GameObject:
   m_ObjectHideFlags: 0
