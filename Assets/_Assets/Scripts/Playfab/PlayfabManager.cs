@@ -65,6 +65,11 @@ public class PlayfabManager : MonoBehaviour
         _playfabLeaderboard.GetAllLeaderboardFromServer();
     }
 
+    public void RecoverPassword(string email)
+    {
+        _playFabAuthentication.RecoverPassword(email);
+    }
+
     public List<PlayerLeaderboardEntry> GetLearderboard(eLeaderboardType type)
     {
         return _playfabLeaderboard.GetLeaderboard(type);

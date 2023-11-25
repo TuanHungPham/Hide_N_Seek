@@ -117,6 +117,21 @@ public class PlayfabAuthentication : MonoBehaviour
         Debug.Log($"--- (PLAYFAB) Update User Info: {result.DisplayName}");
     }
 
+    public void RecoverPassword(string email)
+    {
+        SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
+        {
+            Email = email,
+            TitleId = "2314D"
+        };
+        PlayFabClientAPI.SendAccountRecoveryEmail(request, RecoverPasswordCallback, OnErrorCallback);
+    }
+
+    private void RecoverPasswordCallback(SendAccountRecoveryEmailResult result)
+    {
+        Debug.Log($"--- (PLAYFAB) Recover Password result: {result}");
+    }
+
     private void OnErrorCallback(PlayFabError error)
     {
         Debug.LogError($"--- (PLAYFAB) Error: {error.ErrorMessage}");

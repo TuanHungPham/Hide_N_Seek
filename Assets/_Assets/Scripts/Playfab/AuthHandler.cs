@@ -20,6 +20,9 @@ public class AuthHandler : MonoBehaviour
     [SerializeField] private TMP_InputField signUp_repasswordInput;
     [SerializeField] private TMP_InputField signUp_displayNameInput;
 
+    [Space(20)] [Header("RECOVERY PASSWORD")] [SerializeField]
+    private TMP_InputField recovery_emailInput;
+
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
     private FacebookManager FacebookManager => FacebookManager.Instance;
 
@@ -77,6 +80,13 @@ public class AuthHandler : MonoBehaviour
         if (!password.Equals(re_password)) return;
 
         PlayfabManager.SignUpWithEmail(email, password, displayName);
+    }
+
+    public void RecoverPassword()
+    {
+        string email = recovery_emailInput.text;
+
+        PlayfabManager.RecoverPassword(email);
     }
 
     public void ShowNotification(string noti, eNotiType notiType)
