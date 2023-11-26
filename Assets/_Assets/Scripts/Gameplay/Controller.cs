@@ -5,7 +5,8 @@ public class Controller : MonoBehaviour
 {
     #region private
 
-    [FormerlySerializedAs("_playerType")] [SerializeField] protected ePlayerType ePlayerType;
+    [FormerlySerializedAs("_playerType")] [SerializeField]
+    protected ePlayerType ePlayerType;
 
     [SerializeField] protected Model _model;
 
@@ -32,7 +33,6 @@ public class Controller : MonoBehaviour
     {
         _inGameState = GetComponentInChildren<InGameState>();
         _model = GetComponentInChildren<Model>();
-        _seekerVision = GetComponentInChildren<SeekerVisionInteractingSystem>();
         _interactingSystem = GetComponentInChildren<InteractingSystem>();
         _petHolderHandler = GetComponentInChildren<PetHolderHandler>();
     }
@@ -120,5 +120,20 @@ public class Controller : MonoBehaviour
     public void ChangePet(GameObject pet)
     {
         _petHolderHandler.ChangePet(pet);
+    }
+
+    public void SetLightRange(eVisionType visionType, float value)
+    {
+        _seekerVision.SetLightRange(visionType, value);
+    }
+
+    public void SetLightHeight(eVisionType visionType, float value)
+    {
+        _seekerVision.SetLightHeight(visionType, value);
+    }
+
+    public void SetLightIntensity(eVisionType visionType, float value)
+    {
+        _seekerVision.SetLightIntensity(visionType, value);
     }
 }

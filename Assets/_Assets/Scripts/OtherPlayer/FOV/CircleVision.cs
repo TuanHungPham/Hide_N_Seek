@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,6 +7,17 @@ public class CircleVision : MonoBehaviour
     public float visionCircleRadius => GameplaySystem.Instance.GetSeekerCircleVisionRadius();
     private Transform _thisPlayer => GetComponentInParent<SeekerVisionInteractingSystem>().GetThisPlayerTransform();
     [SerializeField] private LayerMask obstacleLayerMask;
+    [SerializeField] private Light _spotLight;
+
+    private void Awake()
+    {
+        LoadComponents();
+    }
+
+    private void LoadComponents()
+    {
+        _spotLight = GetComponent<Light>();
+    }
 
     public bool IsObjInSeekerVision(Transform obj)
     {
@@ -21,5 +33,22 @@ public class CircleVision : MonoBehaviour
         if (hit) return false;
 
         return true;
+    }
+
+    public void SetLightHeight(float height)
+    {
+        var transformLocalPosition = transform.localPosition;
+        transformLocalPosition.y = height;
+        transform.localPosition = transformLocalPosition;
+    }
+
+    public void SetLightIntensity(float intensity)
+    {
+        _spotLight.intensity = intensity;
+    }
+
+    public void SetLightRange(float range)
+    {
+        _spotLight.range = range;
     }
 }

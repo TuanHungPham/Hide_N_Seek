@@ -135,6 +135,11 @@ public class GameplaySystem : MonoBehaviour
         return _seekerFrontVisonRadius;
     }
 
+    public List<Transform> GetSeekerList()
+    {
+        return _allPlayerManager.GetSeekerList();
+    }
+
     public void SetGameplayType(bool isSeekerGameplay)
     {
         _startingGameSystem.SetGameplayType(isSeekerGameplay);

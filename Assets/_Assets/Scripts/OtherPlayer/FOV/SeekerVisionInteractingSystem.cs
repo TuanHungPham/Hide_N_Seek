@@ -3,6 +3,12 @@ using TigerForge;
 using UnityEditor;
 using UnityEngine;
 
+public enum eVisionType
+{
+    FRONT_VISION,
+    CIRCLE_VISION
+}
+
 public class SeekerVisionInteractingSystem : MonoBehaviour
 {
     #region private
@@ -98,6 +104,45 @@ public class SeekerVisionInteractingSystem : MonoBehaviour
     public Transform GetThisPlayerTransform()
     {
         return _thisPlayer;
+    }
+
+    public void SetLightRange(eVisionType visionType, float value)
+    {
+        switch (visionType)
+        {
+            case eVisionType.FRONT_VISION:
+                _frontVision.SetLightRange(value);
+                break;
+            case eVisionType.CIRCLE_VISION:
+                _circleVision.SetLightRange(value);
+                break;
+        }
+    }
+
+    public void SetLightHeight(eVisionType visionType, float value)
+    {
+        switch (visionType)
+        {
+            case eVisionType.FRONT_VISION:
+                _frontVision.SetLightHeight(value);
+                break;
+            case eVisionType.CIRCLE_VISION:
+                _circleVision.SetLightHeight(value);
+                break;
+        }
+    }
+
+    public void SetLightIntensity(eVisionType visionType, float value)
+    {
+        switch (visionType)
+        {
+            case eVisionType.FRONT_VISION:
+                _frontVision.SetLightIntensity(value);
+                break;
+            case eVisionType.CIRCLE_VISION:
+                _circleVision.SetLightIntensity(value);
+                break;
+        }
     }
 
     private void UpdateInGameAchievement()

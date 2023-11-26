@@ -13,6 +13,7 @@ public class FrontVision : MonoBehaviour
 
     [SerializeField] private Controller _controller;
     [SerializeField] private FieldOfView _fieldOfView;
+    [SerializeField] private Light _spotLight;
 
     #endregion
 
@@ -39,6 +40,7 @@ public class FrontVision : MonoBehaviour
     private void LoadComponents()
     {
         _fieldOfView = GetComponent<FieldOfView>();
+        _spotLight = GetComponent<Light>();
     }
 
     private void HandleGettingSpottedPlayer()
@@ -56,5 +58,22 @@ public class FrontVision : MonoBehaviour
     public Controller GetCaughtPlayerController()
     {
         return _controller;
+    }
+
+    public void SetLightHeight(float height)
+    {
+        var transformLocalPosition = transform.localPosition;
+        transformLocalPosition.y = height;
+        transform.localPosition = transformLocalPosition;
+    }
+
+    public void SetLightIntensity(float intensity)
+    {
+        _spotLight.intensity = intensity;
+    }
+
+    public void SetLightRange(float range)
+    {
+        _spotLight.range = range;
     }
 }
