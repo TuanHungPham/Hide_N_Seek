@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 0}
   _fieldOfView: {fileID: 5188451559135773792}
+  _spotLight: {fileID: 0}
 --- !u!114 &5188451559135773792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +254,7 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  _spotLight: {fileID: 0}
 --- !u!108 &6142191825819450332
 Light:
   m_ObjectHideFlags: 0
@@ -40499,7 +40501,7 @@ MonoBehaviour:
   _model: {fileID: 6332949361849864702}
   _inGameState: {fileID: 4934794482700620141}
   _interactingSystem: {fileID: 6332949361849864697}
-  _seekerVision: {fileID: 0}
+  _seekerVision: {fileID: 1837801640}
   _animationHandler: {fileID: 5896620352532860529}
   _petHolderHandler: {fileID: 637838694422031157}
   _aiManager: {fileID: 0}
