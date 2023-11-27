@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TigerForge;
@@ -17,6 +18,7 @@ public class ShopItemHandler : MonoBehaviour
     [SerializeField] private eShopDataType _shopDataType;
     [SerializeField] private List<ShopItemUI> _shopItemUIList = new List<ShopItemUI>();
     [SerializeField] private List<ItemShop> _itemShopList = new List<ItemShop>();
+    private bool _firstInitialization;
     IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
     private void Awake()
@@ -31,9 +33,10 @@ public class ShopItemHandler : MonoBehaviour
 
     private void LoadComponents()
     {
+        _firstInitialization = false;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         InitializeShopItemUI();
     }
@@ -47,12 +50,22 @@ public class ShopItemHandler : MonoBehaviour
         {
             ShopItemUI shopItemUI;
 
-            CreateShopItemUI(_shopItemUIPrefab, out shopItemUI);
+            if (!_firstInitialization)
+            {
+                CreateShopItemUI(_shopItemUIPrefab, out shopItemUI);
+            }
+            else
+            {
+                shopItemUI = _shopItemUIList[i];
+            }
+
             HandleSettingShopUIData(shopItemUI, _itemShopList[i], _itemShopList[i].IsOwned(), _itemShopList[i].IsSelected());
 
             _shopItemUIList.Add(shopItemUI);
             shopItemUI.OnClickItemEvent += InteractShopItem;
         }
+
+        _firstInitialization = true;
     }
 
     private void CreateShopItemUI(ShopItemUI shopItemUI, out ShopItemUI newShopItemUI)
