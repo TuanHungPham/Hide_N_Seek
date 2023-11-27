@@ -2,11 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class UnityAdsManager : MonoBehaviour, IUnityAdsInitializationListener
+public class UnityAdsManager : TemporaryMonoSingleton<UnityAdsManager>, IUnityAdsInitializationListener
 {
-    private static UnityAdsManager instance;
-    public static UnityAdsManager Instance => instance;
-
     [SerializeField] private UnityRewardAds _unityRewardAds;
 
     [Header("Initializing Setting")] [SerializeField]
@@ -16,10 +13,10 @@ public class UnityAdsManager : MonoBehaviour, IUnityAdsInitializationListener
     [SerializeField] bool _testMode = true;
     private string _gameId;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         DontDestroyOnLoad(this);
-        instance = this;
 
         LoadComponents();
         InitializeAds();

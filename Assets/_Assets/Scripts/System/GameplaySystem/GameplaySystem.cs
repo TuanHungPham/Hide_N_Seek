@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameplaySystem : MonoBehaviour
+public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
 {
-    private static GameplaySystem instance;
-    public static GameplaySystem Instance => instance;
-
     #region private
 
     [SerializeField] private float _seekerCircleVisonRadius;
@@ -17,9 +14,9 @@ public class GameplaySystem : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
-        instance = this;
+        base.Awake();
         LoadComponents();
     }
 

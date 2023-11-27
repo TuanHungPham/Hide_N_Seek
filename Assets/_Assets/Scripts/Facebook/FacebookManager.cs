@@ -2,17 +2,14 @@ using System;
 using Facebook.Unity;
 using UnityEngine;
 
-public class FacebookManager : MonoBehaviour
+public class FacebookManager : TemporaryMonoSingleton<FacebookManager>
 {
-    private static FacebookManager instance;
-
-    public static FacebookManager Instance => instance;
-
     [SerializeField] private FacebookAuth _facebookAuth;
 
-    private void Awake()
+    protected override void Awake()
     {
-        instance = this;
+        base.Awake();
+
         LoadComponents();
         InitalizeFacebook();
     }

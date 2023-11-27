@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class AuthHandler : MonoBehaviour
+public class AuthHandler : TemporaryMonoSingleton<AuthHandler>
 {
     [SerializeField] private NotiPanel _notiPanel;
     [SerializeField] private GameObject _authPanel;
@@ -26,13 +26,8 @@ public class AuthHandler : MonoBehaviour
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
     private FacebookManager FacebookManager => FacebookManager.Instance;
 
-    public static AuthHandler Instance => instance;
-
-    private static AuthHandler instance;
-
     private void OnEnable()
     {
-        instance = this;
         ResetUI();
     }
 
@@ -97,10 +92,5 @@ public class AuthHandler : MonoBehaviour
     public void LogInFacebook()
     {
         FacebookManager.LoginFacebook();
-    }
-
-    private void OnDisable()
-    {
-        instance = null;
     }
 }

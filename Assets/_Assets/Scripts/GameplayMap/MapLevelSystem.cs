@@ -2,11 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class MapLevelSystem : MonoBehaviour
+public class MapLevelSystem : TemporaryMonoSingleton<MapLevelSystem>
 {
-    private static MapLevelSystem instance;
-    public static MapLevelSystem Instance => instance;
-
     #region private
 
     [SerializeField] private Vector3 _mainPointPos;
@@ -20,9 +17,10 @@ public class MapLevelSystem : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
-        instance = this;
+        base.Awake();
+
         LoadComponents();
     }
 

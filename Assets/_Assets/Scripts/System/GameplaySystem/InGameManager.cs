@@ -1,26 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InGameManager : MonoBehaviour
+public class InGameManager : TemporaryMonoSingleton<InGameManager>
 {
-    private static InGameManager instance;
-    public static InGameManager Instance => instance;
-
     [SerializeField] private PetManager _petManager;
     [SerializeField] private CostumeManager _costumeManager;
     [SerializeField] private QuestManager _questManager;
     [SerializeField] private AchievementManager _achievementManager;
     [SerializeField] private UserManager _userManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        HandleInstanceObject();
+        base.Awake();
         LoadComponents();
-    }
-
-    private void HandleInstanceObject()
-    {
-        instance = this;
     }
 
     private void Reset()

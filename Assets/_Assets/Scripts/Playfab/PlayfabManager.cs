@@ -2,19 +2,17 @@ using System.Collections.Generic;
 using PlayFab.ClientModels;
 using UnityEngine;
 
-public class PlayfabManager : MonoBehaviour
+public class PlayfabManager : TemporaryMonoSingleton<PlayfabManager>
 {
-    private static PlayfabManager instance;
-    public static PlayfabManager Instance => instance;
-
     [SerializeField] private PlayfabAuthentication _playFabAuthentication;
     [SerializeField] private PlayfabLeaderboard _playfabLeaderboard;
     [SerializeField] private PlayfabDataLoader _playfabDataLoader;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         DontDestroyOnLoad(this);
-        instance = this;
         LoadComponents();
     }
 

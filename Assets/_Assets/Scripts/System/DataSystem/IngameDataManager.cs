@@ -1,31 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngameDataManager : MonoBehaviour
+public class IngameDataManager : TemporaryMonoSingleton<IngameDataManager>
 {
     [SerializeField] private CostumeDataManager _costumeDataManager;
     [SerializeField] private PetDataManager _petDataManager;
     [SerializeField] private ResourceDataManager _resourceDataManager;
     [SerializeField] private QuestDataManager _questDataManager;
     [SerializeField] private AchievementDataManager _achievementDataManager;
-    public static IngameDataManager Instance { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         DontDestroyOnLoad(this);
-        HandleSingleton();
         LoadComponents();
-    }
-
-    private void HandleSingleton()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-            return;
-        }
-
-        Instance = this;
     }
 
     private void Reset()

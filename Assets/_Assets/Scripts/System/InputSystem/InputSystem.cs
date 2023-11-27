@@ -1,14 +1,7 @@
 using UnityEngine;
 
-public class InputSystem : MonoBehaviour
+public class InputSystem : TemporaryMonoSingleton<InputSystem>
 {
-    private static InputSystem instance;
-
-    public static InputSystem Instance
-    {
-        get => instance;
-    }
-
     #region private
 
     [SerializeField] private Vector2 keyboardInputValue;
@@ -17,9 +10,10 @@ public class InputSystem : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
-        instance = this;
+        base.Awake();
+
         gameInput = new JoystickInput();
     }
 

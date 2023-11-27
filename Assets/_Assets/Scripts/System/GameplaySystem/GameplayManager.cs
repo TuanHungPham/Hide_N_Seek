@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class GameplayManager : MonoBehaviour
+public class GameplayManager : TemporaryMonoSingleton<GameplayManager>
 {
-    private static GameplayManager instance;
-    public static GameplayManager Instance => instance;
-
     [SerializeField] private ResourcesManager _resourcesManager;
     [SerializeField] private GameFlowManager _gameFlowManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        instance = this;
+        base.Awake();
         LoadComponents();
     }
 
