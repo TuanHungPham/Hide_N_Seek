@@ -9,7 +9,7 @@ public class Key : MonoBehaviour, IPickupable
 
     public void DestroyItem()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void SetPickupVFX()

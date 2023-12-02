@@ -4,7 +4,7 @@ public class Coin : MonoBehaviour, IPickupable
 {
     [SerializeField] private long _addingCoinQuantity;
 
-    public void DoPickedUpFuction(GameObject gameObject)
+    public void DoPickedUpFuction(GameObject obj)
     {
         Debug.Log("You have just earned some Coins");
         GameplayManager.Instance.AddCoin(eAddingCoinType.PICK_UP_COIN, _addingCoinQuantity);
@@ -12,7 +12,7 @@ public class Coin : MonoBehaviour, IPickupable
 
     public void DestroyItem()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void SetPickupVFX()

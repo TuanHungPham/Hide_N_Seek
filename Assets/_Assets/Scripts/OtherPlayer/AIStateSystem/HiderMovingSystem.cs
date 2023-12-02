@@ -9,6 +9,7 @@ public class HiderMovingSystem : IMovingSystemAI
 
     private MapLevelSystem MapLevelSystem => MapLevelSystem.Instance;
     private GameplaySystem GameplaySystem => GameplaySystem.Instance;
+    private DebugPoint DebugPoint => DebugPoint.Instance;
 
     public void HandleGettingDestination()
     {
@@ -44,6 +45,7 @@ public class HiderMovingSystem : IMovingSystemAI
         if (PointNearSeeker(seekerCurrentPos, newDestination) || PointToSeeker(seekerCurrentPos, newDestination)) return;
 
         Destination = newDestination;
+        DebugPoint.CreateDebugPoint(newDestination);
     }
 
     private bool PointNearSeeker(Vector3 seekerCurrentPos, Vector3 newDestination)
