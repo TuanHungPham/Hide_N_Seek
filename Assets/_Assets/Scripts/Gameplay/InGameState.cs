@@ -19,8 +19,6 @@ public class InGameState : MonoBehaviour
     [SerializeField] private GameObject _seekerVision;
     [SerializeField] private GameObject _triggerSystem;
 
-    // [SerializeField] private GameObject _exclamationMark;
-
     [Space(20)] [Header("For Both")] [Space(20)] [SerializeField]
     private FootPrintSystem _footPrintSystem;
 
@@ -125,7 +123,7 @@ public class InGameState : MonoBehaviour
 
     public void SetCaughtState(bool set)
     {
-        _controller.SetIdleAnimationState();
+        // _controller.SetIdleAnimationState();
         _isCaught = set;
         _beingFoundHandler.SetupBeingFoundState(set);
     }

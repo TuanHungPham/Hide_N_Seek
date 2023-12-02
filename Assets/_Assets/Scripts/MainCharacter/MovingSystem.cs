@@ -61,7 +61,10 @@ public class MovingSystem : MonoBehaviour
         MakeFootstep(false);
 
         if (!CanMove())
+        {
+            SetMovingAnimation(0);
             return;
+        }
 
         SetPlayerMovingDirection();
         Vector2 inputValue = new Vector2();

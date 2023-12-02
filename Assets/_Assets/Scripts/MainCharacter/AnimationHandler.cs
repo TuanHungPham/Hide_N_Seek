@@ -6,6 +6,7 @@ public class AnimationHandler : MonoBehaviour
     private const string IS_PLAYER_PARAM = "IsPlayer";
     private const string NORMALIZED_VELOCITY_VALUE = "NormalizedVelocity";
     private const int ANIMATION_TRANSITION_STATE = 0;
+    [SerializeField] private float _currentAnimValue;
     [SerializeField] private Animator _animator;
 
     public void SetAnimation(int animationID)
