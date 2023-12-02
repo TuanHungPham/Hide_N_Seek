@@ -8,7 +8,7 @@ public class HiderStantionarySystem : IStantionarySystemAI
     public bool CanChangeState()
     {
         if (!GameplaySystem.Instance.IsGameStarting()) return false;
-        else if (AIController.GetInGameState().IsCaught()) return false;
+        if (AIController.GetInGameState().IsCaught()) return false;
 
         Vector3 seekerCurrentPos = GameplaySystem.Instance.GetNearestSeekerPosition(CurrentAIPlayer);
         var currentPosition = CurrentAIPlayer.position;

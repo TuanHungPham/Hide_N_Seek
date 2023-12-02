@@ -7,6 +7,9 @@ public class HiderMovingSystem : IMovingSystemAI
     public Transform CurrentAIPlayer { get; set; }
     public AIController AIController { get; set; }
 
+    private MapLevelSystem MapLevelSystem => MapLevelSystem.Instance;
+    private GameplaySystem GameplaySystem => GameplaySystem.Instance;
+
     public void HandleGettingDestination()
     {
         HideFromSeeker();
@@ -31,18 +34,37 @@ public class HiderMovingSystem : IMovingSystemAI
 
     public void SetDestination()
     {
-        List<Vector3> hidePosList = MapLevelSystem.Instance.GetPatrolPointList();
+        List<Vector3> hidePosList = MapLevelSystem.GetPatrolPointList();
 
         int randomIndex = Random.Range(0, hidePosList.Count);
 
         Vector3 newDestination = hidePosList[randomIndex];
-        Vector3 seekerCurrentPos = GameplaySystem.Instance.GetNearestSeekerPosition(CurrentAIPlayer);
+        Vector3 seekerCurrentPos = GameplaySystem.GetNearestSeekerPosition(CurrentAIPlayer);
 
-        float distance = Vector3.Distance(seekerCurrentPos, newDestination);
-
-        if (distance < Distance.DISTANCE_FROM_POINT_TO_SEEKER) return;
+        if (PointNearSeeker(seekerCurrentPos, newDestination) || PointToSeeker(seekerCurrentPos, newDestination)) return;
 
         Destination = newDestination;
+    }
+
+    private bool PointNearSeeker(Vector3 seekerCurrentPos, Vector3 newDestination)
+    {
+        float distance = Vector3.Distance(seekerCurrentPos, newDestination);
+
+        if (distance < Distance.DISTANCE_FROM_POINT_TO_SEEKER) return true;
+        return false;
+    }
+
+    private bool PointToSeeker(Vector3 seekerCurrentPos, Vector3 newDestination)
+    {
+        var thisAIPos = CurrentAIPlayer.position;
+        Vector3 directionToPoint = (newDestination - thisAIPos).normalized;
+        Vector3 directionToSeeker = (seekerCurrentPos - thisAIPos).normalized;
+
+        Debug.Log($"(HIDING) Angle to Seeker: {Vector3.Angle(directionToPoint, directionToSeeker)}");
+
+        if (Vector3.Angle(directionToPoint, directionToSeeker) <= 30) return true;
+
+        return false;
     }
 
     private bool IsNearToPointDestination()

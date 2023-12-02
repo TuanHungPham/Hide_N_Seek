@@ -14,6 +14,7 @@ public class AllPlayerManager : MonoBehaviour
     [Space(20)] [SerializeField] private Transform _allPlayerParent;
     [SerializeField] private List<Transform> _seekerList = new List<Transform>();
     [SerializeField] private List<Transform> _hiderList = new List<Transform>();
+    [SerializeField] private List<Transform> _caughtList = new List<Transform>();
     [SerializeField] private List<Transform> _allPlayerList = new List<Transform>();
 
     #endregion
@@ -37,26 +38,6 @@ public class AllPlayerManager : MonoBehaviour
     {
         EventManager.StartListening(EventID.SPAWNING_PLAYER, InitializePlayerList);
         EventManager.StartListening(EventID.SETTED_UP_GAMEPLAY, HandleGettingPlayerByRole);
-    }
-
-    private void Update()
-    {
-        CheckNumberOfCaughtHider();
-    }
-
-    private void CheckNumberOfCaughtHider()
-    {
-        int count = 0;
-
-        foreach (var player in _hiderList)
-        {
-            Controller controller = player.GetComponent<Controller>();
-
-            if (!controller.GetInGameState().IsCaught()) continue;
-            count++;
-        }
-
-        _numberOfCaughtHider = count;
     }
 
     private void InitializePlayerList()
@@ -100,6 +81,18 @@ public class AllPlayerManager : MonoBehaviour
         _hiderList.Add(obj);
     }
 
+    public void AddToCaughtList(Transform obj)
+    {
+        _caughtList.Add(obj);
+        _numberOfCaughtHider = _caughtList.Count;
+    }
+
+    public void RemoveFromCaughtList(Transform obj)
+    {
+        _caughtList.Remove(obj);
+        _numberOfCaughtHider = _caughtList.Count;
+    }
+
     private void EmitInitializingPlayerListEvent()
     {
         EventManager.EmitEvent(EventID.INITIALIZING_ALL_PLAYER_LIST);
@@ -120,14 +113,19 @@ public class AllPlayerManager : MonoBehaviour
         return _hiderList;
     }
 
-    public int GetNumberOfHider()
+    public List<Transform> GetCaughtList()
     {
-        return _hiderList.Count;
+        return _caughtList;
     }
 
     public int GetNumberOfCaughtHider()
     {
         return _numberOfCaughtHider;
+    }
+
+    public int GetNumberOfHider()
+    {
+        return _hiderList.Count;
     }
 
     public int GetRequirementNumberOfCaughtHider()

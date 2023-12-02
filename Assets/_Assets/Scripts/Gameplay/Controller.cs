@@ -17,6 +17,8 @@ public class Controller : MonoBehaviour
     [SerializeField] protected AnimationHandler _animationHandler;
     [SerializeField] protected PetHolderHandler _petHolderHandler;
 
+    private GameplaySystem GameplaySystem => GameplaySystem.Instance;
+
     #endregion
 
     protected virtual void Awake()
@@ -37,29 +39,14 @@ public class Controller : MonoBehaviour
         _petHolderHandler = GetComponentInChildren<PetHolderHandler>();
     }
 
-    public virtual Model GetModel()
-    {
-        return _model;
-    }
-
     public virtual InGameState GetInGameState()
     {
         return _inGameState;
     }
 
-    public virtual InteractingSystem GetInteractingSystem()
-    {
-        return _interactingSystem;
-    }
-
     public virtual ePlayerType GetPlayerType()
     {
         return ePlayerType;
-    }
-
-    public SeekerVisionInteractingSystem GetSeekerVision()
-    {
-        return _seekerVision;
     }
 
     public void SetModelMaterial(Material material)
@@ -74,6 +61,15 @@ public class Controller : MonoBehaviour
 
     public void SetCaughtState(bool set)
     {
+        if (set)
+        {
+            GameplaySystem.AddToHiderCaughtList(transform);
+        }
+        else
+        {
+            GameplaySystem.RemoveFromHiderCaughtList(transform);
+        }
+
         _inGameState.SetCaughtState(set);
     }
 
@@ -87,11 +83,6 @@ public class Controller : MonoBehaviour
         _inGameState.SetDetectedState(set);
     }
 
-    public void SetAnimationState(int animationID)
-    {
-        _animationHandler.SetAnimation(animationID);
-    }
-
     public void SetIdleAnimationState()
     {
         _animationHandler.SetIdleAnimation();
@@ -100,21 +91,6 @@ public class Controller : MonoBehaviour
     public void SetMovingAnimation(float value)
     {
         _animationHandler.SetNormalizedVelocity(value);
-    }
-
-    public void SetPetToHolder(GameObject pet)
-    {
-        _petHolderHandler.SetPetToHolder(pet);
-    }
-
-    public Transform GetPetHolder()
-    {
-        return _petHolderHandler.GetPetHolder();
-    }
-
-    public Vector3 GetPetHolderPosition()
-    {
-        return _petHolderHandler.GetPetHolderPosition();
     }
 
     public void ChangePet(GameObject pet)

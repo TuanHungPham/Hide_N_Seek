@@ -32,21 +32,6 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
         _gameplayTimeSystem = GetComponentInChildren<GameplayTimeSystem>();
     }
 
-    public AllPlayerManager GetAllPlayerManager()
-    {
-        return _allPlayerManager;
-    }
-
-    public StartingGameSystem GetStartingGameSystem()
-    {
-        return _startingGameSystem;
-    }
-
-    public GameplayTimeSystem GetGameplayTimeSystem()
-    {
-        return _gameplayTimeSystem;
-    }
-
     public List<Transform> GetAllPlayerList()
     {
         return _allPlayerManager.GetAllPlayerList();
@@ -55,6 +40,11 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
     public List<Transform> GetHiderList()
     {
         return _allPlayerManager.GetHiderList();
+    }
+
+    public List<Transform> GetHiderCaughtList()
+    {
+        return _allPlayerManager.GetCaughtList();
     }
 
     public Vector3 GetNearestSeekerPosition(Transform currentObjCheck)
@@ -112,11 +102,6 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
         return _allPlayerManager.GetRequirementNumberOfCaughtHider();
     }
 
-    public Transform GetMainCharacterReference()
-    {
-        return _startingGameSystem.GetMainCharacterReference();
-    }
-
     public bool IsSeekerGameplay()
     {
         return _startingGameSystem.IsSeekerGameplay();
@@ -125,11 +110,6 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
     public float GetSeekerCircleVisionRadius()
     {
         return _seekerCircleVisonRadius;
-    }
-
-    public float GetSeekerFrontVisionRadius()
-    {
-        return _seekerFrontVisonRadius;
     }
 
     public List<Transform> GetSeekerList()
@@ -150,5 +130,15 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
     public void SetGameplayTimer(float hidingTimer)
     {
         _gameplayTimeSystem.SetGameplayTimer(hidingTimer);
+    }
+
+    public void AddToHiderCaughtList(Transform obj)
+    {
+        _allPlayerManager.AddToCaughtList(obj);
+    }
+
+    public void RemoveFromHiderCaughtList(Transform obj)
+    {
+        _allPlayerManager.RemoveFromCaughtList(obj);
     }
 }

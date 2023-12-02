@@ -8,6 +8,7 @@ public abstract class MovingState : IState
     protected Vector3 destination;
     protected Transform currentAIPlayer;
     protected IMovingSystemAI _iMovingSystemAI;
+    protected GameplaySystem GameplaySystem => GameplaySystem.Instance;
 
     public virtual void OnEnterState(StateMachineController stateMachineController)
     {

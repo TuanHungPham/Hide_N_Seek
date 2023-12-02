@@ -55,15 +55,8 @@ public class RunAwayState : MovingState
 
     private bool IsAnyHiderCaught()
     {
-        foreach (var hider in GameplaySystem.Instance.GetHiderList())
-        {
-            if (hider == currentAIPlayer) continue;
-
-            Controller hiderController = hider.GetComponent<Controller>();
-            if (!hiderController.GetInGameState().IsCaught()) continue;
-
-            return true;
-        }
+        int numberOfCaughtHider = GameplaySystem.GetNumberOfCaughtHider();
+        if (numberOfCaughtHider > 0) return true;
 
         return false;
     }
