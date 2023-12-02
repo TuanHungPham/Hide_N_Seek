@@ -18,7 +18,7 @@ public class ChasingState : MovingState
         stateMachineController.SwitchState(stateMachineController.patrollingState);
     }
 
-    public bool CanChangeState()
+    private bool CanChangeState()
     {
         return _iMovingSystemAI.CanChangeState();
     }

@@ -6,6 +6,8 @@ public class HiderRescuingSystem : IMovingSystemAI
     public Transform CurrentAIPlayer { get; set; }
     public AIController AIController { get; set; }
 
+    private GameplaySystem GameplaySystem => GameplaySystem.Instance;
+
     public void HandleGettingDestination()
     {
         SetDestination();
@@ -16,7 +18,7 @@ public class HiderRescuingSystem : IMovingSystemAI
         float minDistance = 0;
         bool isInitializedMinDistance = false;
 
-        foreach (var hider in GameplaySystem.Instance.GetHiderList())
+        foreach (var hider in GameplaySystem.GetHiderCaughtList())
         {
             Controller hiderController = hider.GetComponent<Controller>();
             if (!hiderController.GetInGameState().IsCaught()) continue;
@@ -27,52 +29,57 @@ public class HiderRescuingSystem : IMovingSystemAI
                 continue;
             }
 
-            float distanceToCaughtHider = Vector3.Distance(CurrentAIPlayer.position, hider.position);
-            if (distanceToCaughtHider >= minDistance)
-            {
-                if (isInitializedMinDistance) continue;
+            SetDestinationToNearest(hider, ref minDistance, ref isInitializedMinDistance);
+        }
+    }
 
-                Debug.Log("Initial Recuing Set...");
-                isInitializedMinDistance = true;
-                minDistance = distanceToCaughtHider;
-                Destination = hider.position;
-            }
-            else
-            {
-                minDistance = distanceToCaughtHider;
-                Destination = hider.position;
-            }
+    private void SetDestinationToNearest(Transform hider, ref float minDistance, ref bool isInitializedMinDistance)
+    {
+        float distanceToCaughtHider = Vector3.Distance(CurrentAIPlayer.position, hider.position);
+        if (distanceToCaughtHider >= minDistance)
+        {
+            if (isInitializedMinDistance) return;
+
+            Debug.Log("Initial Recuing Set...");
+            isInitializedMinDistance = true;
+            minDistance = distanceToCaughtHider;
+            Destination = hider.position;
+        }
+        else
+        {
+            minDistance = distanceToCaughtHider;
+            Destination = hider.position;
         }
     }
 
     private bool CanComeToRescue(Transform caughtHider)
     {
-        float distance = Vector3.Distance(caughtHider.position,
-            GameplaySystem.Instance.GetNearestSeekerPosition(caughtHider));
+        var nearestSeeker = GameplaySystem.GetNearestSeekerPosition(caughtHider);
+        var hiderPos = caughtHider.position;
+        var currentPos = CurrentAIPlayer.position;
 
-        if (distance <= Distance.DISTANCE_FROM_POINT_TO_SEEKER) return false;
+        Vector3 dirToHider = (hiderPos - currentPos).normalized;
+        Vector3 dirToSeeker = (nearestSeeker - currentPos).normalized;
+
+        float angle = Vector3.Angle(dirToHider, dirToSeeker);
+        float distance = Vector3.Distance(hiderPos, nearestSeeker);
+
+        if (distance <= Distance.DISTANCE_FROM_POINT_TO_SEEKER || angle <= 30) return false;
 
         return true;
     }
 
     private bool IsAnyHiderCaught()
     {
-        foreach (var hider in GameplaySystem.Instance.GetHiderList())
-        {
-            if (hider == CurrentAIPlayer) continue;
-
-            Controller hiderController = hider.GetComponent<Controller>();
-            if (!hiderController.GetInGameState().IsCaught()) continue;
-
-            return true;
-        }
+        int numberOfCaughtHider = GameplaySystem.GetNumberOfCaughtHider();
+        if (numberOfCaughtHider > 0) return true;
 
         return false;
     }
 
     private bool IsNearAnySeeker()
     {
-        Vector3 seekerCurrentPos = GameplaySystem.Instance.GetNearestSeekerPosition(CurrentAIPlayer);
+        Vector3 seekerCurrentPos = GameplaySystem.GetNearestSeekerPosition(CurrentAIPlayer);
         var currentPosition = CurrentAIPlayer.position;
 
         float distanceToSeeker = Vector3.Distance(currentPosition, seekerCurrentPos);

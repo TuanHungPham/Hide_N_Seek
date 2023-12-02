@@ -25,7 +25,7 @@ public class RunAwayState : MovingState
         {
             stateMachineController.SwitchState(stateMachineController.stationaryState);
         }
-        else if (IsAnyHiderCaught() && !IsNearAnySeeker())
+        else if (IsAnyHiderCaught() && !IsNearAnySeeker() && CanChangeState())
         {
             stateMachineController.SwitchState(stateMachineController.rescuingState);
         }
@@ -39,6 +39,11 @@ public class RunAwayState : MovingState
         _iMovingSystemAI.AIController = _aiController;
 
         // Debug.Log($"{currentAIPlayer.name} - Seeker Moving System");
+    }
+
+    private bool CanChangeState()
+    {
+        return _iMovingSystemAI.CanChangeState();
     }
 
     private bool IsNearAnySeeker()

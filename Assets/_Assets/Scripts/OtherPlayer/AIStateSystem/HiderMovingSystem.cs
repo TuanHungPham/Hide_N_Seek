@@ -9,7 +9,7 @@ public class HiderMovingSystem : IMovingSystemAI
 
     private MapLevelSystem MapLevelSystem => MapLevelSystem.Instance;
     private GameplaySystem GameplaySystem => GameplaySystem.Instance;
-    private DebugPoint DebugPoint => DebugPoint.Instance;
+    private DebugPointManager DebugPointManager => DebugPointManager.Instance;
 
     public void HandleGettingDestination()
     {
@@ -30,7 +30,9 @@ public class HiderMovingSystem : IMovingSystemAI
 
     public bool CanChangeState()
     {
-        return false;
+        if (!IsNearToPointDestination()) return false;
+
+        return true;
     }
 
     public void SetDestination()
@@ -45,7 +47,7 @@ public class HiderMovingSystem : IMovingSystemAI
         if (PointNearSeeker(seekerCurrentPos, newDestination) || PointToSeeker(seekerCurrentPos, newDestination)) return;
 
         Destination = newDestination;
-        DebugPoint.CreateDebugPoint(newDestination);
+        DebugPointManager.CreateDebugPoint(newDestination);
     }
 
     private bool PointNearSeeker(Vector3 seekerCurrentPos, Vector3 newDestination)
@@ -64,7 +66,7 @@ public class HiderMovingSystem : IMovingSystemAI
 
         Debug.Log($"(HIDING) Angle to Seeker: {Vector3.Angle(directionToPoint, directionToSeeker)}");
 
-        if (Vector3.Angle(directionToPoint, directionToSeeker) <= 30) return true;
+        if (Vector3.Angle(directionToPoint, directionToSeeker) <= 45) return true;
 
         return false;
     }
