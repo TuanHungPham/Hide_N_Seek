@@ -41,13 +41,17 @@ public class StationaryState : IState
             return;
         }
 
+
         if (CanComeToRescue())
         {
             stateMachineController.SwitchState(stateMachineController.rescuingState);
             return;
         }
 
-        stateMachineController.SwitchState(stateMachineController.runAwayState);
+        if (IsNearSeeker())
+        {
+            stateMachineController.SwitchState(stateMachineController.runAwayState);
+        }
     }
 
     public bool CanChangeState()
@@ -94,6 +98,8 @@ public class StationaryState : IState
 
     private bool CanComeToRescue()
     {
+        if (!IsAnyHiderCaught()) return false;
+
         foreach (var caughtHider in GameplaySystem.GetHiderCaughtList())
         {
             Controller hiderController = caughtHider.GetComponent<Controller>();
@@ -108,6 +114,25 @@ public class StationaryState : IState
 
             return true;
         }
+
+        return false;
+    }
+
+    private bool IsAnyHiderCaught()
+    {
+        if (GameplaySystem.GetNumberOfCaughtHider() <= 0) return false;
+
+        return true;
+    }
+
+    private bool IsNearSeeker()
+    {
+        Vector3 seekerCurrentPos = GameplaySystem.GetNearestSeekerPosition(currentAIPlayer);
+        var currentPosition = currentAIPlayer.position;
+
+        float distanceToSeeker = Vector3.Distance(currentPosition, seekerCurrentPos);
+
+        if (distanceToSeeker <= Distance.DISTANCE_TO_SEEKER) return true;
 
         return false;
     }
