@@ -56,15 +56,10 @@ public class HiderRescuingSystem : IMovingSystemAI
     {
         var nearestSeeker = GameplaySystem.GetNearestSeekerPosition(caughtHider);
         var hiderPos = caughtHider.position;
-        var currentPos = CurrentAIPlayer.position;
 
-        Vector3 dirToHider = (hiderPos - currentPos).normalized;
-        Vector3 dirToSeeker = (nearestSeeker - currentPos).normalized;
-
-        float angle = Vector3.Angle(dirToHider, dirToSeeker);
         float distance = Vector3.Distance(hiderPos, nearestSeeker);
 
-        if (distance <= Distance.DISTANCE_FROM_POINT_TO_SEEKER || angle <= 30) return false;
+        if (distance <= Distance.DISTANCE_FROM_POINT_TO_SEEKER) return false;
 
         return true;
     }

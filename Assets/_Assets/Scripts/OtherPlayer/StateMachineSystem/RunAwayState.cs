@@ -29,6 +29,10 @@ public class RunAwayState : MovingState
         {
             stateMachineController.SwitchState(stateMachineController.rescuingState);
         }
+        else if (CanChangeState())
+        {
+            stateMachineController.SwitchState(stateMachineController.stationaryState);
+        }
     }
 
     private void SetupMovingType()

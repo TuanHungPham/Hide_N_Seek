@@ -10,9 +10,9 @@ public class PlayfabManager : TemporaryMonoSingleton<PlayfabManager>
 
     protected override void Awake()
     {
+        DontDestroyOnLoad(this);
         base.Awake();
 
-        DontDestroyOnLoad(this);
         LoadComponents();
     }
 

@@ -5,6 +5,7 @@ public class StationaryState : IState
     private IStantionarySystemAI _stantionarySystemAI;
     private AIController _aiController;
     private Transform currentAIPlayer;
+    private GameplaySystem GameplaySystem => GameplaySystem.Instance;
 
     public void OnEnterState(StateMachineController stateMachineController)
     {
@@ -37,6 +38,12 @@ public class StationaryState : IState
             if (GameplaySystem.Instance.IsInHidingTimer()) return;
 
             stateMachineController.SwitchState(stateMachineController.patrollingState);
+            return;
+        }
+
+        if (CanComeToRescue())
+        {
+            stateMachineController.SwitchState(stateMachineController.rescuingState);
             return;
         }
 
@@ -83,5 +90,25 @@ public class StationaryState : IState
         _stantionarySystemAI.AIController = _aiController;
 
         _aiController.GetInGameState().SetIsMakingFootstep(false);
+    }
+
+    private bool CanComeToRescue()
+    {
+        foreach (var caughtHider in GameplaySystem.GetHiderCaughtList())
+        {
+            Controller hiderController = caughtHider.GetComponent<Controller>();
+            if (!hiderController.GetInGameState().IsCaught()) continue;
+
+            var nearestSeeker = GameplaySystem.GetNearestSeekerPosition(caughtHider);
+            var hiderPos = caughtHider.position;
+
+            float distance = Vector3.Distance(hiderPos, nearestSeeker);
+
+            if (distance <= Distance.DISTANCE_FROM_POINT_TO_SEEKER) continue;
+
+            return true;
+        }
+
+        return false;
     }
 }
