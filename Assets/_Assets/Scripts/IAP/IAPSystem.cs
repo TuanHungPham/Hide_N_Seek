@@ -7,10 +7,10 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
 
-public class IAPSystem : MonoBehaviour, IDetailedStoreListener
+public class IAPSystem : PermanentMonoSingleton<IAPSystem>, IDetailedStoreListener
 {
-    private static IAPSystem instance;
-    public static IAPSystem Instance => instance;
+    // private static IAPSystem instance;
+    // public static IAPSystem Instance => instance;
 
     [SerializeField] private IAPProductTemplate _iapProductTemplate;
     private string environment = "production";
@@ -19,10 +19,11 @@ public class IAPSystem : MonoBehaviour, IDetailedStoreListener
     private Dictionary<string, IAPProduct> _iapProductDic;
     private GameplayManager GameplayManager => GameplayManager.Instance;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+    // private void Awake()
+    // {
+    //     DontDestroyOnLoad(this);
+    //     instance = this;
+    // }
 
     async void Start()
     {

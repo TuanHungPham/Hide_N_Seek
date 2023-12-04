@@ -47,7 +47,7 @@ public class HiderMovingSystem : IMovingSystemAI
         if (PointNearSeeker(seekerCurrentPos, newDestination) || PointToSeeker(seekerCurrentPos, newDestination)) return;
 
         Destination = newDestination;
-        DebugPointManager.CreateDebugPoint(newDestination);
+        // DebugPointManager.CreateDebugPoint(newDestination);
     }
 
     private bool PointNearSeeker(Vector3 seekerCurrentPos, Vector3 newDestination)

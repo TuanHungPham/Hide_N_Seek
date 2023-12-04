@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngameDataManager : TemporaryMonoSingleton<IngameDataManager>
+public class IngameDataManager : PermanentMonoSingleton<IngameDataManager>
 {
     [SerializeField] private CostumeDataManager _costumeDataManager;
     [SerializeField] private PetDataManager _petDataManager;
@@ -13,7 +13,6 @@ public class IngameDataManager : TemporaryMonoSingleton<IngameDataManager>
     {
         base.Awake();
 
-        DontDestroyOnLoad(this);
         LoadComponents();
     }
 

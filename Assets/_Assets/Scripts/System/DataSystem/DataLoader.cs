@@ -44,8 +44,6 @@ public class DataLoader : MonoBehaviour
         _resourceDataManager = GetComponentInChildren<ResourceDataManager>();
         _questDataManager = GetComponentInChildren<QuestDataManager>();
         _achievementDataManager = GetComponentInChildren<AchievementDataManager>();
-
-        myFile = new EasyFileSave();
     }
 
     private void Start()
@@ -62,7 +60,12 @@ public class DataLoader : MonoBehaviour
         SaveResourceData();
         SaveAchievementData();
 
-        if (PlayfabManager.IsClientLoggedIn())
+        if (PlayfabManager == null)
+        {
+            Debug.Log($"(DATA) Playfab nullllllllll!");
+        }
+
+        if (PlayfabManager != null && PlayfabManager.IsClientLoggedIn())
         {
             Debug.Log($"(DATA) Saving on Playfab Server");
             PlayfabManager.SaveDataToServer();
@@ -75,17 +78,25 @@ public class DataLoader : MonoBehaviour
 
     private void AddDataToSaveCache(eDataType type, string data)
     {
-        if (PlayfabManager.IsClientLoggedIn())
+        if (PlayfabManager == null)
+        {
+            Debug.Log($"(DATA) Playfab nullllllllll!");
+        }
+
+        if (PlayfabManager != null && PlayfabManager.IsClientLoggedIn())
         {
             PlayfabManager.AddDataToSaveCache(type, data);
             return;
         }
 
+        Debug.Log($"(DATA) Local storage add {type}");
         myFile.Add(type, data);
     }
 
     private void Load()
     {
+        myFile = new EasyFileSave();
+
         if (!myFile.Load()) return;
 
         LoadData();

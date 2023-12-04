@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class UnityAdsManager : TemporaryMonoSingleton<UnityAdsManager>, IUnityAdsInitializationListener
+public class UnityAdsManager : PermanentMonoSingleton<UnityAdsManager>, IUnityAdsInitializationListener
 {
     [SerializeField] private UnityRewardAds _unityRewardAds;
 
@@ -16,7 +16,6 @@ public class UnityAdsManager : TemporaryMonoSingleton<UnityAdsManager>, IUnityAd
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(this);
 
         LoadComponents();
         InitializeAds();

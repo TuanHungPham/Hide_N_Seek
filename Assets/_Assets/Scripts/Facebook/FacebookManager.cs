@@ -2,7 +2,7 @@ using System;
 using Facebook.Unity;
 using UnityEngine;
 
-public class FacebookManager : TemporaryMonoSingleton<FacebookManager>
+public class FacebookManager : PermanentMonoSingleton<FacebookManager>
 {
     [SerializeField] private FacebookAuth _facebookAuth;
 

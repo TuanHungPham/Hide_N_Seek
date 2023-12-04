@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using PlayFab.ClientModels;
 using UnityEngine;
 
-public class PlayfabManager : TemporaryMonoSingleton<PlayfabManager>
+public class PlayfabManager : PermanentMonoSingleton<PlayfabManager>
 {
     [SerializeField] private PlayfabAuthentication _playFabAuthentication;
     [SerializeField] private PlayfabLeaderboard _playfabLeaderboard;
@@ -10,7 +10,6 @@ public class PlayfabManager : TemporaryMonoSingleton<PlayfabManager>
 
     protected override void Awake()
     {
-        DontDestroyOnLoad(this);
         base.Awake();
 
         LoadComponents();
