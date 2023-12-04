@@ -70,8 +70,7 @@ public class ShopItemHandler : MonoBehaviour
 
     private void CreateShopItemUI(ShopItemUI shopItemUI, out ShopItemUI newShopItemUI)
     {
-        newShopItemUI = Instantiate(shopItemUI);
-        newShopItemUI.transform.SetParent(transform, true);
+        newShopItemUI = Instantiate(shopItemUI, transform, true);
     }
 
     private void HandleSettingShopUIData(ShopItemUI shopItemUI, ItemShop itemShop, bool isOwned, bool isSelected)
@@ -83,17 +82,24 @@ public class ShopItemHandler : MonoBehaviour
     {
         if (shopItemUI == null) return;
 
+        Debug.Log($"(SHOP) Interacting Shop Item...");
+
         if (shopItemUI.IsOwned())
         {
+            Debug.Log($"(SHOP) Selecting Shop Item...");
+
             SelectItem(shopItemUI);
             return;
         }
 
+        Debug.Log($"(SHOP) Buying Shop Item...");
         BuyItem(shopItemUI);
     }
 
     private void SelectItem(ShopItemUI shopItemUI)
     {
+        Debug.Log($"(SHOP) Item Shop Selected...");
+
         DeselectAllShopItem();
 
         shopItemUI.Select();

@@ -13,6 +13,7 @@ public class IngameDataManager : PermanentMonoSingleton<IngameDataManager>
     {
         base.Awake();
 
+        Application.targetFrameRate = 60;
         LoadComponents();
     }
 

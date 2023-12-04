@@ -101,10 +101,7 @@ public class ShopItemUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.pointerId == -1)
-        {
-            InvokeOnClickEvent();
-        }
+        InvokeOnClickEvent();
     }
 
     private void InvokeOnClickEvent()
