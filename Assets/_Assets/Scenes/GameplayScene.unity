@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.15
+    agentRadius: 0.4
     agentHeight: 1.7
     agentSlope: 52.9
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.05
+    cellSize: 0.13333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -776,21 +776,9 @@ PrefabInstance:
       value: TestUICanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4177261050585403610, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4177261050585403610, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 629180726}
-    - target: {fileID: 4177261050585403610, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowTestPopup
-      objectReference: {fileID: 0}
-    - target: {fileID: 4177261050585403610, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameplayScene, Assembly-CSharp
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fa820e80a80c4d4bafabc5ea46b5fd8, type: 3}
 --- !u!1001 &4238586131004738207
