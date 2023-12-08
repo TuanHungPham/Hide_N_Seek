@@ -6,8 +6,8 @@ public class GameFlowManager : MonoBehaviour
 {
     private GameplaySystem GameplaySystem => GameplaySystem.Instance;
     private GameplayScene GameplayScene => GameplayScene.Instance;
-
     private InGameManager InGameManager => InGameManager.Instance;
+    private SoundManager SoundManager => SoundManager.Instance;
 
     private void Awake()
     {
@@ -65,6 +65,8 @@ public class GameFlowManager : MonoBehaviour
         Time.timeScale = 0;
         GameplayScene.ShowWinPopup();
 
+        SoundManager.PlaySound(eSoundType.WIN_SOUND);
+
         AddAchievementPoint(eAchievementType.WINNING_TIME);
         AddAchievementPoint(eAchievementType.COMPLETE_LEVEL_TIME);
 
@@ -80,6 +82,8 @@ public class GameFlowManager : MonoBehaviour
     {
         Time.timeScale = 0;
         GameplayScene.ShowLosePopup();
+
+        SoundManager.PlaySound(eSoundType.LOSE_SOUND);
 
         AddAchievementPoint(eAchievementType.COMPLETE_LEVEL_TIME);
 

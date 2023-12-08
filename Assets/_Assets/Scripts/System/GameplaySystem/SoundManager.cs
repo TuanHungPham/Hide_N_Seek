@@ -35,7 +35,6 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
     private void Start()
     {
         InitializeSoundDict();
-        PlaySound(eSoundType.WIN_SOUND);
     }
 
     private void InitializeSoundDict()
@@ -53,7 +52,7 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
         _audioClipDict.Add(soundType, audioClip);
     }
 
-    private void PlaySound(eSoundType soundType)
+    public void PlaySound(eSoundType soundType)
     {
         _audioSource.clip = _audioClipDict[soundType];
         _audioSource.Play();
