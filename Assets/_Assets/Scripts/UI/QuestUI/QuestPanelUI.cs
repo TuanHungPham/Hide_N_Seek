@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
@@ -11,22 +12,17 @@ public class QuestPanelUI : MonoBehaviour
 
     private void Awake()
     {
-        LoadComponents();
-    }
-
-    private void Reset()
-    {
-        LoadComponents();
-    }
-
-    private void LoadComponents()
-    {
+        InitializeQuestUIList();
     }
 
     private void Start()
     {
-        InitializeQuestUIList();
         ListenEvent();
+    }
+
+    private void OnEnable()
+    {
+        ResetQuestUIList();
     }
 
     private void ListenEvent()

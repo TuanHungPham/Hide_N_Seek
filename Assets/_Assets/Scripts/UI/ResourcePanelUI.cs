@@ -11,7 +11,12 @@ public class ResourcePanelUI : MonoBehaviour
 
     private void Start()
     {
+        ShowResourcesText();
         ListenEvent();
+    }
+
+    private void OnEnable()
+    {
         ShowResourcesText();
     }
 
