@@ -1,5 +1,6 @@
 using TigerForge;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameplayTimeSystem : MonoBehaviour
 {
@@ -14,6 +15,20 @@ public class GameplayTimeSystem : MonoBehaviour
 
     [SerializeField] private float _gamePlayTimer;
     [SerializeField] private bool _isTimeUp;
+    [SerializeField] private Timer timer;
+
+    private Timer Timer
+    {
+        get
+        {
+            if (timer == null)
+                timer = new Timer();
+            return timer;
+        }
+    }
+
+    private bool HasPastInterval => Timer.HasPastInterval();
+    private SoundManager SoundManager => SoundManager.Instance;
 
     private void Awake()
     {
@@ -58,16 +73,21 @@ public class GameplayTimeSystem : MonoBehaviour
     {
         if (GameplaySystem.Instance.IsInHidingTimer() || _isTimeUp) return;
 
-        if (_gamePlayTimer > 0)
+        if (_gamePlayTimer <= 0)
         {
-            _isTimeUp = false;
-            _gamePlayTimer -= Time.deltaTime;
+            _gamePlayTimer = 0;
+            _isTimeUp = true;
+            EmitEndGameTimeEvent();
             return;
         }
 
-        _gamePlayTimer = 0;
-        _isTimeUp = true;
-        EmitEndGameTimeEvent();
+        if (_gamePlayTimer <= 10 && HasPastInterval)
+        {
+            SoundManager.PlaySFX(eSoundType.TIME_TICK, Vector3.zero);
+        }
+
+        _isTimeUp = false;
+        _gamePlayTimer -= Time.deltaTime;
     }
 
     private void EmitEndHidingTimeEvent()

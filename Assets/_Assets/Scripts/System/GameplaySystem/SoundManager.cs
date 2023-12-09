@@ -9,6 +9,7 @@ public enum eSoundType
     LOSE_SOUND,
     FOOT_STEP,
     COIN_PICKUP,
+    TIME_TICK,
 }
 
 public class SoundManager : TemporaryMonoSingleton<SoundManager>
@@ -49,6 +50,7 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
         AddSoundClipToSoundDict(eSoundType.LOSE_SOUND, "Sound/119119758-win-fanfare-2");
         AddSoundClipToSoundDict(eSoundType.FOOT_STEP, "Sound/concrete-footsteps-1-6265");
         AddSoundClipToSoundDict(eSoundType.COIN_PICKUP, "Sound/collect-golden-coins");
+        AddSoundClipToSoundDict(eSoundType.TIME_TICK, "Sound/tick");
     }
 
     private void AddSoundClipToSoundDict(eSoundType soundType, string path)
