@@ -47,7 +47,7 @@ public class ProfilePanelUI : MonoBehaviour
         _profileAvatar.sprite = currentSelectedCostume.GetItemImage();
     }
 
-    public void EmitChangingUsernameEvent()
+    private void EmitChangingUsernameEvent()
     {
         if (!_isNameModifed) return;
 

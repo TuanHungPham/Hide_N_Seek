@@ -9,6 +9,8 @@ public class PlayfabAuthentication : MonoBehaviour
     private InGameManager InGameManager => InGameManager.Instance;
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
 
+    private string _username;
+
     public void LoginWithEmail(string email, string password)
     {
         LoginWithEmailAddressRequest request = new LoginWithEmailAddressRequest()
@@ -88,15 +90,15 @@ public class PlayfabAuthentication : MonoBehaviour
 
     private void OnGetUserProfileCallback(GetPlayerProfileResult result)
     {
-        string displayName = result.PlayerProfile.DisplayName;
-        if (string.IsNullOrEmpty(displayName))
+        _username = result.PlayerProfile.DisplayName;
+        if (string.IsNullOrEmpty(_username))
         {
-            displayName = InGameManager.GetUsername();
-            UpdateUserInfo(displayName);
+            _username = InGameManager.GetUsername();
+            UpdateUserInfo(_username);
         }
         else
         {
-            InGameManager.SetUsername(displayName);
+            InGameManager.SetUsername(_username);
         }
 
         EmitSetupUserProfileEvent();
@@ -162,5 +164,10 @@ public class PlayfabAuthentication : MonoBehaviour
     public bool IsLoggedIn()
     {
         return PlayFabClientAPI.IsClientLoggedIn();
+    }
+
+    public string GetUsername()
+    {
+        return _username;
     }
 }

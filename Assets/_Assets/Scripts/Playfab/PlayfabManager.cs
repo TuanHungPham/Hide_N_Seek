@@ -101,4 +101,9 @@ public class PlayfabManager : PermanentMonoSingleton<PlayfabManager>
     {
         return _playfabDataLoader.GetUserData(type);
     }
+
+    public string GetUsername()
+    {
+        return _playFabAuthentication.GetUsername();
+    }
 }

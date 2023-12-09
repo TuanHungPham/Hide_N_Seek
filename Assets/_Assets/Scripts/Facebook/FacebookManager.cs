@@ -66,4 +66,9 @@ public class FacebookManager : PermanentMonoSingleton<FacebookManager>
     {
         _facebookAuth.LoginFacebook();
     }
+
+    public string GetUsername()
+    {
+        return _facebookAuth.GetUsername();
+    }
 }

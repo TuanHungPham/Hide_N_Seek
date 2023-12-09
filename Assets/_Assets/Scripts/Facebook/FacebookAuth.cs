@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FacebookAuth : MonoBehaviour
 {
+    private string _username;
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
     private InGameManager InGameManager => InGameManager.Instance;
 
@@ -45,8 +46,13 @@ public class FacebookAuth : MonoBehaviour
 
     private void OnResultCallback(IGraphResult result)
     {
-        string username = result.ResultDictionary["name"].ToString();
+        _username = result.ResultDictionary["name"].ToString();
 
-        InGameManager.SetUsername(username);
+        InGameManager.SetUsername(_username);
+    }
+
+    public string GetUsername()
+    {
+        return _username;
     }
 }

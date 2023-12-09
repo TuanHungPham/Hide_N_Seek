@@ -1,3 +1,4 @@
+using System;
 using TigerForge;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class MainMenuProfilePanelUI : MonoBehaviour
     private void Start()
     {
         ListenEvent();
+    }
+
+    private void OnEnable()
+    {
         SetupProfileUI();
     }
 

@@ -24,6 +24,12 @@ public class UserManager : MonoBehaviour
 
     private void LoadingUsername()
     {
+        if (PlayfabManager.IsClientLoggedIn())
+        {
+            _userName = PlayfabManager.GetUsername();
+            return;
+        }
+
         _userName = PlayerPrefs.GetString("IN_GAME_USERNAME", "Offline");
     }
 
