@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using MarchingBytes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Footprint : MonoBehaviour
 {
@@ -13,11 +13,18 @@ public class Footprint : MonoBehaviour
     [Space(20)] [SerializeField] private Material _printMaterial;
 
     [SerializeField] private List<MeshRenderer> _footPrintList = new List<MeshRenderer>();
+    private EasyObjectPool EasyObjectPool => EasyObjectPool.instance;
 
     public void SetupFootPrint(Material material)
     {
         _printMaterial = material;
+
+        ResetFootPrint();
+
         SetFootPrintMaterial();
+
+        StartCoroutine(FadeOutFootPrint());
+        Invoke(nameof(RemoveFootPrint), _fadedOutTime);
     }
 
     private void SetFootPrintMaterial()
@@ -27,14 +34,10 @@ public class Footprint : MonoBehaviour
             MeshRenderer meshRenderer = print.GetComponent<MeshRenderer>();
 
             meshRenderer.material = _printMaterial;
+
+            if (_footPrintList.Contains(meshRenderer)) continue;
             _footPrintList.Add(meshRenderer);
         }
-    }
-
-    private void Start()
-    {
-        StartCoroutine(FadeOutFootPrint());
-        RemoveFootPrint();
     }
 
     IEnumerator FadeOutFootPrint()
@@ -55,8 +58,18 @@ public class Footprint : MonoBehaviour
         }
     }
 
+    private void ResetFootPrint()
+    {
+        foreach (var meshRenderer in _footPrintList)
+        {
+            Color materialColor = meshRenderer.material.color;
+            materialColor.a = 255f;
+            meshRenderer.material.color = materialColor;
+        }
+    }
+
     private void RemoveFootPrint()
     {
-        Destroy(gameObject, _fadedOutTime);
+        EasyObjectPool.ReturnObjectToPool(gameObject);
     }
 }

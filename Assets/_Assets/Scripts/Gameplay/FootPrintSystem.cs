@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using MarchingBytes;
 using UnityEngine;
 
 public class FootPrintSystem : MonoBehaviour
@@ -11,6 +11,7 @@ public class FootPrintSystem : MonoBehaviour
 
     [Space(20)] [SerializeField] private Material _paintMaterial;
     [SerializeField] private GameObject _footPrint;
+    private EasyObjectPool EasyObjectPool => EasyObjectPool.instance;
 
     public void SetFootPrint(bool set, Material material)
     {
@@ -49,9 +50,10 @@ public class FootPrintSystem : MonoBehaviour
             if (_feetIsPainted)
             {
                 var playerTransform = transform;
-                GameObject footPrint = Instantiate(_footPrint);
-                footPrint.transform.position = playerTransform.position;
-                footPrint.transform.rotation = playerTransform.rotation;
+                var position = playerTransform.position;
+                var rotation = playerTransform.rotation;
+
+                var footPrint = EasyObjectPool.GetObjectFromPool(PoolName.FOOTPRINT_POOL, position, rotation);
 
                 Footprint footprintScript = footPrint.GetComponent<Footprint>();
                 footprintScript.SetupFootPrint(_paintMaterial);
