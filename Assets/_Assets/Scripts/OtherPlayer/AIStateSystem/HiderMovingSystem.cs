@@ -65,7 +65,7 @@ public class HiderMovingSystem : IMovingSystemAI
         Vector3 directionToSeeker = (seekerCurrentPos - thisAIPos).normalized;
         float angle = Vector3.Angle(directionToPoint, directionToSeeker);
 
-        Debug.Log($"(HIDING) Angle to Seeker: {angle}");
+        // Debug.Log($"(HIDING) Angle to Seeker: {angle}");
 
         if (angle <= Distance.ANGEL_TO_SEEKER) return true;
 

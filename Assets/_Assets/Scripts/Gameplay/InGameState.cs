@@ -1,3 +1,4 @@
+using MarchingBytes;
 using UnityEngine;
 using TigerForge;
 using UnityEngine.AI;
@@ -36,6 +37,7 @@ public class InGameState : MonoBehaviour
 
     private bool HasPastInterval => Timer.HasPastInterval();
     private SoundManager SoundManager => SoundManager.Instance;
+    private EasyObjectPool EasyObjectPool => EasyObjectPool.instance;
 
     #endregion
 
@@ -166,16 +168,26 @@ public class InGameState : MonoBehaviour
         if (!set || !HasPastInterval) return;
 
         float random = Random.Range(0f, 1f);
-
-        if (random <= 0.3f)
-        {
-            SoundManager.PlaySFX(eSoundType.FOOT_STEP, transform.position);
-        }
+        CreateFootstepSFX(random);
+        CreateFootCloudVFX(random);
     }
 
     public void SetIsHearingSomething(bool set)
     {
         _isHearingSomething = set;
-        // _exclamationMark.gameObject.SetActive(set);
+    }
+
+    private void CreateFootCloudVFX(float randomRate)
+    {
+        if (_isSeeker || randomRate < 0.85f) return;
+
+        EasyObjectPool.GetObjectFromPool(PoolName.CLOUD_POOL, transform.position, transform.rotation);
+    }
+
+    private void CreateFootstepSFX(float randomRate)
+    {
+        if (_isSeeker || randomRate < 0.3f) return;
+
+        SoundManager.PlaySFX(eSoundType.FOOT_STEP, transform.position);
     }
 }
