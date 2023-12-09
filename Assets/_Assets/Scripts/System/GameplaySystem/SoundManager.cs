@@ -47,7 +47,7 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
 
         AddSoundClipToSoundDict(eSoundType.WIN_SOUND, "Sound/applause-crowd-cheering-sfx");
         AddSoundClipToSoundDict(eSoundType.LOSE_SOUND, "Sound/119119758-win-fanfare-2");
-        AddSoundClipToSoundDict(eSoundType.FOOT_STEP, "Sound/footsteps");
+        AddSoundClipToSoundDict(eSoundType.FOOT_STEP, "Sound/concrete-footsteps-1-6265");
         AddSoundClipToSoundDict(eSoundType.COIN_PICKUP, "Sound/collect-golden-coins");
     }
 

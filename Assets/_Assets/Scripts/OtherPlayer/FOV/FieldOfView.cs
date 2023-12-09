@@ -8,7 +8,6 @@ public class FieldOfView : MonoBehaviour
 {
     #region public
 
-    public float checkingDelayTime;
     public float viewRadius;
     [Range(0, 360)] public float viewAngle;
 
@@ -25,6 +24,19 @@ public class FieldOfView : MonoBehaviour
     [Space(20)] [SerializeField] private List<Transform> _spottedObjectList = new List<Transform>();
 
     [SerializeField] private List<Transform> _objectInViewList = new List<Transform>();
+    [SerializeField] private Timer _timer;
+
+    private Timer Timer
+    {
+        get
+        {
+            if (_timer == null)
+                _timer = new Timer();
+            return _timer;
+        }
+    }
+
+    private bool HasPastInterval => Timer.HasPastInterval();
 
     #endregion
 
@@ -42,18 +54,15 @@ public class FieldOfView : MonoBehaviour
         return direction;
     }
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(HandleCheckingTarget());
+        HandleCheckingTarget();
     }
 
-    IEnumerator HandleCheckingTarget()
+    private void HandleCheckingTarget()
     {
-        while (true)
-        {
-            FindTargetInViewRange();
-            yield return new WaitForSeconds(checkingDelayTime);
-        }
+        if (!HasPastInterval) return;
+        FindTargetInViewRange();
     }
 
     private void FindTargetInViewRange()

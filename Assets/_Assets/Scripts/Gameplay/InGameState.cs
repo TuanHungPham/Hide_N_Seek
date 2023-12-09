@@ -22,9 +22,19 @@ public class InGameState : MonoBehaviour
     [Space(20)] [Header("For Both")] [Space(20)] [SerializeField]
     private FootPrintSystem _footPrintSystem;
 
-    [SerializeField] private AudioSource _footstepSound;
+    [SerializeField] private Timer _timer;
 
-    [SerializeField] private Controller _controller;
+    private Timer Timer
+    {
+        get
+        {
+            if (_timer == null)
+                _timer = new Timer();
+            return _timer;
+        }
+    }
+
+    private bool HasPastInterval => Timer.HasPastInterval();
     private SoundManager SoundManager => SoundManager.Instance;
 
     #endregion
@@ -38,9 +48,6 @@ public class InGameState : MonoBehaviour
     private void LoadComponents()
     {
         _footPrintSystem = GetComponentInChildren<FootPrintSystem>();
-        _footstepSound = GetComponentInChildren<AudioSource>();
-
-        _footstepSound.enabled = false;
     }
 
     private void ListenEvent()
@@ -154,17 +161,16 @@ public class InGameState : MonoBehaviour
 
     public void SetIsMakingFootstep(bool set)
     {
-        float random = Random.Range(0f, 1f);
-        if (set && random <= 0.3f)
-        {
-            _footstepSound.enabled = true;
-        }
-        else
-        {
-            _footstepSound.enabled = false;
-        }
-
         _isMakingFootstep = set;
+
+        if (!set || !HasPastInterval) return;
+
+        float random = Random.Range(0f, 1f);
+
+        if (random <= 0.3f)
+        {
+            SoundManager.PlaySFX(eSoundType.FOOT_STEP, transform.position);
+        }
     }
 
     public void SetIsHearingSomething(bool set)

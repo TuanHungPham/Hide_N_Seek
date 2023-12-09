@@ -13,15 +13,7 @@ public class SeekerChasingSystem : IMovingSystemAI
 
     public void SetDestination()
     {
-        // foreach (Transform player in GameplaySystem.Instance.GetAllPlayerList())
-        // {
-        //     Controller controller = player.GetComponent<Controller>();
-        //
-        //     if (!CanChaseHider(controller)) continue;
-        //
-        //     Destination = player.position;
-        //     return true;
-        // }
+       
     }
 
     public void SetInitialDestination()
