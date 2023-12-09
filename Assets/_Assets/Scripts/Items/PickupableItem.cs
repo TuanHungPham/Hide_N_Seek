@@ -6,6 +6,7 @@ public class PickupableItem : MonoBehaviour
 
     [SerializeField] private ePlayerType _targetForGettingItemFunction;
     private IPickupable _pickupable;
+    private SoundManager SoundManager => SoundManager.Instance;
 
     #endregion
 
@@ -31,6 +32,8 @@ public class PickupableItem : MonoBehaviour
         {
             _pickupable.DoPickedUpFuction(other.gameObject);
             _pickupable.DestroyItem();
+            SoundManager.PlaySFX(eSoundType.COIN_PICKUP, playerController.transform.position);
+
             return;
         }
 

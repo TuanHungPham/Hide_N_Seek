@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MarchingBytes;
 using UnityEngine;
 
 public enum eSoundType
@@ -7,6 +8,7 @@ public enum eSoundType
     WIN_SOUND,
     LOSE_SOUND,
     FOOT_STEP,
+    COIN_PICKUP,
 }
 
 public class SoundManager : TemporaryMonoSingleton<SoundManager>
@@ -14,6 +16,8 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
     [SerializeField] private AudioListener _mainAudio;
     [SerializeField] private AudioSource _audioSource;
     private Dictionary<eSoundType, AudioClip> _audioClipDict;
+
+    private EasyObjectPool EasyObjectPool => EasyObjectPool.instance;
 
     protected override void Awake()
     {
@@ -44,6 +48,7 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
         AddSoundClipToSoundDict(eSoundType.WIN_SOUND, "Sound/applause-crowd-cheering-sfx");
         AddSoundClipToSoundDict(eSoundType.LOSE_SOUND, "Sound/119119758-win-fanfare-2");
         AddSoundClipToSoundDict(eSoundType.FOOT_STEP, "Sound/footsteps");
+        AddSoundClipToSoundDict(eSoundType.COIN_PICKUP, "Sound/collect-golden-coins");
     }
 
     private void AddSoundClipToSoundDict(eSoundType soundType, string path)
@@ -56,5 +61,13 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
     {
         _audioSource.clip = _audioClipDict[soundType];
         _audioSource.Play();
+    }
+
+    public void PlaySFX(eSoundType soundType, Vector3 position)
+    {
+        GameObject soundPfb = EasyObjectPool.GetObjectFromPool(PoolName.SOUND_POOL, position, Quaternion.identity);
+
+        SoundPfb soundPfbController = soundPfb.GetComponent<SoundPfb>();
+        soundPfbController.SetSound(_audioClipDict[soundType]);
     }
 }
