@@ -27,4 +27,5 @@ public enum EventID
     SIGNUP_FAIL,
     SETTING_UP_PROFILE,
     LOADING_SERVER_DATA,
+    UPDATE_SETTING,
 }

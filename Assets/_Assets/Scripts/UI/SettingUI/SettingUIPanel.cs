@@ -1,5 +1,6 @@
-using System;
+using TigerForge;
 using UnityEngine;
+
 
 public class SettingUIPanel : MonoBehaviour
 {
@@ -28,7 +29,8 @@ public class SettingUIPanel : MonoBehaviour
         _themeSoundOn = !_themeSoundOn;
         _themeSoundCheck.SetActive(_themeSoundOn);
 
-        IngameSetting.SetConfig(eSetting.THEME_SOUND, _themeSoundCheck);
+        IngameSetting.SetConfig(eSetting.THEME_SOUND, _themeSoundOn);
+        EmitSetupSettingEvent();
     }
 
     public void SetSFXSoundState()
@@ -37,5 +39,11 @@ public class SettingUIPanel : MonoBehaviour
         _sfxSoundCheck.SetActive(_sfxSoundOn);
 
         IngameSetting.SetConfig(eSetting.SFX_SOUND, _sfxSoundOn);
+        EmitSetupSettingEvent();
+    }
+
+    private void EmitSetupSettingEvent()
+    {
+        EventManager.EmitEvent(EventID.UPDATE_SETTING);
     }
 }

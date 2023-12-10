@@ -17,8 +17,8 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
     [SerializeField] private AudioListener _mainAudio;
     [SerializeField] private AudioSource _audioSource;
     private Dictionary<eSoundType, AudioClip> _audioClipDict;
-
     private EasyObjectPool EasyObjectPool => EasyObjectPool.instance;
+    private IngameSetting IngameSetting => IngameSetting.Instance;
 
     protected override void Awake()
     {
@@ -61,12 +61,16 @@ public class SoundManager : TemporaryMonoSingleton<SoundManager>
 
     public void PlaySound(eSoundType soundType)
     {
+        if (!IngameSetting.GetSettingState(eSetting.SFX_SOUND)) return;
+
         _audioSource.clip = _audioClipDict[soundType];
         _audioSource.Play();
     }
 
     public void PlaySFX(eSoundType soundType, Vector3 position)
     {
+        if (!IngameSetting.GetSettingState(eSetting.SFX_SOUND)) return;
+
         GameObject soundPfb = EasyObjectPool.GetObjectFromPool(PoolName.SOUND_POOL, position, Quaternion.identity);
 
         SoundPfb soundPfbController = soundPfb.GetComponent<SoundPfb>();
