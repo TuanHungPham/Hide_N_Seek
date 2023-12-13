@@ -126,12 +126,42 @@ namespace TigerForge
             }
         }
 
+        public static void StopListening(EventID eventID, string callBackID)
+        {
+            var eventName = eventID.ToString();
+            if (eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
+            {
+                if (callBackID != "")
+                {
+                    if (callBacks.ContainsKey(eventName + "_" + callBackID))
+                    {
+                        thisEvent.RemoveListener(callBacks[eventName + "_" + callBackID]);
+                    }
+
+                    if (callBacks.ContainsKey(eventName + "_" + callBackID + "_EXTRA"))
+                    {
+                        thisEvent.RemoveListener(callBacks[eventName + "_" + callBackID + "_EXTRA"]);
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Stop listening to the event with the given name and the memory occupied by this event is cleared. The callBack function must be specified.
         /// </summary>
         public static void StopListening(string eventName, UnityAction callBack)
         {
+            if (eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
+            {
+                thisEvent.RemoveListener(callBack);
+            }
+        }
+
+        public static void StopListening(EventID eventID, UnityAction callBack)
+        {
+            var eventName = eventID.ToString();
+
             if (eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
             {
                 thisEvent.RemoveListener(callBack);
