@@ -40,6 +40,8 @@ public class CatchingPointPanel : MonoBehaviour
 
     private void SetupCatchingPointUI(int index, int requirementNumberOfCaughtHider, CatchingPointUI catchingPointUI)
     {
+        catchingPointUI.SetBright(false);
+
         if (index > requirementNumberOfCaughtHider)
         {
             catchingPointUI.SetIsPlusPoint(true);

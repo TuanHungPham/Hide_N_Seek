@@ -12,6 +12,7 @@ public class CatchingPointUI : MonoBehaviour
     public void SetBright(bool set)
     {
         _isBright = set;
+        _pointImg.gameObject.SetActive(set);
 
         if (_isPlusPoint)
         {
