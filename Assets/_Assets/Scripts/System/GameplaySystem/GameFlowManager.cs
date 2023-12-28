@@ -1,3 +1,4 @@
+using System;
 using TigerForge;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,19 @@ public class GameFlowManager : MonoBehaviour
     private GameplayScene GameplayScene => GameplayScene.Instance;
     private InGameManager InGameManager => InGameManager.Instance;
     private SoundManager SoundManager => SoundManager.Instance;
+    [SerializeField] private Timer timer;
+
+    private Timer Timer
+    {
+        get
+        {
+            if (timer == null)
+                timer = new Timer();
+            return timer;
+        }
+    }
+
+    private bool HasPastInterval => Timer.HasPastInterval();
 
     private void Awake()
     {
@@ -19,6 +33,31 @@ public class GameFlowManager : MonoBehaviour
         EventManager.StartListening(EventID.END_GAME_TIME, CheckGameFlowOver);
         EventManager.StartListening(EventID.RETRYING_GAME, ResetGame);
         EventManager.StartListening(EventID.LOADING_SERVER_DATA, ResetGame);
+    }
+
+    private void Update()
+    {
+        if (!HasPastInterval) return;
+
+        CheckGameOver();
+    }
+
+    private void CheckGameOver()
+    {
+        if (!GameplaySystem.IsGameStarting()) return;
+
+        var currentCaughtHiderNumber = GameplaySystem.GetNumberOfCaughtHider();
+        var maxHiderNumber = GameplaySystem.GetNumberOfHider();
+
+        if (currentCaughtHiderNumber < maxHiderNumber) return;
+
+        if (GameplaySystem.IsSeekerGameplay())
+        {
+            SetWin();
+            return;
+        }
+
+        SetLose();
     }
 
     private void CheckGameFlowOver()
