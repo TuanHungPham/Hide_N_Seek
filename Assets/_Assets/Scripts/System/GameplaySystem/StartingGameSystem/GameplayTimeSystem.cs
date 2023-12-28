@@ -81,13 +81,14 @@ public class GameplayTimeSystem : MonoBehaviour
             return;
         }
 
-        if (_gamePlayTimer <= 10 && HasPastInterval)
+        _isTimeUp = false;
+        _gamePlayTimer -= Time.deltaTime;
+
+        if (_gamePlayTimer > 10) return;
+        if (HasPastInterval)
         {
             SoundManager.PlaySFX(eSoundType.TIME_TICK, Vector3.zero);
         }
-
-        _isTimeUp = false;
-        _gamePlayTimer -= Time.deltaTime;
     }
 
     private void EmitEndHidingTimeEvent()
