@@ -1,17 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using TigerForge;
+using UnityEngine.Serialization;
 
-public class StartingGameSystem : MonoBehaviour
+public class InitializingGameplaySystem : MonoBehaviour
 {
     #region private
 
     [SerializeField] private bool _isGameStarting;
 
     [Space(20)] [Header("System")] [SerializeField]
-    private SetupGameplayType _setupGameplayType;
+    private SetupGameplayTypeSystem setupGameplayTypeSystem;
 
-    [SerializeField] private SetupStartingSpawn _setupStartingSpawn;
+    [SerializeField] private SetupStartingSpawnSystem setupStartingSpawnSystem;
 
     #endregion
 
@@ -27,8 +28,8 @@ public class StartingGameSystem : MonoBehaviour
 
     private void LoadComponents()
     {
-        _setupGameplayType = GetComponentInChildren<SetupGameplayType>();
-        _setupStartingSpawn = GetComponentInChildren<SetupStartingSpawn>();
+        setupGameplayTypeSystem = GetComponentInChildren<SetupGameplayTypeSystem>();
+        setupStartingSpawnSystem = GetComponentInChildren<SetupStartingSpawnSystem>();
 
         _isGameStarting = false;
     }
@@ -60,22 +61,22 @@ public class StartingGameSystem : MonoBehaviour
 
     public Transform GetMainCharacterReference()
     {
-        return _setupStartingSpawn.GetMainCharacterReference();
+        return setupStartingSpawnSystem.GetMainCharacterReference();
     }
 
     public void SetGameplayType(bool isSeekerGameplay)
     {
-        _setupGameplayType.SetGameplayType(isSeekerGameplay);
+        setupGameplayTypeSystem.SetGameplayType(isSeekerGameplay);
     }
 
     public void SetNumberOfSeeker(int number)
     {
-        _setupGameplayType.SetNumberOfSeeker(number);
+        setupGameplayTypeSystem.SetNumberOfSeeker(number);
     }
 
     public bool IsSeekerGameplay()
     {
-        return _setupGameplayType.IsSeekerGameplay();
+        return setupGameplayTypeSystem.IsSeekerGameplay();
     }
 
     public bool IsGameStarting()

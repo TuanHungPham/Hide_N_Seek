@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class FrontVision : MonoBehaviour
 {
-    #region public
-
-    #endregion
-
     #region private
 
     [SerializeField] private Controller _controller;

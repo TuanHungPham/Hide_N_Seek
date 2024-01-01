@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TigerForge;
 
-public class SetupStartingSpawn : MonoBehaviour
+public class SetupStartingSpawnSystem : MonoBehaviour
 {
     [SerializeField] private Transform _allPlayerParent;
     [SerializeField] private Transform _mainCharacter;
@@ -25,7 +25,7 @@ public class SetupStartingSpawn : MonoBehaviour
     private void Start()
     {
         SpawnMainCharacter();
-        SpawnAllPlayer();
+        SpawnAllOtherPlayer();
     }
 
     private void SpawnMainCharacter()
@@ -33,7 +33,7 @@ public class SetupStartingSpawn : MonoBehaviour
         _mainCharacter.transform.position = MapLevelSystem.Instance.GetMainPointPos();
     }
 
-    private void SpawnAllPlayer()
+    private void SpawnAllOtherPlayer()
     {
         List<Vector3> startingPointList = MapLevelSystem.Instance.GetStartingPointList();
 

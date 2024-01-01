@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class SetupGameplayType : MonoBehaviour
+public class SetupGameplayTypeSystem : MonoBehaviour
 {
     #region private
 
     [SerializeField] private bool isSeekerGameplay;
     [SerializeField] private int numberOfSeeker;
 
-    [Space(20)] [SerializeField] private StartingGameSystem _startingGameSystem;
+    [Space(20)] [SerializeField] private InitializingGameplaySystem initializingGameplaySystem;
 
     #endregion
 
@@ -26,7 +27,7 @@ public class SetupGameplayType : MonoBehaviour
 
     private void LoadComponents()
     {
-        _startingGameSystem = GetComponentInParent<StartingGameSystem>();
+        initializingGameplaySystem = GetComponentInParent<InitializingGameplaySystem>();
     }
 
     private void ListenEvent()
@@ -54,7 +55,7 @@ public class SetupGameplayType : MonoBehaviour
     private void SetupPlayAsSeeker(List<Transform> playerList)
     {
         int seekerCount = 0;
-        SetPlayerAsSeeker();
+        SetMainPlayerAsSeeker();
         seekerCount++;
 
         SetOtherPlayerAsSeeker(playerList, seekerCount);
@@ -69,9 +70,9 @@ public class SetupGameplayType : MonoBehaviour
         SetOtherPlayerAsSeeker(playerList, seekerCount);
     }
 
-    private void SetPlayerAsSeeker()
+    private void SetMainPlayerAsSeeker()
     {
-        Transform mainCharacter = _startingGameSystem.GetMainCharacterReference();
+        Transform mainCharacter = initializingGameplaySystem.GetMainCharacterReference();
         Controller playerController = mainCharacter.GetComponent<Controller>();
 
         playerController.SetSeekerState(true);

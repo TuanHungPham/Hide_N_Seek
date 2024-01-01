@@ -25,7 +25,7 @@ public class QuestManager : MonoBehaviour
         EventManager.StartListening(EventID.QUEST_RESETTING, InitializeTodayQuestList);
     }
 
-    public void InitializeTodayQuestList()
+    private void InitializeTodayQuestList()
     {
         _todayQuestList = IngameDataManager.GetTodayQuestTemplateList();
         _todaySpecialQuest = IngameDataManager.GetTodaySpecialQuest();
@@ -52,7 +52,7 @@ public class QuestManager : MonoBehaviour
         CheckQuestState(_todaySpecialQuest);
     }
 
-    private static bool CanUpdateQuest(Quest quest, float newProgress)
+    private bool CanUpdateQuest(Quest quest, float newProgress)
     {
         if (quest.isCompleted) return false;
         if (quest.currentProgress >= quest.targetProgress) return true;

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
 {
@@ -9,7 +10,7 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
     [SerializeField] private float _seekerFrontVisonRadius;
 
     [Space(20)] [SerializeField] private AllPlayerManager _allPlayerManager;
-    [SerializeField] private StartingGameSystem _startingGameSystem;
+    [SerializeField] private InitializingGameplaySystem initializingGameplaySystem;
     [SerializeField] private GameplayTimeSystem _gameplayTimeSystem;
 
     #endregion
@@ -28,7 +29,7 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
     private void LoadComponents()
     {
         _allPlayerManager = GetComponentInChildren<AllPlayerManager>();
-        _startingGameSystem = GetComponentInChildren<StartingGameSystem>();
+        initializingGameplaySystem = GetComponentInChildren<InitializingGameplaySystem>();
         _gameplayTimeSystem = GetComponentInChildren<GameplayTimeSystem>();
     }
 
@@ -59,7 +60,7 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
 
     public bool IsGameStarting()
     {
-        return _startingGameSystem.IsGameStarting();
+        return initializingGameplaySystem.IsGameStarting();
     }
 
     public bool IsTimeUp()
@@ -104,7 +105,7 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
 
     public bool IsSeekerGameplay()
     {
-        return _startingGameSystem.IsSeekerGameplay();
+        return initializingGameplaySystem.IsSeekerGameplay();
     }
 
     public float GetSeekerCircleVisionRadius()
@@ -119,12 +120,12 @@ public class GameplaySystem : TemporaryMonoSingleton<GameplaySystem>
 
     public void SetGameplayType(bool isSeekerGameplay)
     {
-        _startingGameSystem.SetGameplayType(isSeekerGameplay);
+        initializingGameplaySystem.SetGameplayType(isSeekerGameplay);
     }
 
     public void SetNumberOfSeeker(int number)
     {
-        _startingGameSystem.SetNumberOfSeeker(number);
+        initializingGameplaySystem.SetNumberOfSeeker(number);
     }
 
     public void SetGameplayTimer(float hidingTimer)
