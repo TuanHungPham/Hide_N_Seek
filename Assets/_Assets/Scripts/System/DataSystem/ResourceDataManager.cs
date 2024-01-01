@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public enum eResourceDataType
@@ -10,22 +9,6 @@ public enum eResourceDataType
     ADS_TICKET,
 
     MAX_COUNT_OF_RESOURCE_TYPE,
-}
-
-public class ResourceBaseData : BaseData
-{
-    public long resourceData;
-
-    public void AddData(long resourceData)
-    {
-        this.resourceData = resourceData;
-    }
-
-    public override void ParseToData(string json)
-    {
-        ResourceBaseData resourceBaseData = JsonConvert.DeserializeObject<ResourceBaseData>(json);
-        AddData(resourceBaseData.resourceData);
-    }
 }
 
 public class ResourceDataManager : MonoBehaviour

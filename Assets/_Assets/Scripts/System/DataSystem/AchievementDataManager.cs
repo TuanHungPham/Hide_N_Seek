@@ -1,23 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEngine;
-
-public class AchievementBaseData : BaseData
-{
-    public long achievementData;
-
-    public void AddData(long achievementData)
-    {
-        this.achievementData = achievementData;
-    }
-
-    public override void ParseToData(string json)
-    {
-        AchievementBaseData achievementBaseData = JsonConvert.DeserializeObject<AchievementBaseData>(json);
-        AddData(achievementBaseData.achievementData);
-    }
-}
 
 public class AchievementDataManager : MonoBehaviour
 {

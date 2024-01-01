@@ -1,18 +1,6 @@
-using System;
 using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
-
-[Serializable]
-public class PetBaseData : ShopData
-{
-    public void AddData(PetBaseData petBaseData)
-    {
-        id = petBaseData.id;
-        isSelected = petBaseData.isSelected;
-        isOwned = petBaseData.isOwned;
-    }
-}
 
 public class PetDataManager : MonoBehaviour
 {

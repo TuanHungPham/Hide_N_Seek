@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TigerForge;
 using UnityEngine;
-
-[Serializable]
-public class CostumeBaseData : ShopData
-{
-    public void AddData(CostumeBaseData costumeBaseData)
-    {
-        id = costumeBaseData.id;
-        isSelected = costumeBaseData.isSelected;
-        isOwned = costumeBaseData.isOwned;
-    }
-}
 
 public class CostumeDataManager : MonoBehaviour
 {
