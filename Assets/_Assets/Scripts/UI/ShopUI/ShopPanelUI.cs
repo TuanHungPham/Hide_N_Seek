@@ -12,7 +12,7 @@ public enum eShopDataType
     MAX_SHOP_DATA_TYPE_COUNT
 }
 
-public class ShopItemHandler : MonoBehaviour
+public class ShopPanelUI : MonoBehaviour
 {
     [SerializeField] private ShopItemUI _shopItemUIPrefab;
     [SerializeField] private eShopDataType _shopDataType;

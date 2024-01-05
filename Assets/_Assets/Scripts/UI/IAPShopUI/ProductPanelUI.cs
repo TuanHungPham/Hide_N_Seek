@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProductPanel : MonoBehaviour
+public class ProductPanelUI : MonoBehaviour
 {
     [SerializeField] private List<IAPPanelUI> _iapPanelUiList = new List<IAPPanelUI>();
     private Dictionary<eProductType, IAPPanelUI> _iapPanelUiDic;
     private IAPSystem IAPSystem => IAPSystem.Instance;
+    private UnityAdsManager UnityAdsManager => UnityAdsManager.Instance;
 
     private void Awake()
     {
@@ -30,8 +31,7 @@ public class ProductPanel : MonoBehaviour
 
     public void WatchAds()
     {
-        UnityAdsManager.Instance.LoadAds();
-        UnityAdsManager.Instance.ShowAds();
+        UnityAdsManager.LoadAds();
     }
 
     private void IntializeProductUI()

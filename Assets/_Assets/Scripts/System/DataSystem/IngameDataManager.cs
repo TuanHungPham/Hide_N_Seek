@@ -86,7 +86,7 @@ public class IngameDataManager : PermanentMonoSingleton<IngameDataManager>
 
     public List<Quest> GetTodayQuestTemplateList()
     {
-        return _questDataManager.GetTodayQuestTemplateList();
+        return _questDataManager.GetTodayQuestList();
     }
 
     public SpecialQuest GetTodaySpecialQuest()

@@ -30,7 +30,7 @@ public class FacebookAuth : MonoBehaviour
         {
             string accessToken = result.AccessToken.TokenString;
             GetUserInformation();
-            PlayfabManager.Instance.LoginWithFacebook(accessToken);
+            PlayfabManager.LoginWithFacebook(accessToken);
         }
         else
         {

@@ -234,7 +234,7 @@ public class QuestDataManager : MonoBehaviour
         SpecialQuestBaseData.ModifyData(_todaySpecialQuest.currentProgress, _todaySpecialQuest.targetProgress, _todaySpecialQuest.isCompleted);
     }
 
-    public List<Quest> GetTodayQuestTemplateList()
+    public List<Quest> GetTodayQuestList()
     {
         return _todayQuestList;
     }

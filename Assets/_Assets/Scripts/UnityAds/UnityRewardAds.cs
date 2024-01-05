@@ -37,6 +37,7 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
         Debug.Log("--- (UNITY ADS) Ad Loaded: " + adUnitId);
+        ShowAd();
     }
 
     public void ShowAd()
