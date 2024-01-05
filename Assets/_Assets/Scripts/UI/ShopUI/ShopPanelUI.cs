@@ -18,6 +18,7 @@ public class ShopPanelUI : MonoBehaviour
     [SerializeField] private eShopDataType _shopDataType;
     [SerializeField] private List<ShopItemUI> _shopItemUIList = new List<ShopItemUI>();
     [SerializeField] private List<ItemShop> _itemShopList = new List<ItemShop>();
+    [SerializeField] private ConfirmationPanelUI confirmationPanelUI;
     private bool _firstInitialization;
     IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
@@ -38,7 +39,18 @@ public class ShopPanelUI : MonoBehaviour
 
     private void OnEnable()
     {
+        ListenEvent();
         InitializeShopItemUI();
+    }
+
+    private void ListenEvent()
+    {
+        confirmationPanelUI.OnBuyingConfirm += DeselectAllShopItem;
+    }
+
+    private void RemoveEvent()
+    {
+        confirmationPanelUI.OnBuyingConfirm -= DeselectAllShopItem;
     }
 
     private void InitializeShopItemUI()
@@ -93,7 +105,7 @@ public class ShopPanelUI : MonoBehaviour
         }
 
         Debug.Log($"(SHOP) Buying Shop Item...");
-        BuyItem(shopItemUI);
+        confirmationPanelUI.InitBuyingConfirmation(shopItemUI);
     }
 
     private void SelectItem(ShopItemUI shopItemUI)
@@ -107,25 +119,6 @@ public class ShopPanelUI : MonoBehaviour
         EmitChoosingItemShopEvent();
     }
 
-    private void BuyItem(ShopItemUI shopItemUI)
-    {
-        if (CanBuyItem(shopItemUI)) return;
-
-        DeselectAllShopItem();
-
-        shopItemUI.Buy();
-
-        EmitChoosingItemShopEvent();
-    }
-
-    private bool CanBuyItem(ShopItemUI shopItemUI)
-    {
-        long totalCoin = IngameDataManager.GetResourceData(eResourceDataType.COIN);
-        int itemPrice = shopItemUI.GetItemPrice();
-        if (totalCoin < itemPrice) return true;
-        return false;
-    }
-
     private void DeselectAllShopItem()
     {
         foreach (var shopItemUI in _shopItemUIList)
@@ -137,5 +130,10 @@ public class ShopPanelUI : MonoBehaviour
     private void EmitChoosingItemShopEvent()
     {
         EventManager.EmitEvent(EventID.CHOOSING_ITEM_SHOP);
+    }
+
+    private void OnDisable()
+    {
+        RemoveEvent();
     }
 }
