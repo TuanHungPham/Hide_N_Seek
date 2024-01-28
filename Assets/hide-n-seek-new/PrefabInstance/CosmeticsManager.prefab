@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1621515690313451
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4289383948993553}
+  - component: {fileID: 114415881236677103}
+  m_Layer: 0
+  m_Name: CosmeticsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4289383948993553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621515690313451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114415881236677103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621515690313451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e99e558d3dc435b0cb12feadeb60f9a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  defaultPreset: {fileID: 11400000, guid: 0313ecbb684f8bd42b66451bb6c13110, type: 2}
+  replacementPairs: []
+  presets:
+  - {fileID: 11400000, guid: 0313ecbb684f8bd42b66451bb6c13110, type: 2}
+  - {fileID: 11400000, guid: 782b85ed79d6cc64b9f2ab96c0ec3daf, type: 2}
+  - {fileID: 11400000, guid: ffc345918a6b862419a5ecb08096a1f6, type: 2}
+  - {fileID: 11400000, guid: 80bb249d605368b46adb44892ec83142, type: 2}
+  - {fileID: 11400000, guid: 23493680a9c18aa47877d8278ca756c2, type: 2}
+  - {fileID: 11400000, guid: 43d5a4955d28b83479635a67d2e02a45, type: 2}
+  - {fileID: 11400000, guid: 145b14e304e6fcc4882e3ed805215f30, type: 2}
+  - {fileID: 11400000, guid: 4f0dcab2c5f58084e9504a47020dc082, type: 2}
+  - {fileID: 11400000, guid: 60e8b0135dd956740b59cfe92e618f0f, type: 2}
+  - {fileID: 11400000, guid: 3e9bd2431a7c1bc4b9580210df8f5573, type: 2}
+  - {fileID: 11400000, guid: 6e3ca17439f063e48848c17217875428, type: 2}
+  - {fileID: 11400000, guid: b5c66bd843fe4f2438ab8ff74e221209, type: 2}
+  - {fileID: 11400000, guid: 485147e0eaf2b4e409c98e2bc7d9771b, type: 2}
+  - {fileID: 11400000, guid: 865bcc01877b3954ab828f6d71cbf9e2, type: 2}
+  - {fileID: 11400000, guid: 9f1e6267ac0d3044a94eee60d85e0b79, type: 2}
+  - {fileID: 11400000, guid: f1a5b7d34d6b1b1459e3a8d8833237a6, type: 2}
+  - {fileID: 11400000, guid: 75fa0d2bf54130d47ae16cf0aed16cd2, type: 2}
+  - {fileID: 11400000, guid: 41256f046ba40f141a736f1b36a53006, type: 2}
+  - {fileID: 11400000, guid: 7f0c1d63fe178e340aa0770a75d2e132, type: 2}
+  - {fileID: 11400000, guid: cd0c953965c77c44e97d4e1e8cf1d68f, type: 2}
+  - {fileID: 11400000, guid: 405c9cc4c3ca47246bd82c362b17d3b0, type: 2}
+  - {fileID: 11400000, guid: 1c3b9be3b32737a4ab5c4d61bf175bbd, type: 2}
+  - {fileID: 11400000, guid: 97e8e16e57c89974e9bc0f56dc7524d9, type: 2}
+  - {fileID: 11400000, guid: 542b2f65ba33cff4ea2378d327a8cfd0, type: 2}
+  - {fileID: 11400000, guid: f260b080c5f61f34b889b1836ac3d3fc, type: 2}
+  - {fileID: 11400000, guid: 6e5e4b142b4366a498d581f7609a9de4, type: 2}
+  - {fileID: 11400000, guid: c0ce88b6c3e0a0d4cb48a2dcd399f7f8, type: 2}
+  - {fileID: 11400000, guid: 1a6bfd02e3ac95c4f842b171d9aed819, type: 2}
+  - {fileID: 11400000, guid: b81707f5580afdb4f8926356240cd238, type: 2}
+  - {fileID: 11400000, guid: a0a25f7799f934e42b8e739823a5903d, type: 2}
+  - {fileID: 11400000, guid: dc2d72f31d65a274e913a94110584dd7, type: 2}
+  - {fileID: 11400000, guid: 718a061d6cce03d489ff36ce4a228cb0, type: 2}
+  - {fileID: 11400000, guid: 7e6bc290a29dbcb4a99dfb94757978bd, type: 2}
+  - {fileID: 11400000, guid: 65ce9f37ded7b77439582766353349f1, type: 2}
+  - {fileID: 11400000, guid: 61ff10ac28ae161488afb628d3061286, type: 2}
+  - {fileID: 11400000, guid: 090c3338ff6e997499b5eaa913d183eb, type: 2}
+  - {fileID: 11400000, guid: a74bfd8ac9377cf46b64fc37e33766dc, type: 2}
+  - {fileID: 11400000, guid: 22e6dd7ada57257418e1583494937523, type: 2}
+  - {fileID: 11400000, guid: 9bcdd049bdc9d2147950fed91f5ca8a6, type: 2}
+  - {fileID: 11400000, guid: bccecf2258125cc478a570b25ec95774, type: 2}
+  - {fileID: 11400000, guid: 03f4362ec224dd14193cf063bee0cba6, type: 2}
+  - {fileID: 11400000, guid: 47d3904367f83c84588d7248ed91921b, type: 2}
+  - {fileID: 11400000, guid: e470d6aeef5a06a459367ca4c2640e84, type: 2}
+  - {fileID: 11400000, guid: 739326c743d94dc429e8346d6363809d, type: 2}
+  - {fileID: 11400000, guid: 0fa2263f57b80e44e9a0e66cac44127d, type: 2}
+  - {fileID: 11400000, guid: 3b7e486eb8522b34899692df71de12d6, type: 2}
+  - {fileID: 11400000, guid: 8382b38e0551b8d4b95030424c7ec0f1, type: 2}
+  - {fileID: 11400000, guid: 4017c29f1ad26314c960da8aa623b168, type: 2}
+  - {fileID: 11400000, guid: f02770679174f05458a937937678cc03, type: 2}
+  - {fileID: 11400000, guid: 658c14d022bfa4e4eabe85614c07a3ec, type: 2}
+  - {fileID: 11400000, guid: ddcdeb9ab52d17d44aee351b8551b8fb, type: 2}
+  - {fileID: 11400000, guid: e7204a0ad3e05ef4fada1aa7a7871d14, type: 2}
+  bosseCosmetics:
+  - {fileID: 11400000, guid: 6e3ca17439f063e48848c17217875428, type: 2}
+  seekerCostumeOverride: {fileID: 0}

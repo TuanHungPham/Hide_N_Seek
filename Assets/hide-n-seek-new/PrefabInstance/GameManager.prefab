@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1440159112208336
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4713849365589405}
+  - component: {fileID: 114505970584472306}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4713849365589405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440159112208336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114505970584472306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440159112208336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 121f90a1a12b2ddb26faee83c7648e82, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  reviewAtTrack: 3
+  ratePopupPrefab: {fileID: 114288641478185544, guid: 75d9a38138d2315458131a0d9eb2d022, type: 2}
+  noInternetPopup: {fileID: 114459088826825732, guid: cb35ca3a6f5d61347aac56e9bade9e00, type: 2}
+  counterfeitPopup: {fileID: 114447404953294140, guid: 49b124c1d7d65e54c97b26bd8e6850cb, type: 2}
+  playerPrefab: {fileID: 114484564251332415, guid: 7e75abc97e8c2e547a342d5c5ac64726, type: 2}
+  pointsOnVictory: 20
+  bonusEveryNLevels: 10
+  challengeEveryNLevels: 6
+  minHidersToFind: 4
+  targetFPS_tier1: 30
+  targetFPS_tier2: 60
+  targetFPS_tier3: 60
+  cosmeticRewardGroup:
+  - {fileID: 11400000, guid: 13a7379b0485e594b97614421f80618d, type: 2}
