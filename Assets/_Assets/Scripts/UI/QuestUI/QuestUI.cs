@@ -31,6 +31,7 @@ public class QuestUI : MonoBehaviour
     [SerializeField] private Color _color_2;
 
     private InGameManager InGameManager => InGameManager.Instance;
+    private UnityAdsManager UnityAdsManager => UnityAdsManager.Instance;
 
     private void OnEnable()
     {
@@ -91,11 +92,32 @@ public class QuestUI : MonoBehaviour
         _questPrizeQuantity.color = _color_2;
     }
 
-    public void SkipQuest()
+    public void WatchAds()
+    {
+        ListenEvent();
+        UnityAdsManager.ShowAds();
+    }
+
+    private void SkipQuest()
     {
         _quest.FinishQuest();
         UpdateProgressUIData();
 
         InGameManager.FinishQuest(_quest.questID);
+    }
+
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.SHOWING_ADS_COMPLETE,this.SkipQuest);
+    }
+
+    private void StopListeningEvent()
+    {
+        EventManager.StopListening(EventID.SHOWING_ADS_COMPLETE,SkipQuest);
+    }
+
+    private void OnDisable()
+    {
+        StopListeningEvent();
     }
 }

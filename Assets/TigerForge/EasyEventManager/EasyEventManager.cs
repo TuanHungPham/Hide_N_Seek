@@ -436,6 +436,12 @@ namespace TigerForge
         {
             SetPaused(eventName, false);
         }
+        
+        public static void RestartListening(EventID eventID)
+        {
+            var eventName = eventID.ToString();
+            SetPaused(eventName, false);
+        }
 
         /// <summary>
         /// Return true if the event with the given name has been paused.

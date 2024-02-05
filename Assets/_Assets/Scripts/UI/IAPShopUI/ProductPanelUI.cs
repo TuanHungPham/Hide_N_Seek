@@ -1,17 +1,26 @@
 using System;
 using System.Collections.Generic;
+using TigerForge;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ProductPanelUI : MonoBehaviour
 {
     [SerializeField] private List<IAPPanelUI> _iapPanelUiList = new List<IAPPanelUI>();
+    [SerializeField] private long ticketRewardQuantity;
     private Dictionary<eProductType, IAPPanelUI> _iapPanelUiDic;
     private IAPSystem IAPSystem => IAPSystem.Instance;
     private UnityAdsManager UnityAdsManager => UnityAdsManager.Instance;
+    private GameplayManager GameplayManager => GameplayManager.Instance;
 
     private void Awake()
     {
         InitializeIAPPanel();
+    }
+
+    private void OnEnable()
+    {
+        ListenEvent();
     }
 
     private void InitializeIAPPanel()
@@ -31,7 +40,12 @@ public class ProductPanelUI : MonoBehaviour
 
     public void WatchAds()
     {
-        UnityAdsManager.LoadAds();
+        UnityAdsManager.ShowAds();
+    }
+    
+    private void GiveReward()
+    {
+        GameplayManager.AddTicket(ticketRewardQuantity);
     }
 
     private void IntializeProductUI()
@@ -43,5 +57,20 @@ public class ProductPanelUI : MonoBehaviour
         {
             _iapPanelUiDic[iapProduct.productType].AddIAPProductUI(iapProduct);
         }
+    }
+    
+    private void ListenEvent()
+    {
+        EventManager.StartListening(EventID.SHOWING_ADS_COMPLETE,GiveReward);
+    }
+
+    private void StopListeningEvent()
+    {
+        EventManager.StopListening(EventID.SHOWING_ADS_COMPLETE,GiveReward);
+    }
+
+    private void OnDisable()
+    {
+        StopListeningEvent();
     }
 }

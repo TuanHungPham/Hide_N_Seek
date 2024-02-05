@@ -1,3 +1,4 @@
+using TigerForge;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -7,14 +8,11 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
     string _androidAdUnitId = "Rewarded_Android";
 
     [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
-
-    [Space(10)] [Header("Reward")] [SerializeField]
-    private long _ticketRewardQuantity;
-
+    
     string _adUnitId = null;
     private GameplayManager GameplayManager => GameplayManager.Instance;
 
-    void Awake()
+    void Start()
     {
         InitializeRewardAds();
     }
@@ -26,6 +24,8 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
 #elif UNITY_ANDROID
         _adUnitId = _androidAdUnitId;
 #endif
+        
+        LoadAd();
     }
 
     public void LoadAd()
@@ -37,11 +37,11 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
         Debug.Log("--- (UNITY ADS) Ad Loaded: " + adUnitId);
-        ShowAd();
     }
 
     public void ShowAd()
     {
+        ClearAdsEvent();
         Advertisement.Show(_adUnitId, this);
     }
 
@@ -50,24 +50,23 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
         if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
             Debug.Log("--- (UNITY ADS) Unity Ads Rewarded Ad Completed");
-            GetReward();
+            EmitShowAdsEvent();
         }
-    }
-
-    private void GetReward()
-    {
-        GameplayManager.AddTicket(_ticketRewardQuantity);
+        
+        LoadAd();
     }
 
     // Implement Load and Show Listener error callbacks:
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
     {
         Debug.Log($"--- (UNITY ADS) Error loading Ad Unit {adUnitId}: {error.ToString()} - {message}");
+        LoadAd();
     }
 
     public void OnUnityAdsShowFailure(string adUnitId, UnityAdsShowError error, string message)
     {
         Debug.Log($"--- (UNITY ADS) Error showing Ad Unit {adUnitId}: {error.ToString()} - {message}");
+        LoadAd();
     }
 
     public void OnUnityAdsShowStart(string adUnitId)
@@ -76,5 +75,15 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
 
     public void OnUnityAdsShowClick(string adUnitId)
     {
+    }
+
+    private void EmitShowAdsEvent()
+    {
+        EventManager.EmitEvent(EventID.SHOWING_ADS_COMPLETE);
+    }
+
+    private void ClearAdsEvent()
+    {
+        EventManager.RestartListening(EventID.SHOWING_ADS_COMPLETE);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,18 +9,27 @@ public class IngameDataManager : PermanentMonoSingleton<IngameDataManager>
     [SerializeField] private ResourceDataManager _resourceDataManager;
     [SerializeField] private QuestDataManager _questDataManager;
     [SerializeField] private AchievementDataManager _achievementDataManager;
+    [SerializeField] private int frameRate;
 
     protected override void Awake()
     {
         base.Awake();
 
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = frameRate;
         LoadComponents();
     }
 
     private void Reset()
     {
         LoadComponents();
+    }
+
+    private void Update()
+    {
+        if (Application.targetFrameRate != frameRate)
+        {
+            Application.targetFrameRate = frameRate;
+        }
     }
 
     private void LoadComponents()
