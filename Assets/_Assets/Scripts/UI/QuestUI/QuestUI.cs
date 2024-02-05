@@ -34,7 +34,8 @@ public class QuestUI : MonoBehaviour
     private UnityAdsManager UnityAdsManager => UnityAdsManager.Instance;
 
     private void OnEnable()
-    {
+    { 
+        EventManager.StartListening(EventID.SHOWING_ADS_FAIL,StopListeningEvent);
         UpdateProgressUIData();
     }
 
@@ -104,6 +105,7 @@ public class QuestUI : MonoBehaviour
         UpdateProgressUIData();
 
         InGameManager.FinishQuest(_quest.questID);
+        StopListeningEvent();
     }
 
     private void ListenEvent()
@@ -118,6 +120,7 @@ public class QuestUI : MonoBehaviour
 
     private void OnDisable()
     {
+        EventManager.StopListening(EventID.SHOWING_ADS_FAIL,StopListeningEvent);
         StopListeningEvent();
     }
 }

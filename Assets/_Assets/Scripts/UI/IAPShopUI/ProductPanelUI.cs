@@ -18,11 +18,6 @@ public class ProductPanelUI : MonoBehaviour
         InitializeIAPPanel();
     }
 
-    private void OnEnable()
-    {
-        ListenEvent();
-    }
-
     private void InitializeIAPPanel()
     {
         _iapPanelUiDic = new Dictionary<eProductType, IAPPanelUI>();
@@ -38,14 +33,21 @@ public class ProductPanelUI : MonoBehaviour
         IntializeProductUI();
     }
 
+    private void OnEnable()
+    {
+        EventManager.StartListening(EventID.SHOWING_ADS_FAIL,StopListeningEvent);
+    }
+
     public void WatchAds()
     {
+        ListenEvent();
         UnityAdsManager.ShowAds();
     }
     
     private void GiveReward()
     {
         GameplayManager.AddTicket(ticketRewardQuantity);
+        StopListeningEvent();
     }
 
     private void IntializeProductUI()
@@ -71,6 +73,7 @@ public class ProductPanelUI : MonoBehaviour
 
     private void OnDisable()
     {
+        EventManager.StopListening(EventID.SHOWING_ADS_FAIL,StopListeningEvent);
         StopListeningEvent();
     }
 }

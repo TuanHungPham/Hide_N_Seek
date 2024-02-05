@@ -41,7 +41,6 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
 
     public void ShowAd()
     {
-        ClearAdsEvent();
         Advertisement.Show(_adUnitId, this);
     }
 
@@ -52,7 +51,6 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
             Debug.Log("--- (UNITY ADS) Unity Ads Rewarded Ad Completed");
             EmitShowAdsEvent();
         }
-        
         LoadAd();
     }
 
@@ -66,6 +64,7 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
     public void OnUnityAdsShowFailure(string adUnitId, UnityAdsShowError error, string message)
     {
         Debug.Log($"--- (UNITY ADS) Error showing Ad Unit {adUnitId}: {error.ToString()} - {message}");
+        EmitShowAdsFailedEvent();
         LoadAd();
     }
 
@@ -77,13 +76,13 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoa
     {
     }
 
+    private void EmitShowAdsFailedEvent()
+    {
+        EventManager.EmitEvent(EventID.SHOWING_ADS_FAIL);
+    }
+
     private void EmitShowAdsEvent()
     {
         EventManager.EmitEvent(EventID.SHOWING_ADS_COMPLETE);
-    }
-
-    private void ClearAdsEvent()
-    {
-        EventManager.RestartListening(EventID.SHOWING_ADS_COMPLETE);
     }
 }
