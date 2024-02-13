@@ -38,14 +38,21 @@ public class Quest : ICloneable
         this.questType = questType;
     }
 
+    public object Clone()
+    {
+        return new Quest(questID, questIcon, prizeIcon, questDescription, prizeQuantity, currentProgress, targetProgress, prizeType, isCompleted, questType);
+    }
+
+    public void UpdateQuest(float quantity)
+    {
+        currentProgress = quantity;
+
+        if (currentProgress > targetProgress) currentProgress = targetProgress;
+    }
+
     public void FinishQuest()
     {
         currentProgress = targetProgress;
         isCompleted = true;
-    }
-
-    public object Clone()
-    {
-        return new Quest(questID, questIcon, prizeIcon, questDescription, prizeQuantity, currentProgress, targetProgress, prizeType, isCompleted, questType);
     }
 }

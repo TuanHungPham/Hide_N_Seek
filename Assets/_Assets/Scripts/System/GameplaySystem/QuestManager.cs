@@ -33,14 +33,14 @@ public class QuestManager : MonoBehaviour
 
     public void UpdateQuestProgress(eQuestType questType, eAchievementType achievementType)
     {
-        Quest quest = _todayQuestList.Find(x => x.questType == questType);
+        var quest = _todayQuestList.Find(x => x.questType == questType);
         if (quest == null) return;
 
-        float newProgress = quest.currentProgress + InGameManager.GetAchievementPoint(achievementType);
+        var newProgress = quest.currentProgress + InGameManager.GetAchievementPoint(achievementType);
 
-        if (CanUpdateQuest(quest, newProgress)) return;
+        if (!CanUpdateQuest(quest)) return;
 
-        quest.currentProgress = newProgress;
+        quest.UpdateQuest(newProgress);
         CheckQuestState(quest);
     }
 
@@ -52,18 +52,17 @@ public class QuestManager : MonoBehaviour
         CheckQuestState(_todaySpecialQuest);
     }
 
-    private bool CanUpdateQuest(Quest quest, float newProgress)
+    private bool CanUpdateQuest(Quest quest)
     {
         if (quest.isCompleted) return false;
-        if (quest.currentProgress >= quest.targetProgress) return true;
-        if (newProgress <= quest.targetProgress) return true;
+        if (quest.currentProgress >= quest.targetProgress) return false;
 
-        return false;
+        return true;
     }
 
     public void FinishQuest(int questID)
     {
-        Quest quest = _todayQuestList.Find(x => x.questID == questID);
+        var quest = _todayQuestList.Find(x => x.questID == questID);
         if (quest == null) return;
 
         quest.FinishQuest();
@@ -113,8 +112,8 @@ public class QuestManager : MonoBehaviour
 
     private void RewardQuestPrize(Quest quest)
     {
-        eResourceDataType prizeType = quest.prizeType;
-        long prizeQuantity = quest.prizeQuantity;
+        var prizeType = quest.prizeType;
+        var prizeQuantity = quest.prizeQuantity;
 
         switch (prizeType)
         {
@@ -129,8 +128,8 @@ public class QuestManager : MonoBehaviour
 
     private void RewardQuestPrize(SpecialQuest specialQuest)
     {
-        long coinPrizeQuantity = specialQuest.coinPrizeQuantity;
-        long ticketPrizeQuantity = specialQuest.ticketPrizeQuantity;
+        var coinPrizeQuantity = specialQuest.coinPrizeQuantity;
+        var ticketPrizeQuantity = specialQuest.ticketPrizeQuantity;
 
         GameplayManager.AddCoin(coinPrizeQuantity);
         GameplayManager.AddTicket(ticketPrizeQuantity);
