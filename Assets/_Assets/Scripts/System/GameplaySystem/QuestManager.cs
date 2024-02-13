@@ -41,6 +41,7 @@ public class QuestManager : MonoBehaviour
         if (!CanUpdateQuest(quest)) return;
 
         quest.UpdateQuest(newProgress);
+
         CheckQuestState(quest);
     }
 

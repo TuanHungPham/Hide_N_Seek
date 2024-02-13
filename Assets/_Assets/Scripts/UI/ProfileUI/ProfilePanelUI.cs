@@ -1,4 +1,3 @@
-using System;
 using TigerForge;
 using TMPro;
 using UnityEngine;
@@ -14,6 +13,7 @@ public class ProfilePanelUI : MonoBehaviour
     [SerializeField] private TMP_InputField _nameInput;
 
     [Header("IMAGE")] [SerializeField] private Image _profileAvatar;
+    private IngameDataManager IngameDataManager => IngameDataManager.Instance;
     private InGameManager InGameManager => InGameManager.Instance;
 
     private void OnEnable()
@@ -22,11 +22,16 @@ public class ProfilePanelUI : MonoBehaviour
         _isNameModifed = false;
     }
 
+    private void OnDisable()
+    {
+        EmitChangingUsernameEvent();
+    }
+
     private void SetupUI()
     {
-        _levelText.text = InGameManager.GetAchievementPoint(eAchievementType.WINNING_TIME).ToString();
-        _foundPlayersText.text = InGameManager.GetAchievementPoint(eAchievementType.CATCHING_TIME).ToString();
-        _rescuedPlayersText.text = InGameManager.GetAchievementPoint(eAchievementType.RESCUING_TIME).ToString();
+        _levelText.text = IngameDataManager.GetAchievementData(eAchievementType.WINNING_TIME).ToString();
+        _foundPlayersText.text = IngameDataManager.GetAchievementData(eAchievementType.CATCHING_TIME).ToString();
+        _rescuedPlayersText.text = IngameDataManager.GetAchievementData(eAchievementType.RESCUING_TIME).ToString();
         _nameInput.text = InGameManager.GetUsername();
 
         SetupProfileAvatar();
@@ -34,7 +39,7 @@ public class ProfilePanelUI : MonoBehaviour
 
     public void SetUsernameByNameInput(string nameInput)
     {
-        string oldUsername = InGameManager.GetUsername();
+        var oldUsername = InGameManager.GetUsername();
 
         if (oldUsername.Equals(nameInput) || string.IsNullOrEmpty(nameInput)) return;
         InGameManager.SetUsername(nameInput);
@@ -43,7 +48,7 @@ public class ProfilePanelUI : MonoBehaviour
 
     private void SetupProfileAvatar()
     {
-        ItemShop currentSelectedCostume = IngameDataManager.Instance.GetCurrentSelectedCostumeItemShop();
+        var currentSelectedCostume = IngameDataManager.Instance.GetCurrentSelectedCostumeItemShop();
         _profileAvatar.sprite = currentSelectedCostume.GetItemImage();
     }
 
@@ -54,10 +59,5 @@ public class ProfilePanelUI : MonoBehaviour
         Debug.Log("Changing username...");
         PlayfabManager.Instance.UpdateUsername(_nameInput.text);
         EventManager.EmitEvent(EventID.CHANGING_USERNAME);
-    }
-
-    private void OnDisable()
-    {
-        EmitChangingUsernameEvent();
     }
 }

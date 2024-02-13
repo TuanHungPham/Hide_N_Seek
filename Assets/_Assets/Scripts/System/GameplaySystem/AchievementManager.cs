@@ -15,7 +15,6 @@ public enum eAchievementType
 public class AchievementManager : MonoBehaviour
 {
     private readonly Dictionary<eAchievementType, long> _ingameAchievementDic = new();
-    private IngameDataManager IngameDataManager => IngameDataManager.Instance;
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
 
     private void Start()
@@ -28,12 +27,10 @@ public class AchievementManager : MonoBehaviour
     {
         var maxCount = (int)eAchievementType.MAX_COUNT;
 
-        var achievementDataDic = IngameDataManager.GetAchievementDataDic();
-
         for (var i = 1; i < maxCount; i++)
         {
             var achievementType = (eAchievementType)i;
-            var achievementPoint = achievementDataDic[achievementType];
+            var achievementPoint = 0;
 
             _ingameAchievementDic.Add(achievementType, achievementPoint);
         }
