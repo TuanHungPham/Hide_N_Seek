@@ -10,10 +10,10 @@ public class PlayfabLeaderboard : MonoBehaviour
     private const string CATCH_STATISTIC = "Catch";
     private const string RESCUE_STATISTIC = "Rescue";
     [SerializeField] private int _maxNumberOfUserOnLeaderboard;
-    [SerializeField] private List<StatisticUpdate> _statisticUpdateList = new List<StatisticUpdate>();
-    private Dictionary<eLeaderboardType, List<PlayerLeaderboardEntry>> _leaderboardDictionary = new Dictionary<eLeaderboardType, List<PlayerLeaderboardEntry>>();
+    [SerializeField] private List<StatisticUpdate> _statisticUpdateList = new();
+    private readonly Dictionary<eLeaderboardType, List<PlayerLeaderboardEntry>> _leaderboardDictionary = new();
 
-    private InGameManager InGameManager => InGameManager.Instance;
+    private IngameDataManager IngameDataManager => IngameDataManager.Instance;
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class PlayfabLeaderboard : MonoBehaviour
     {
         GetStatisticUpdateList();
 
-        UpdatePlayerStatisticsRequest request = new UpdatePlayerStatisticsRequest()
+        var request = new UpdatePlayerStatisticsRequest
         {
             Statistics = _statisticUpdateList
         };
@@ -49,25 +49,25 @@ public class PlayfabLeaderboard : MonoBehaviour
 
     private void GetStatisticUpdateList()
     {
-        int winningTime = Mathf.CeilToInt(InGameManager.GetAchievementPoint(eAchievementType.WINNING_TIME));
-        int catchingTime = Mathf.CeilToInt(InGameManager.GetAchievementPoint(eAchievementType.CATCHING_TIME));
-        int rescuingTime = Mathf.CeilToInt(InGameManager.GetAchievementPoint(eAchievementType.RESCUING_TIME));
+        var winningTime = Mathf.CeilToInt(IngameDataManager.GetAchievementData(eAchievementType.WINNING_TIME));
+        var catchingTime = Mathf.CeilToInt(IngameDataManager.GetAchievementData(eAchievementType.CATCHING_TIME));
+        var rescuingTime = Mathf.CeilToInt(IngameDataManager.GetAchievementData(eAchievementType.RESCUING_TIME));
 
         _statisticUpdateList.Clear();
 
-        StatisticUpdate winningStatistic = new StatisticUpdate()
+        var winningStatistic = new StatisticUpdate
         {
             StatisticName = WIN_STATISTIC,
             Value = winningTime
         };
 
-        StatisticUpdate catchingStatistic = new StatisticUpdate()
+        var catchingStatistic = new StatisticUpdate
         {
             StatisticName = CATCH_STATISTIC,
             Value = catchingTime
         };
 
-        StatisticUpdate rescuingStatistic = new StatisticUpdate()
+        var rescuingStatistic = new StatisticUpdate
         {
             StatisticName = RESCUE_STATISTIC,
             Value = rescuingTime
@@ -87,7 +87,7 @@ public class PlayfabLeaderboard : MonoBehaviour
 
     private void GetLeaderboardFromServer(string leaderboardName)
     {
-        GetLeaderboardRequest request = new GetLeaderboardRequest()
+        var request = new GetLeaderboardRequest
         {
             StatisticName = leaderboardName,
             StartPosition = 0,

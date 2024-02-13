@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AchievementDataManager : MonoBehaviour
 {
-    private Dictionary<eAchievementType, long> _achievementDataDic = new Dictionary<eAchievementType, long>();
-    private Dictionary<eAchievementType, AchievementBaseData> _achievementBaseDataDic = new Dictionary<eAchievementType, AchievementBaseData>();
+    private readonly Dictionary<eAchievementType, long> _achievementDataDic = new();
 
-    public Dictionary<eAchievementType, AchievementBaseData> AchievementBaseDataDic => _achievementBaseDataDic;
+    public Dictionary<eAchievementType, AchievementBaseData> AchievementBaseDataDic { get; } = new();
 
     private void Start()
     {
@@ -16,16 +14,16 @@ public class AchievementDataManager : MonoBehaviour
 
     public void LoadData()
     {
-        int maxCount = (int)eAchievementType.MAX_COUNT;
+        var maxCount = (int)eAchievementType.MAX_COUNT;
 
-        for (int i = 1; i < maxCount; i++)
+        for (var i = 1; i < maxCount; i++)
         {
-            eAchievementType dataType = (eAchievementType)i;
+            var dataType = (eAchievementType)i;
 
             long data = 0;
             if (!AchievementBaseDataDic.ContainsKey(dataType))
             {
-                AchievementBaseData achievementBaseData = new AchievementBaseData();
+                var achievementBaseData = new AchievementBaseData();
                 achievementBaseData.AddData(data);
 
                 AchievementBaseDataDic.Add(dataType, achievementBaseData);
@@ -35,7 +33,7 @@ public class AchievementDataManager : MonoBehaviour
                 data = AchievementBaseDataDic[dataType].achievementData;
             }
 
-            _achievementDataDic.TryAdd(dataType, data);
+            _achievementDataDic[dataType] = data;
         }
 
         LogSystem.LogDictionary(_achievementDataDic, "ACHIEVEMENT DATA DICTIONARY");
@@ -63,7 +61,7 @@ public class AchievementDataManager : MonoBehaviour
     {
         if (!AchievementBaseDataDic.ContainsKey(type))
         {
-            AchievementBaseData achievementBaseData = new AchievementBaseData();
+            var achievementBaseData = new AchievementBaseData();
             achievementBaseData.AddData(quantity);
 
             AchievementBaseDataDic.Add(type, achievementBaseData);
@@ -77,13 +75,9 @@ public class AchievementDataManager : MonoBehaviour
     public void AddBaseData(eAchievementType type, AchievementBaseData achievementBaseData)
     {
         if (!AchievementBaseDataDic.ContainsKey(type))
-        {
             AchievementBaseDataDic.Add(type, achievementBaseData);
-        }
         else
-        {
             AchievementBaseDataDic[type].AddData(achievementBaseData.achievementData);
-        }
     }
 
     public long GetAchievementData(eAchievementType type)
@@ -98,9 +92,6 @@ public class AchievementDataManager : MonoBehaviour
 
     public void SaveData()
     {
-        foreach (KeyValuePair<eAchievementType, long> data in _achievementDataDic)
-        {
-            PlayerPrefs.SetString(data.Key.ToString(), data.Value.ToString());
-        }
+        foreach (var data in _achievementDataDic) PlayerPrefs.SetString(data.Key.ToString(), data.Value.ToString());
     }
 }

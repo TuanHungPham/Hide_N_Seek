@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,10 +25,7 @@ public class IngameDataManager : PermanentMonoSingleton<IngameDataManager>
 
     private void Update()
     {
-        if (Application.targetFrameRate != frameRate)
-        {
-            Application.targetFrameRate = frameRate;
-        }
+        if (Application.targetFrameRate != frameRate) Application.targetFrameRate = frameRate;
     }
 
     private void LoadComponents()
@@ -92,6 +88,11 @@ public class IngameDataManager : PermanentMonoSingleton<IngameDataManager>
     public long GetResourceData(eResourceDataType type)
     {
         return _resourceDataManager.GetResourceData(type);
+    }
+
+    public long GetAchievementData(eAchievementType type)
+    {
+        return _achievementDataManager.GetAchievementData(type);
     }
 
     public List<Quest> GetTodayQuestTemplateList()

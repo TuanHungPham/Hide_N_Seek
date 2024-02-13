@@ -9,12 +9,12 @@ public enum eAchievementType
     WINNING_TIME,
     COMPLETE_LEVEL_TIME,
 
-    MAX_COUNT,
+    MAX_COUNT
 }
 
 public class AchievementManager : MonoBehaviour
 {
-    private Dictionary<eAchievementType, long> _ingameAchievementDic = new Dictionary<eAchievementType, long>();
+    private readonly Dictionary<eAchievementType, long> _ingameAchievementDic = new();
     private IngameDataManager IngameDataManager => IngameDataManager.Instance;
     private PlayfabManager PlayfabManager => PlayfabManager.Instance;
 
@@ -26,14 +26,14 @@ public class AchievementManager : MonoBehaviour
 
     private void InitializeIngameAchievementDic()
     {
-        int maxCount = (int)eAchievementType.MAX_COUNT;
+        var maxCount = (int)eAchievementType.MAX_COUNT;
 
-        Dictionary<eAchievementType, long> achievementDataDic = IngameDataManager.GetAchievementDataDic();
+        var achievementDataDic = IngameDataManager.GetAchievementDataDic();
 
-        for (int i = 1; i < maxCount; i++)
+        for (var i = 1; i < maxCount; i++)
         {
-            eAchievementType achievementType = (eAchievementType)i;
-            long achievementPoint = achievementDataDic[achievementType];
+            var achievementType = (eAchievementType)i;
+            var achievementPoint = achievementDataDic[achievementType];
 
             _ingameAchievementDic.Add(achievementType, achievementPoint);
         }
